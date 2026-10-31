@@ -1,5 +1,7 @@
 # Under the Hood
 
+[Open the live website](https://omarradwann.github.io/under-the-hood/) · [Start the JavaScript mastery path](https://omarradwann.github.io/under-the-hood/javascript/)
+
 A Next.js learning workspace with **148 lessons**, a dedicated **64-chapter JavaScript mastery path**, nine interactive models, ten failure investigations, a SOLID workbench, and **50 editable experiments**. JavaScript progresses from the first program to advanced language/runtime and production reasoning, alongside React, Next.js, security, data, architecture, and patterns.
 
 ## Run locally
