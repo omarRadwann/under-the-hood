@@ -145,6 +145,7 @@ export interface CacheState {
   source: number;
   cached: number | null;
   writtenAt: number;
+  expiresAt: number | null;
   requests: number;
   hits: number;
   log: string[];
@@ -154,6 +155,7 @@ export const initialCache: CacheState = {
   source: 1,
   cached: null,
   writtenAt: 0,
+  expiresAt: null,
   requests: 0,
   hits: 0,
   log: ["Cache is empty. Read the resource to populate it."],
@@ -174,15 +176,17 @@ export function cacheTransition(state: CacheState, action: CacheAction, ttl: num
     return {
       ...state,
       cached: null,
+      expiresAt: null,
       log: log("Invalidated this cache entry. Next read goes to origin."),
     };
-  const fresh = state.cached !== null && state.now - state.writtenAt < ttl;
+  const fresh = state.cached !== null && state.expiresAt !== null && state.now < state.expiresAt;
   return {
     ...state,
     requests: state.requests + 1,
     hits: state.hits + (fresh ? 1 : 0),
     cached: fresh ? state.cached : state.source,
     writtenAt: fresh ? state.writtenAt : state.now,
+    expiresAt: fresh ? state.expiresAt : state.now + ttl,
     log: log(
       fresh
         ? `HIT: served v${state.cached}. ${state.cached === state.source ? "Matches origin." : "Origin has a newer version."}`

@@ -161,6 +161,21 @@ test("invalidation refills from origin on the next read", () => {
   assert.equal(s.cached, s.source);
 });
 
+test("changing refill TTL never retroactively extends or shortens the current entry", () => {
+  let state = cacheTransition(initialCache, "read", 5);
+  assert.equal(state.expiresAt, 5);
+  state = cacheTransition(state, "write", 60);
+  state = cacheTransition(state, "tick", 60);
+  state = cacheTransition(state, "read", 60);
+  assert.equal(state.cached, 2);
+  assert.equal(state.hits, 0);
+  assert.equal(state.expiresAt, 65);
+  state = cacheTransition(state, "tick", 5);
+  state = cacheTransition(state, "read", 5);
+  assert.equal(state.hits, 1);
+  assert.equal(state.expiresAt, 65);
+});
+
 test("cancelled operation cannot complete a newer workflow", () => {
   let s = uploadTransition(initialUpload, { type: "start" });
   const first = s.activeId!;

@@ -206,14 +206,14 @@ function Queue({
 export function CacheLab() {
   const [state, setState] = useState(initialCache);
   const [ttl, setTtl] = useState(15);
-  const fresh = state.cached !== null && state.now - state.writtenAt < ttl;
+  const fresh = state.cached !== null && state.expiresAt !== null && state.now < state.expiresAt;
   const stale = state.cached !== null && state.cached !== state.source;
   return (
     <div className="lab">
       <LabHeading label="CACHE CONSISTENCY LAB" detail="Cache-aside · logical clock" />
       <div className="cache-settings">
         <label>
-          TTL{" "}
+          TTL for next refill{" "}
           <input
             type="range"
             min="5"
@@ -226,6 +226,9 @@ export function CacheLab() {
         </label>
         <span className="mono">
           Clock <b>t = {state.now}s</b>
+        </span>
+        <span className="mono">
+          Entry expiry: {state.expiresAt === null ? "—" : `t = ${state.expiresAt}s`}
         </span>
       </div>
       <div className="node-pipeline">
@@ -295,7 +298,8 @@ export function CacheLab() {
           <strong>A fresh TTL does not guarantee current data</strong>
           <p>
             Read once, update the origin, then read again before expiry. This model uses blocking
-            refill on expiry; it does not simulate stale-while-revalidate.
+            refill on expiry; it does not simulate stale-while-revalidate. TTL changes apply to
+            future refills. An existing entry keeps its stored expiry deadline.
           </p>
         </div>
       </div>

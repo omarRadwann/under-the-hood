@@ -1,5 +1,9 @@
 # Engineering audit and coverage map
 
+## Version 1.4.1 cache-model follow-up
+
+A final interaction audit found that changing the conceptual cache lab's TTL slider reinterpreted an existing entry's freshness. Entries now store their own expiry deadline. The control is labeled **TTL for next refill**, and the current deadline is visible. Changing future refill policy cannot retroactively extend or shorten a stored entry. A regression verifies both directions, expiry-boundary refill, and the newly assigned deadline. The full suite now contains **70 passing tests**; the 1.4.0 semantic/example evidence below is unchanged.
+
 ## Version 1.4.0 content and semantics audit
 
 The registry contains **158 lessons in ten tracks**, a **66-chapter JavaScript/async path**, **52 runnable lesson programs**, **66 total playground starters**, **34 explicit invariants**, and **ten interactive models**. The path includes every JavaScript/async lesson exactly once, with validated prerequisites. The coverage crosswalk maps the major language and built-in families; it does not promise a separate chapter for every platform method or experimental proposal.

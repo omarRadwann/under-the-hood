@@ -1,5 +1,9 @@
 # Verification record
 
+## Version 1.4.1 cache-model verification
+
+The full suite passes **70/70 tests**. The cache lab stores an entry deadline at refill and labels TTL as a future-refill setting. Browser checks confirm that increasing TTL leaves the old t=5s deadline intact, expiry refills with a t=65s deadline, and reducing future TTL to 5s leaves that entry fresh at t=10s. Production export and strict TypeScript pass with 892 files and 7,448 resolved local targets. Exact-revision deployment evidence is saved separately. The 1.4.0 browser/example records below describe unchanged code paths.
+
 ## Version 1.4.0 content verification
 
 Checked October 31, 2026 with Node.js 24.22.1, Next.js 16.4.3, and React 19.3.1.

@@ -1,6 +1,6 @@
 {
   "name": "under-the-hood",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "scripts": {
     "dev": "node scripts/build-playground.mjs && next dev --hostname 0.0.0.0",
