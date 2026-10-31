@@ -1,5 +1,27 @@
 # Engineering audit and coverage map
 
+## Version 1.3.1 correctness audit
+
+This pass reproduced defects in executed programs and browser workflows before fixing them. The curriculum remains 156 lessons; the change focuses on correctness and usability.
+
+| Area | Defect corrected | Evidence |
+| --- | --- | --- |
+| Native timers | Wrapping changed callback `this`; clearing an already-fired timeout recorded a cancellation that never happened. | Worker tests cover the global receiver, interval arguments, shared clear handles, and completed timers. Browser output confirms the receiver. |
+| Rejected await | A caught rejection left a function displayed as suspended. In React, delayed rejection could also trip an expired execution deadline. | Catch/finally tests check the frame; a real React handler recovered after 700ms and updated the DOM. No extra promise reaction is inserted around await. |
+| Promise registration | Invalid receivers and throwing species constructors left nonexistent reactions in the visualization. | Native rejection tests verify zero registered reactions. |
+| Microtasks | Non-callable input was accepted, then failed asynchronously. | Invalid callbacks now throw synchronously; the edited browser program catches TypeError. |
+| Value snapshots | Sparse arrays, custom/symbol properties, collections, signed zero, and error names lost distinguishing information. | Tests cover holes versus undefined, Map/Set, circularity, bounded sparse arrays, dates, symbol keys, and overridden collection iteration. Ordinary getters remain uninvoked. |
+| React entry | Unsupported top-level await created an invalid sandbox document and eventually a vague timeout. | The compiler now explains where async code belongs before creating a document; nested async handlers remain supported. |
+| Search and feedback | Enter on Close search navigated to a lesson. Result selection did not move actual keyboard focus. Compilation failure could retain an obsolete source-change warning. | Browser checks cover closing without navigation, arrow-key focus, native link activation, a named dialog, and clear compiler feedback. Searches trim surrounding whitespace; footer spacing is corrected. |
+| Browser progress | An older tab could overwrite another tab's bookmarks, notes, or exercise records. | Updates read current storage before writing; tabs observe storage changes. Two-tab browser tests preserve bookmarks after a completion edit/reload and retain both exercises' results. Failed storage keeps session edits available. |
+| Reference evidence | Reference disclosure during an in-flight run could be missed by its captured callback. | Completion reads the current disclosure ref. |
+| Deployment coherence | Stable runtime URLs allowed an older cached visualizer to accompany newer application code. | Worker and React URLs include the package release version; actual browser requests use `?v=1.3.1` while retaining the opaque sandbox/CSP. |
+| Packet bounds | Oversized valid logs or keys could exceed parent validation and disappear; logical arithmetic could overflow into invalid snapshots. | Labels and displayed keys/names are explicitly truncated while real key identity is preserved. Clock/expiry overflow throws before mutation. Regression tests validate every emitted packet. |
+
+Validation: **58 automated tests**, strict production TypeScript/build, **7,319 resolved local link/asset targets**, **167 successful public route/asset checks** in the static preview, and the expected unknown-lesson **404**. Dependency audit reports no known production vulnerabilities. Browser QA also covers training syntax failures, Stop/reset/recovery, React batching, cache expiry, and 390px/768px responsive layouts. All completed checks pass.
+
+Scope: localStorage is last-write-wins, not a transaction for simultaneous writers or a cross-device account. Runtime traces show observable instrumented boundaries, not private browser queues or React Fiber. These checks provide reproducible evidence, not a proof that every possible program or browser behavior is bug-free. Earlier coverage and reference-reachability evidence follows.
+
 ## Version 1.3 findings and corrections
 
 The current registry contains 156 lessons. This audit found real teaching weaknesses: 123 of the original 148 quizzes placed the answer first, 19 chapters used only a broad landing-page reference, several senior mechanisms were brief, and practice did not include an executable repair-and-feedback loop.

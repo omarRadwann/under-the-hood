@@ -1,4 +1,4 @@
-import { formatValue as format } from "./format";
+import { formatValue as format, runtimeText } from "./format";
 import type { RuntimeEvent, RuntimePacket, TraceSnapshot } from "./types";
 
 const host = globalThis as unknown as {
@@ -36,19 +36,19 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
   ]);
   let originReads = 0;
   const snapshot = (): TraceSnapshot => ({
-    frames: frames.map((f) => ({ ...f })),
+    frames: frames.map((f) => ({ ...f, name: runtimeText(f.name) })),
     timers: [...timers].map(([id, timer]) => ({ id, ...timer })),
     microtasks: [...microtasks.values()],
     reactions: [...reactions.values()],
     cache: [...entries].map(([key, e]) => ({
-      key,
+      key: runtimeText(key),
       value: format(e.value),
       expiresAt: e.expiresAt,
       fresh: e.expiresAt > clockTime,
     })),
     clock: clockTime,
     origin: [...originData].map(([key, e]) => ({
-      key,
+      key: runtimeText(key),
       value: format(e.value),
       version: e.version,
     })),
@@ -62,8 +62,8 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
     const event: RuntimeEvent = {
       sequence: sequence++,
       kind,
-      label,
-      detail,
+      label: runtimeText(label),
+      detail: detail === undefined ? undefined : runtimeText(detail),
       line: [
         "timer:start",
         "timer:end",
@@ -93,8 +93,14 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
   }
   const trace = {
     guard,
-    line(line: number) {
+    line(line: number, id: number | null) {
       guard(line);
+      const frame = frames.find((frame) => frame.id === id);
+      // Rejection skips afterAwait; catch/finally still resume native execution.
+      if (frame?.status === "suspended") {
+        frame.status = "running";
+        emit("resume", "Resume after rejected await");
+      }
       emit("statement", `Line ${line}`);
     },
     enter(name: string, line: number) {
@@ -147,15 +153,18 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
   ) {
     if (typeof callback !== "function")
       throw new TypeError("Use a function callback; string timers are disabled.");
-    const ms = Number(delay) || 0;
+    const ms = Math.max(0, Number(delay) || 0);
     if (ms > 2000) throw new Error("Use delays of at most 2,000ms in this bounded playground.");
     const id = ++callbackId;
     const invoke = () => {
       if (ended) return;
-      if (!interval) timers.delete(id);
+      if (!interval) {
+        timers.delete(id);
+        handles.delete(handle);
+      }
       emit("timer:start", `Timer #${id} callback`);
       try {
-        callback(...args);
+        callback.apply(globalThis, args);
       } catch (error) {
         fail(error);
       } finally {
@@ -198,6 +207,8 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
   globalThis.clearTimeout = clear as typeof clearTimeout;
   globalThis.clearInterval = clear as typeof clearInterval;
   globalThis.queueMicrotask = (fn) => {
+    if (typeof fn !== "function")
+      throw new TypeError("queueMicrotask requires a function callback.");
     const id = ++callbackId;
     microtasks.set(id, `microtask #${id}`);
     emit("microtask:queue", `Enqueue microtask #${id}`);
@@ -220,12 +231,6 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
     onRejected?: ((reason: unknown) => unknown) | null,
   ) {
     const id = ++callbackId;
-    reactions.set(id, `reaction #${id}`);
-    emit(
-      "promise:subscribe",
-      `Register promise reaction #${id}`,
-      "Registration does not reveal whether this promise is settled or the reaction is already runnable.",
-    );
     const wrap =
       (fn: ((value: unknown) => unknown) | null | undefined, rejected: boolean) =>
       (value: unknown) => {
@@ -237,7 +242,15 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
         }
         return fn(value);
       };
-    return nativeThen.call(this, wrap(onFulfilled, false), wrap(onRejected, true));
+    // Brand/species checks may throw; record only a successful native subscription.
+    const result = nativeThen.call(this, wrap(onFulfilled, false), wrap(onRejected, true));
+    reactions.set(id, `reaction #${id}`);
+    emit(
+      "promise:subscribe",
+      `Register promise reaction #${id}`,
+      "Registration does not reveal whether this promise is settled or the reaction is already runnable.",
+    );
+    return result;
   }
   Object.defineProperty(Promise.prototype, "then", {
     value: tracedThen,
@@ -259,6 +272,8 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
     set(key: string, value: unknown, ttl: number) {
       if (!Number.isFinite(ttl) || ttl < 0)
         throw new Error("TTL must be a finite non-negative number of logical milliseconds.");
+      if (!Number.isFinite(clockTime + ttl))
+        throw new RangeError("Cache expiry exceeds the logical clock range.");
       if (entries.size >= 50 && !entries.has(String(key)))
         throw new Error("Teaching cache is limited to 50 keys.");
       entries.set(String(key), { value: structuredClone(value), expiresAt: clockTime + ttl });
@@ -311,6 +326,8 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
     advance(ms: number) {
       if (!Number.isFinite(ms) || ms < 0)
         throw new Error("Advance by a finite non-negative number of logical milliseconds.");
+      if (!Number.isFinite(clockTime + ms))
+        throw new RangeError("Advance exceeds the logical clock range.");
       clockTime += ms;
       emit("clock", `Logical clock → ${clockTime}ms`, "This does not fast-forward native timers.");
     },

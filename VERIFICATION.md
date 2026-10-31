@@ -1,5 +1,20 @@
 # Verification record
 
+## Version 1.3.1 regression verification
+
+Checked October 31, 2026 with Node.js 24.22.1 and the existing locked framework/compiler versions.
+
+- **58/58 tests pass**, including seventeen new regressions for native timer behavior, rejected-await frames, promise brand/species errors, microtask validation, value snapshots, persistence, React entry validation, release-versioned runtimes, oversized packets, and logical arithmetic overflow.
+- Production static export and strict TypeScript pass with the real `/under-the-hood` prefix. The export has **882 files**, **7,319 valid local link/asset targets**, **167 successful application route/asset requests**, and the expected **404** for an unknown lesson.
+- Real browser execution confirms JavaScript timer receivers, sparse/collection console values, resumed catch frames, React batching, delayed async recovery, clear compile errors, and cache expiry/refill. Syntax failure has no obsolete recording warning.
+- Training syntax failure, interrupted work, reset/re-run, failed starter checks, and successful references recover correctly. Two open training tabs retain both exercises' records after another run and reload.
+- A reproduced stale-tab progress overwrite is fixed: save different lessons in two tabs, edit completion in the older tab, reload the other tab, and both bookmarks remain. Temporary test bookmarks/completion were removed afterward.
+- Keyboard Close search stays on the current page. Arrow navigation moves actual focus to result links, and Enter opens the focused result. Mobile drawer Escape restores its trigger and body scrolling.
+- 390px mobile and 768px tablet views have no horizontal page overflow. Tablet JavaScript, library, architecture, glossary, and playground pages each expose one main h1 and no unnamed visible buttons in the checked DOM.
+- Production dependency audit reports no known vulnerabilities. Browser checks report no uncaught errors.
+
+See [AUDIT.md](AUDIT.md) for the defects and limits. The records below describe earlier release checks rather than replacing their historical counts.
+
 ## Version 1.3 training and depth audit
 
 The current release contains 156 lessons, 32 lessons with explicit invariants, the unchanged 64-chapter JavaScript path, 50 playground starters, and twelve additional repair exercises with 46 behavioral checks.

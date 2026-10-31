@@ -190,6 +190,7 @@ export default function Playground() {
     setCursor(null);
     setReplaying(false);
     setError(null);
+    setExecutedSource(null);
     setStatus("compiling");
     try {
       const { compileExample } = await import("@/playground/compiler");

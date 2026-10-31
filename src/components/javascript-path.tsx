@@ -30,7 +30,9 @@ export function JavaScriptPath({ study }: { study: Study }) {
       items: s.slugs
         .map((slug) => getLesson(slug)!)
         .filter((l) =>
-          `${l.title} ${l.description} ${l.mental}`.toLowerCase().includes(query.toLowerCase()),
+          `${l.title} ${l.description} ${l.mental}`
+            .toLowerCase()
+            .includes(query.trim().toLowerCase()),
         ),
     }))
     .filter((s) => s.items.length);

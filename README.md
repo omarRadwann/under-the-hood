@@ -133,7 +133,7 @@ pnpm exec prettier --check src tests
 
 With the production server running, `node scripts/check-routes.mjs` checks every public prerendered route and the unknown-lesson 404 behavior. Set `APP_URL` to check another local base URL. Run `pnpm curriculum` to regenerate [the full curriculum index](CURRICULUM.md).
 
-The 41 meaningful model/compiler/runtime/content/grading tests verify actual edited output, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed messages, safe console snapshots, and content/prerequisite integrity alongside the original model and persistence checks. They do not claim to prove every reference snippet or every external runtime implementation.
+The 58 model/compiler/runtime/content/grading tests verify actual edited output, native timer behavior, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) for reproduced defects and evidence. These checks do not prove every reference snippet or every external runtime implementation.
 
 ## Source organization
 

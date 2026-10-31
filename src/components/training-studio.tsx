@@ -15,6 +15,7 @@ import {
 import { exercises, reviewDomains } from "@/content/training";
 import { getLesson, getTrackLessons, lessons } from "@/content";
 import { tracks } from "@/lib/types";
+import { updateStoredValue } from "@/lib/local-state";
 import {
   CHECK_MARKER,
   parseCheck,
@@ -40,10 +41,13 @@ export default function TrainingStudio() {
   const [source, setSource] = useState(exercise.starter);
   const [prediction, setPrediction] = useState("");
   const [revealed, setRevealed] = useState(false);
+  const revealedRef = useRef(revealed);
+  revealedRef.current = revealed;
   const [loadedId, setLoadedId] = useState("");
   const [plain, setPlain] = useState(false);
   const [records, setRecords] = useState<Record<string, TrainingRecord>>({});
-  const [recordsReady, setRecordsReady] = useState(false);
+  const recordState = useRef(records);
+  const unpersistedRecords = useRef(false);
   const [storageError, setStorageError] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -62,21 +66,23 @@ export default function TrainingStudio() {
     watchdog.current = null;
   }, []);
   useEffect(() => {
-    try {
-      setRecords(parseTraining(localStorage.getItem(recordKey), exercises));
-    } catch {
-      setStorageError(true);
+    function receive() {
+      if (unpersistedRecords.current) return;
+      try {
+        const latest = parseTraining(localStorage.getItem(recordKey), exercises);
+        recordState.current = latest;
+        setRecords(latest);
+      } catch {
+        setStorageError(true);
+      }
     }
-    setRecordsReady(true);
+    function onStorage(event: StorageEvent) {
+      if (event.key === recordKey || event.key === null) receive();
+    }
+    receive();
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
-  useEffect(() => {
-    if (!recordsReady) return;
-    try {
-      localStorage.setItem(recordKey, JSON.stringify(records));
-    } catch {
-      setStorageError(true);
-    }
-  }, [records, recordsReady]);
   useEffect(() => {
     stopRuntime();
     setStatus("idle");
@@ -175,17 +181,35 @@ export default function TrainingStudio() {
             }
             setStatus("complete");
             const passed = [...found.values()].filter((result) => result.passed).length;
-            setRecords((previous) => ({
-              ...previous,
-              [exercise.id]: {
-                runs: Math.min((previous[exercise.id]?.runs ?? 0) + 1, 1_000_000),
-                best: Math.max(previous[exercise.id]?.best ?? 0, passed),
-                total: exercise.checks.length,
-                fingerprint: sourceFingerprint(source),
-                passed,
-                solutionViewed: revealed || previous[exercise.id]?.solutionViewed === true,
-              },
-            }));
+            let storage: Storage | null = null;
+            try {
+              storage = localStorage;
+            } catch {
+              /* Keep results in the session. */
+            }
+            const saved = updateStoredValue({
+              storage,
+              key: recordKey,
+              parse: (raw) => parseTraining(raw, exercises),
+              fallback: recordState.current,
+              preferMemory: unpersistedRecords.current,
+              change: (previous) => ({
+                ...previous,
+                [exercise.id]: {
+                  runs: Math.min((previous[exercise.id]?.runs ?? 0) + 1, 1_000_000),
+                  best: Math.max(previous[exercise.id]?.best ?? 0, passed),
+                  total: exercise.checks.length,
+                  fingerprint: sourceFingerprint(source),
+                  passed,
+                  solutionViewed:
+                    revealedRef.current || previous[exercise.id]?.solutionViewed === true,
+                },
+              }),
+            });
+            unpersistedRecords.current = saved.storageError;
+            recordState.current = saved.value;
+            setRecords(saved.value);
+            if (saved.storageError) setStorageError(true);
           }
         },
         (message) => {

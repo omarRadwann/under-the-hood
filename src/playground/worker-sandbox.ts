@@ -1,4 +1,4 @@
-import { assetPath } from "../lib/assets";
+import { runtimeAssetPath } from "./assets";
 import type { RuntimePacket } from "./types";
 
 /** An opaque frame supplies a CSP to its blob worker, including on static hosts. */
@@ -10,7 +10,7 @@ export function createWorkerSandbox(
   frame.hidden = true;
   frame.title = "Isolated JavaScript worker host";
   frame.setAttribute("sandbox", "allow-scripts");
-  frame.src = assetPath("/playground-assets/worker-sandbox.html");
+  frame.src = runtimeAssetPath("worker-sandbox.html");
   let ready = false;
   let ended = false;
   let queued: unknown;

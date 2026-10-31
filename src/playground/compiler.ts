@@ -135,6 +135,10 @@ export function compileExample(source: string, mode: PlaygroundMode): string {
           exit(path) {
             if (!path.node.loc) return;
             const parent = path.getFunctionParent();
+            if (mode === "react" && !parent)
+              throw path.buildCodeFrameError(
+                "React sandbox entry is synchronous. Put await in an async event handler or effect helper; worker modes support top-level await.",
+              );
             const frame = parent?.getData("frame") as AST.Identifier | undefined;
             const ref = () => (frame ? t.cloneNode(frame) : t.nullLiteral());
             const line = path.node.loc.start.line;
@@ -147,6 +151,15 @@ export function compileExample(source: string, mode: PlaygroundMode): string {
         },
         Loop(path) {
           if (!path.node.loc) return;
+          if (
+            mode === "react" &&
+            path.isForOfStatement() &&
+            path.node.await &&
+            !path.getFunctionParent()
+          )
+            throw path.buildCodeFrameError(
+              "React sandbox entry is synchronous. Put for-await in an async function; worker modes support top-level await.",
+            );
           const body = path.node.body;
           path.node.body = t.isBlockStatement(body) ? body : t.blockStatement([body]);
           path.node.body.body.unshift(marker("guard", path.node.loc.start.line));
@@ -163,7 +176,15 @@ export function compileExample(source: string, mode: PlaygroundMode): string {
           )
             return;
           if (!path.parentPath.isProgram() && !path.parentPath.isBlockStatement()) return;
-          path.insertBefore(marker("line", path.node.loc.start.line));
+          const frame = path.getFunctionParent()?.getData("frame") as AST.Identifier | undefined;
+          path.insertBefore(
+            t.expressionStatement(
+              call("line", [
+                t.numericLiteral(path.node.loc.start.line),
+                frame ? t.cloneNode(frame) : t.nullLiteral(),
+              ]),
+            ),
+          );
         },
       },
     };

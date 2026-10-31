@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { lessons } from "@/content";
+import { updateStoredValue } from "./local-state";
 
 export interface Study {
   completed: string[];
@@ -39,28 +40,65 @@ export function parseStudy(value: string | null): Study {
     return empty;
   }
 }
+/** Re-read before a local edit so a stale tab does not replace newer unrelated fields.
+ * localStorage is not transactional across simultaneous writers; same-field edits remain last-write-wins. */
+export function updateStoredStudy(
+  storage: Pick<Storage, "getItem" | "setItem"> | null,
+  fallback: Study,
+  change: (previous: Study) => Study,
+  preferMemory = false,
+) {
+  const result = updateStoredValue({
+    storage,
+    key,
+    parse: parseStudy,
+    fallback,
+    change,
+    preferMemory,
+  });
+  return { study: result.value, storageError: result.storageError };
+}
 export function useStudy() {
   const [study, setStudy] = useState<Study>(empty);
+  const current = useRef(study);
+  const unpersisted = useRef(false);
   const [ready, setReady] = useState(false);
   const [storageError, setStorageError] = useState(false);
   useEffect(() => {
-    try {
-      setStudy(parseStudy(localStorage.getItem(key)));
-    } catch {
-      setStorageError(true);
+    function receive() {
+      if (unpersisted.current) return;
+      try {
+        // Read current storage, not an older queued event's newValue.
+        const latest = parseStudy(localStorage.getItem(key));
+        current.current = latest;
+        setStudy(latest);
+      } catch {
+        setStorageError(true);
+      }
     }
+    function onStorage(event: StorageEvent) {
+      if (event.key === key || event.key === null) receive();
+    }
+    receive();
     setReady(true);
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
-  useEffect(() => {
-    if (!ready) return;
+  function change(update: (previous: Study) => Study) {
+    let storage: Storage | null = null;
     try {
-      localStorage.setItem(key, JSON.stringify(study));
+      storage = localStorage;
     } catch {
-      setStorageError(true);
+      /* Private/storage-disabled contexts keep session state. */
     }
-  }, [study, ready]);
+    const result = updateStoredStudy(storage, current.current, update, unpersisted.current);
+    unpersisted.current = result.storageError;
+    current.current = result.study;
+    setStudy(result.study);
+    setStorageError(result.storageError);
+  }
   const toggle = (field: "completed" | "saved", slug: string) =>
-    setStudy((s) => ({
+    change((s) => ({
       ...s,
       [field]: s[field].includes(slug) ? s[field].filter((x) => x !== slug) : [...s[field], slug],
     }));
@@ -70,9 +108,9 @@ export function useStudy() {
     storageError,
     toggle,
     setNote: (slug: string, value: string) =>
-      setStudy((s) => ({ ...s, notes: { ...s.notes, [slug]: value.slice(0, 20000) } })),
+      change((s) => ({ ...s, notes: { ...s.notes, [slug]: value.slice(0, 20000) } })),
     visit: (slug: string) =>
-      setStudy((s) => (s.lastLesson === slug ? s : { ...s, lastLesson: slug })),
-    reset: () => setStudy(empty),
+      change((s) => (s.lastLesson === slug ? s : { ...s, lastLesson: slug })),
+    reset: () => change(() => empty),
   };
 }

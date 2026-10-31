@@ -176,7 +176,7 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
         </Link>
         <div className="edition">
           <span className="live-dot" />
-          SENIOR EDITION<span className="mono">v1.3</span>
+          SENIOR EDITION<span className="mono">v1.3.1</span>
         </div>
         <nav aria-label="Main navigation">
           <span className="nav-heading">WORKSPACE</span>
@@ -373,8 +373,7 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
           </span>
           <span>
             JavaScript · React 19.3 · Next.js 16.4<span className="footer-separator">/</span>
-            {lessons.length}
-            lessons, always at your pace.
+            {lessons.length} lessons, always at your pace.
           </span>
         </footer>
       </div>
@@ -713,7 +712,7 @@ function Library({ study, toggleSaved }: { study: Study; toggleSaved: (slug: str
       (!deepOnly || l.level === "Deep dive") &&
       `${l.title} ${l.description} ${l.mental} ${l.pitfalls.join(" ")}`
         .toLowerCase()
-        .includes(query.toLowerCase()),
+        .includes(query.trim().toLowerCase()),
   );
   function changeTrack(id: TrackId | "all") {
     setFilter(id);
@@ -1799,7 +1798,7 @@ const glossary = [
 function Glossary() {
   const [q, setQ] = useState("");
   const filtered = glossary.filter(([term, def]) =>
-    `${term} ${def}`.toLowerCase().includes(q.toLowerCase()),
+    `${term} ${def}`.toLowerCase().includes(q.trim().toLowerCase()),
   );
   return (
     <>
@@ -1832,6 +1831,7 @@ function Glossary() {
 }
 function SearchDialog({ onClose }: { onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const input = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
   const results = query.trim()
@@ -1839,7 +1839,7 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
         .filter((l) =>
           `${l.title} ${l.description} ${l.mental} ${l.pitfalls.join(" ")} ${tracks.find((t) => t.id === l.track)?.name}`
             .toLowerCase()
-            .includes(query.toLowerCase()),
+            .includes(query.trim().toLowerCase()),
         )
         .slice(0, 12)
     : [
@@ -1858,28 +1858,45 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
   return (
     <dialog
       className="search-dialog"
+      aria-label="Search curriculum"
       ref={dialog}
       onCancel={onClose}
       onClick={(e) => {
         if (e.target === dialog.current) onClose();
       }}
       onKeyDown={(e) => {
-        if (e.key === "ArrowDown") {
+        const fromInput = e.target === input.current;
+        const anchor = e.target instanceof Element ? e.target.closest(".search-results a") : null;
+        // Native buttons/links keep their own Enter behavior.
+        if (!fromInput && !anchor) return;
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
           e.preventDefault();
-          setSelected((s) => Math.min(Math.max(0, results.length - 1), s + 1));
+          if (!results.length) return;
+          const current = results.findIndex((_, index) => anchor?.id === `search-result-${index}`);
+          const next = fromInput
+            ? e.key === "ArrowDown"
+              ? 0
+              : results.length - 1
+            : e.key === "ArrowDown"
+              ? Math.min(results.length - 1, current + 1)
+              : current - 1;
+          if (next < 0) input.current?.focus();
+          else {
+            setSelected(next);
+            document.getElementById(`search-result-${next}`)?.focus();
+          }
         }
-        if (e.key === "ArrowUp") {
+        if (e.key === "Enter" && fromInput) {
           e.preventDefault();
-          setSelected((s) => Math.max(0, s - 1));
+          if (results[selected]) document.getElementById(`search-result-${selected}`)?.click();
         }
-        if (e.key === "Enter" && results[selected])
-          document.getElementById(`search-result-${selected}`)?.click();
       }}
     >
       <div className="search-dialog-inner">
         <div className="search-input-wrap">
           <Search size={21} />
           <input
+            ref={input}
             autoFocus
             placeholder="Search the engineering field guide…"
             value={query}
@@ -1893,8 +1910,8 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
             <X size={18} />
           </button>
         </div>
-        <span className="search-group-label eyebrow">
-          {query ? `${results.length} MATCHING LESSONS` : "START WITH A DEEP DIVE"}
+        <span className="search-group-label eyebrow" role="status" aria-live="polite">
+          {query.trim() ? `${results.length} MATCHING LESSONS` : "START WITH A DEEP DIVE"}
         </span>
         <div className="search-results">
           {results.map((l, i) => (
@@ -1905,6 +1922,7 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
               className={i === selected ? "selected" : ""}
               onClick={onClose}
               onMouseEnter={() => setSelected(i)}
+              onFocus={() => setSelected(i)}
             >
               <span
                 className="search-result-symbol"

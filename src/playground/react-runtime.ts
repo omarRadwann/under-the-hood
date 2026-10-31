@@ -1,4 +1,4 @@
-import { formatValue as format } from "./format";
+import { formatValue as format, runtimeText } from "./format";
 import * as ActualReact from "react";
 import { createRoot, type Root } from "react-dom/client";
 import type { RuntimeEvent } from "./types";
@@ -29,7 +29,7 @@ function makeTrace(runId: string) {
     const event: RuntimeEvent = {
       sequence: sequence++,
       kind,
-      label,
+      label: runtimeText(label),
       // Host lifecycle observations do not have a trustworthy JavaScript source location.
       line:
         (kind.startsWith("react:") && kind !== "react:render") ||
@@ -38,9 +38,9 @@ function makeTrace(runId: string) {
           ? null
           : line,
       time: performance.now() - started,
-      detail,
+      detail: detail === undefined ? undefined : runtimeText(detail),
       snapshot: {
-        frames: frames.map((f) => ({ ...f })),
+        frames: frames.map((f) => ({ ...f, name: runtimeText(f.name) })),
         timers: [],
         microtasks: [],
         reactions: [],
@@ -64,8 +64,14 @@ function makeTrace(runId: string) {
     emit,
     renew,
     guard,
-    line(next: number) {
+    line(next: number, id: number | null) {
       line = next;
+      const frame = frames.find((frame) => frame.id === id);
+      if (frame?.status === "suspended") {
+        renew();
+        frame.status = "running";
+        emit("resume", "Resume after rejected await");
+      }
       guard();
     },
     enter(name: string, next: number, component: boolean) {
