@@ -1,0 +1,45 @@
+{
+  "name": "under-the-hood",
+  "version": "1.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/build-playground.mjs && next dev --hostname 0.0.0.0",
+    "build": "node scripts/build-playground.mjs && next build",
+    "build:pages": "node scripts/build-pages.mjs",
+    "start": "next start --hostname 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/build-playground.mjs && tsx --test tests/*.test.ts",
+    "format": "prettier --write src tests scripts",
+    "curriculum": "tsx scripts/export-curriculum.ts"
+  },
+  "dependencies": {
+    "@babel/standalone": "^8.0.10",
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/search": "^6.7.2",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.15",
+    "@lezer/highlight": "^1.2.5",
+    "lucide-react": "^0.468.0",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "8.0.10",
+    "@babel/traverse": "8.0.10",
+    "@babel/types": "^8.0.10",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "esbuild": "^0.28.2",
+    "prettier": "^3.9.10",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": "^22.18.0 || >=24.11.0"
+  },
+  "packageManager": "pnpm@11.25.0"
+}

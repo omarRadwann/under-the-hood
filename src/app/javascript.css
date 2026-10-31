@@ -1,0 +1,886 @@
+.js-gold {
+  color: #e6c975;
+}
+.js-course {
+  --js-accent: #e6c975;
+}
+.js-course-hero {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin: 25px 0 49px;
+}
+.js-course-hero h1 {
+  font-size: clamp(40px, 4.2vw, 62px);
+  font-weight: 500;
+  letter-spacing: -2.5px;
+  line-height: 1.12;
+  margin: 22px 0;
+}
+.js-course-hero h1 > span {
+  color: #d9d4be;
+}
+.js-course-hero > div > p {
+  font-size: 14px;
+  line-height: 1.95;
+  color: #acb49f;
+  max-width: 520px;
+}
+.js-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 27px;
+}
+.js-hero-actions .primary,
+.js-home-banner .primary {
+  background: #e4cc86;
+  color: #242313;
+  border-color: #e4cc86;
+}
+.js-course-insignia {
+  border: 1px solid #57553b;
+  background: #191d13;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.js-large-mark {
+  font-size: 94px;
+  font-weight: 650;
+  letter-spacing: -5px;
+  color: #e6c975;
+  padding: 20px 31px;
+  background-image: radial-gradient(#aaa05c25 1px, transparent 1px);
+  background-size: 17px 17px;
+  line-height: 1.2;
+}
+.js-large-mark > span {
+  display: block;
+  font: 9px var(--font-mono, "IBM Plex Mono", monospace);
+  letter-spacing: 0.14em;
+  margin: 12px 0 2px;
+  color: #b3ad8b;
+}
+.js-course-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #454831;
+}
+.js-course-stats > div {
+  padding: 20px 25px;
+  border-bottom: 1px solid #333b29;
+}
+.js-course-stats > div:nth-child(odd) {
+  border-right: 1px solid #333b29;
+}
+.js-course-stats strong {
+  display: block;
+  font-size: 29px;
+  font-weight: 450;
+  color: #e4ddc4;
+  line-height: 1.3;
+}
+.js-course-stats strong small {
+  font-size: 15px;
+  color: #a39f86;
+}
+.js-course-stats span {
+  display: block;
+  font-size: 11px;
+  margin-top: 6px;
+  color: #a6ad96;
+}
+.js-total-progress {
+  height: 4px;
+  background: #31382a;
+}
+.js-total-progress i {
+  display: block;
+  height: 100%;
+  background: #e6c975;
+}
+.js-course-tabs {
+  display: flex;
+  border-bottom: 1px solid #424a35;
+  gap: 8px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+}
+.js-course-tabs button {
+  font-size: 13px;
+  color: #9ca88c;
+  white-space: nowrap;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 17px 18px;
+  cursor: pointer;
+}
+.js-course-tabs button.selected {
+  color: #e9d89c;
+  border-color: #e6c975;
+}
+.js-roadmap {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 30px;
+}
+.js-roadmap button {
+  text-align: left;
+  min-width: 0;
+  padding: 18px 15px;
+  background: #171e13;
+  border: 1px solid #39422e;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+}
+.js-roadmap button:hover,
+.js-roadmap button.selected {
+  border-color: #d9bf72;
+  background: #252b18;
+}
+.js-roadmap button > span {
+  display: block;
+  font: 12px var(--font-mono, "IBM Plex Mono", monospace);
+  color: #d9bf72;
+  margin-bottom: 13px;
+}
+.js-roadmap strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.7;
+  min-height: 40px;
+  font-weight: 500;
+  color: #d8dfca;
+}
+.js-roadmap small {
+  font-size: 10px;
+  color: #a3ad93;
+  display: block;
+  margin-top: 9px;
+}
+.js-path-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 24px;
+}
+.js-path-tools .inline-search {
+  flex: 1;
+  max-width: 460px;
+}
+.js-path-tools > .button {
+  white-space: nowrap;
+}
+.js-path-tools > span {
+  margin-left: auto;
+  font-size: 10px;
+  color: #a1ac90;
+}
+.js-stage-list {
+  display: grid;
+  gap: 25px;
+}
+.js-stage {
+  background: #151b11;
+  border: 1px solid #38432c;
+  border-radius: 9px;
+  overflow: hidden;
+  scroll-margin-top: 90px;
+}
+.js-stage-heading {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px 26px;
+}
+.js-stage-number {
+  font: 26px var(--font-mono, "IBM Plex Mono", monospace);
+  color: #d9bf72;
+  align-self: flex-start;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+.js-stage-heading h2 {
+  font-size: 22px;
+  font-weight: 450;
+  letter-spacing: -0.4px;
+  margin: 9px 0;
+}
+.js-stage-heading p {
+  font-size: 12px;
+  color: #a1af91;
+  margin: 0;
+  line-height: 1.9;
+}
+.js-stage-completion {
+  margin-left: auto;
+  text-align: right;
+  white-space: nowrap;
+  font: 13px var(--font-mono, "IBM Plex Mono", monospace);
+  color: #d7d4b6;
+}
+.js-stage-completion small {
+  display: block;
+  font: 10px var(--font-sans, "DM Sans", sans-serif);
+  color: #9ba88c;
+  margin-top: 9px;
+}
+.js-stage-contract {
+  display: flex;
+  gap: 23px;
+  margin: 0 26px 22px;
+  padding: 17px 19px;
+  background: #202516;
+  border: 1px solid #3b432b;
+  border-radius: 4px;
+}
+.js-stage-contract strong {
+  font: 9px var(--font-mono, "IBM Plex Mono", monospace);
+  color: #d5c17e;
+  min-width: 110px;
+  line-height: 2;
+}
+.js-stage-contract p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #c5ceb6;
+  margin: 0;
+}
+.js-chapter-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.js-chapter-list li {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  border-top: 1px solid #303b26;
+  padding: 18px 25px;
+  min-height: 86px;
+}
+.js-chapter-list li:hover {
+  background: #1d2516;
+}
+.js-chapter-state {
+  width: 24px;
+  flex-shrink: 0;
+  font: 10px var(--font-mono, "IBM Plex Mono", monospace);
+  color: #8c9e76;
+}
+.js-chapter-state.done {
+  color: #c9dc8f;
+}
+.js-chapter-list li > a:first-of-type {
+  flex: 1;
+  min-width: 0;
+}
+.js-chapter-list li > a > strong {
+  font-size: 14px;
+  font-weight: 450;
+  line-height: 1.7;
+  color: #dce4d0;
+  display: block;
+}
+.js-chapter-list li > a > span {
+  font-size: 12px;
+  color: #a3b092;
+  display: block;
+  line-height: 1.85;
+  margin-top: 4px;
+}
+.js-chapter-level {
+  font-size: 10px;
+  color: #b0bda0;
+  white-space: nowrap;
+  text-align: right;
+}
+.js-chapter-level small {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  color: #8e9e7d;
+}
+.js-run-link,
+.js-chapter-open {
+  width: 32px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #465135;
+  border-radius: 4px;
+  flex-shrink: 0;
+  color: #d8c988;
+}
+.js-chapter-open {
+  border-color: transparent;
+  color: #a6b696;
+}
+.js-stage-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: #192112;
+  color: #c5d1b2;
+  border: 0;
+  border-top: 1px solid #35412a;
+  font-size: 12px;
+  cursor: pointer;
+}
+.js-capstone {
+  border-top: 1px solid #3a452d;
+  background: #1e2416;
+}
+.js-capstone summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 25px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #dbca8b;
+  list-style: none;
+}
+.js-capstone summary::-webkit-details-marker,
+.js-api-family summary::-webkit-details-marker,
+.js-challenge summary::-webkit-details-marker {
+  display: none;
+}
+.js-capstone > p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #ccd3be;
+  padding: 0 25px;
+  margin: 0 0 15px;
+}
+.js-capstone > small {
+  display: block;
+  font-size: 11px;
+  color: #a5af96;
+  padding: 0 25px 23px;
+  line-height: 1.8;
+}
+.js-course-context,
+.js-scope-note {
+  padding: 26px;
+  margin-top: 30px;
+  background: #1d2416;
+  border: 1px solid #3b462e;
+  border-radius: 6px;
+}
+.js-course-context > strong,
+.js-scope-note > strong {
+  font-size: 17px;
+  font-weight: 450;
+  color: #e0d9b9;
+}
+.js-course-context > p,
+.js-scope-note > p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: #aebc9d;
+  max-width: 900px;
+}
+.js-section-intro {
+  margin: 30px 0;
+}
+.js-section-intro h2 {
+  font-size: 30px;
+  font-weight: 450;
+  letter-spacing: -0.7px;
+  margin: 14px 0;
+}
+.js-section-intro p {
+  font-size: 14px;
+  line-height: 1.95;
+  color: #aab89a;
+  max-width: 850px;
+}
+.js-coverage-row {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+  padding: 23px 0;
+  border-top: 1px solid #3e4932;
+}
+.js-coverage-row > div:first-child {
+  position: relative;
+  padding-left: 37px;
+}
+.js-coverage-row > div:first-child > span {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  font: 10px var(--font-mono, "IBM Plex Mono", monospace);
+  color: #c7b66c;
+}
+.js-coverage-row h3 {
+  font-size: 15px;
+  font-weight: 450;
+  line-height: 1.7;
+  margin: 0 0 11px;
+  color: #dfd8ba;
+}
+.js-coverage-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.js-coverage-row > div:first-child > a {
+  font-size: 10px;
+  color: #a6b491;
+}
+.js-coverage-row > div:last-child {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.js-coverage-row > div:last-child > a {
+  padding: 9px 12px;
+  background: #1b2414;
+  border: 1px solid #38472b;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #c6d5b3;
+  line-height: 1.8;
+}
+.js-coverage-row > div:last-child > a:hover {
+  border-color: #dbc079;
+}
+.js-api-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+  align-items: start;
+}
+.js-api-family {
+  border: 1px solid #424d32;
+  background: #182012;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.js-api-family > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  list-style: none;
+  font-size: 15px;
+  line-height: 1.8;
+  cursor: pointer;
+  color: #e0d8b8;
+}
+.js-api-family[open] > summary {
+  border-bottom: 1px solid #39472b;
+}
+.js-api-family > ul {
+  padding: 18px 26px 12px 44px;
+  margin: 0;
+}
+.js-api-family li {
+  padding: 5px 0;
+  font: 12px/1.9 var(--font-mono, "IBM Plex Mono", monospace);
+  color: #bfcfa8;
+}
+.js-api-family > p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #a6b795;
+  padding: 0 24px;
+  margin-bottom: 19px;
+}
+.js-api-family > .text-link {
+  margin: 0 24px 24px;
+}
+.js-home-banner {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 29px;
+  margin-bottom: 25px;
+  background: linear-gradient(105deg, #2c2d17, #1c2415);
+  border: 1px solid #625e35;
+  border-radius: 8px;
+}
+.js-banner-mark {
+  font-size: 39px;
+  color: #e7c774;
+  font-weight: 650;
+  letter-spacing: -2px;
+  flex-shrink: 0;
+}
+.js-home-banner > div {
+  flex: 1;
+}
+.js-home-banner h2 {
+  font-size: 24px !important;
+  letter-spacing: -0.7px;
+  line-height: 1.4;
+  margin: 10px 0 !important;
+  color: #e3dbc0;
+}
+.js-home-banner p {
+  font-size: 12px;
+  color: #b2bd9f;
+  line-height: 1.9;
+  margin: 0;
+}
+.js-home-banner .button {
+  white-space: nowrap;
+}
+.js-lesson-trail {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px 0;
+  margin-top: -16px;
+  border-bottom: 1px solid #464d34;
+  font-size: 12px;
+  color: #9daa8e;
+}
+.js-lesson-trail a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e0c77b;
+}
+.js-lesson-trail a:last-child:not(:first-child) {
+  margin-left: auto;
+}
+.example-environment {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 17px 20px;
+  margin: 20px 0;
+  background: #202718;
+  border: 1px solid #424e32;
+  border-radius: 5px;
+}
+.example-environment strong {
+  font-size: 12px;
+  font-weight: 450;
+  color: #cfdabf;
+}
+.example-environment > .text-link {
+  margin-left: auto;
+  font-size: 12px;
+}
+.js-challenge {
+  padding: 23px;
+  margin-top: 27px;
+  border: 1px solid #5a5835;
+  border-radius: 6px;
+  background: #202315;
+}
+.js-challenge h3 {
+  font-size: 18px;
+  line-height: 1.7;
+  letter-spacing: -0.2px;
+  color: #e0dabf;
+  margin: 13px 0 18px;
+  font-weight: 450;
+}
+.js-challenge summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 13px 0;
+  color: #e2cf8a;
+  list-style: none;
+  cursor: pointer;
+}
+.js-challenge details[open] > summary {
+  margin-bottom: 12px;
+}
+.js-challenge details > p {
+  font-size: 14px;
+  line-height: 1.95;
+  color: #c0ccb0;
+}
+.js-challenge .code-block {
+  margin-bottom: 19px;
+}
+.js-challenge pre {
+  font-size: 12px;
+}
+@media (max-width: 1200px) {
+  .js-course-hero {
+    gap: 30px;
+  }
+  .js-course-hero h1 {
+    font-size: 44px;
+    letter-spacing: -1.8px;
+  }
+  .js-roadmap {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .js-roadmap strong {
+    min-height: 0;
+  }
+  .js-path-tools > span {
+    display: none;
+  }
+  .js-coverage-row {
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+  }
+  .js-home-banner {
+    flex-wrap: wrap;
+  }
+  .js-home-banner .button {
+    margin-left: 65px;
+  }
+  .js-course-tabs button {
+    padding: 17px 13px;
+  }
+}
+@media (max-width: 700px) {
+  .js-course-hero {
+    grid-template-columns: 1fr;
+    gap: 27px;
+    margin-top: 20px;
+    margin-bottom: 31px;
+  }
+  .js-course-hero h1 {
+    font-size: 43px;
+    letter-spacing: -1.8px;
+  }
+  .js-course-hero > div > p {
+    font-size: 14px;
+    line-height: 1.95;
+  }
+  .js-hero-actions {
+    gap: 9px;
+  }
+  .js-hero-actions .button {
+    font-size: 12px;
+    min-height: 42px;
+  }
+  .js-large-mark {
+    font-size: 64px;
+    padding: 19px 24px;
+  }
+  .js-large-mark > span {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+  .js-course-stats > div {
+    padding: 17px 21px;
+  }
+  .js-course-stats strong {
+    font-size: 27px;
+  }
+  .js-course-stats span {
+    font-size: 11px;
+  }
+  .js-course-tabs {
+    gap: 0;
+    margin-bottom: 24px;
+  }
+  .js-course-tabs button {
+    font-size: 12px;
+    padding: 15px 13px;
+  }
+  .js-roadmap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+  .js-roadmap button {
+    padding: 15px;
+  }
+  .js-roadmap strong {
+    font-size: 12px;
+  }
+  .js-roadmap small {
+    font-size: 11px;
+  }
+  .js-path-tools {
+    flex-wrap: wrap;
+  }
+  .js-path-tools .inline-search {
+    flex-basis: 100%;
+    order: 1;
+    max-width: none;
+  }
+  .js-stage-heading {
+    padding: 22px 18px;
+    gap: 13px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .js-stage-number {
+    font-size: 21px;
+  }
+  .js-stage-heading > div {
+    flex: 1;
+    min-width: 0;
+  }
+  .js-stage-heading h2 {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+  .js-stage-heading p {
+    font-size: 12px;
+  }
+  .js-stage-completion {
+    font-size: 11px;
+    align-self: center;
+  }
+  .js-stage-completion small {
+    font-size: 10px;
+  }
+  .js-stage-contract {
+    margin: 0 16px 18px;
+    padding: 16px;
+    display: block;
+  }
+  .js-stage-contract p {
+    font-size: 12px;
+    margin-top: 9px;
+  }
+  .js-chapter-list li {
+    padding: 17px 15px;
+    gap: 11px;
+    flex-wrap: wrap;
+  }
+  .js-chapter-state {
+    width: 18px;
+    font-size: 10px;
+  }
+  .js-chapter-list li > a:first-of-type {
+    flex-basis: 75%;
+  }
+  .js-chapter-list li > a > strong {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .js-chapter-list li > a > span {
+    font-size: 12px;
+    line-height: 1.95;
+  }
+  .js-chapter-level {
+    margin-left: 29px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex: 1;
+    font-size: 11px;
+  }
+  .js-chapter-level small {
+    margin-top: 0;
+    font-size: 11px;
+  }
+  .js-run-link,
+  .js-chapter-open {
+    height: 36px;
+    width: 36px;
+  }
+  .js-stage-toggle {
+    font-size: 12px;
+    min-height: 48px;
+  }
+  .js-capstone summary {
+    padding: 19px;
+    font-size: 12px;
+  }
+  .js-capstone > p {
+    padding: 0 19px;
+    font-size: 13px;
+  }
+  .js-capstone > small {
+    padding: 0 19px 21px;
+    font-size: 11px;
+  }
+  .js-course-context,
+  .js-scope-note {
+    padding: 21px;
+  }
+  .js-section-intro h2 {
+    font-size: 26px;
+    line-height: 1.4;
+  }
+  .js-section-intro p {
+    font-size: 13px;
+  }
+  .js-coverage-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 22px 0;
+  }
+  .js-coverage-row h3 {
+    font-size: 15px;
+  }
+  .js-coverage-row > div:last-child > a {
+    font-size: 12px;
+  }
+  .js-api-grid {
+    grid-template-columns: 1fr;
+  }
+  .js-api-family > summary {
+    font-size: 14px;
+    padding: 21px;
+  }
+  .js-api-family li {
+    font-size: 12px;
+  }
+  .js-home-banner {
+    padding: 23px;
+    gap: 18px;
+  }
+  .js-banner-mark {
+    font-size: 32px;
+  }
+  .js-home-banner > div {
+    flex-basis: 70%;
+  }
+  .js-home-banner h2 {
+    font-size: 21px !important;
+  }
+  .js-home-banner p {
+    font-size: 12px;
+  }
+  .js-home-banner .button {
+    margin-left: 0;
+  }
+  .js-lesson-trail {
+    font-size: 11px;
+    gap: 9px;
+    flex-wrap: wrap;
+    line-height: 1.8;
+  }
+  .js-lesson-trail a:last-child:not(:first-child) {
+    margin-left: 0;
+  }
+  .example-environment {
+    padding: 17px;
+    gap: 10px;
+  }
+  .example-environment > .text-link {
+    margin-left: 0;
+    width: 100%;
+  }
+  .js-challenge {
+    padding: 19px;
+  }
+  .js-challenge h3 {
+    font-size: 17px;
+  }
+  .js-challenge summary {
+    font-size: 12px;
+  }
+}
