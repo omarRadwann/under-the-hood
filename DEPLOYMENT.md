@@ -27,7 +27,7 @@ The JavaScript/cache runtime runs in a dedicated blob worker created by a hidden
 
 This preserves the learning sandbox on Pages, which does not supply custom application headers. It is intended for bounded examples, with a parent watchdog and compiler loop budgets; it is not a comprehensive hostile-code service. Do not add credentials or private application data to examples.
 
-Learning state and edited drafts are browser-local. A deployed domain starts its own storage history. Export/import study data to move it; it does not sync automatically.
+Learning state and edited drafts are browser-local. A deployed domain starts its own storage history. Export study data for backup and copy edited code when moving between domains; browser state does not sync automatically.
 
 ## Updating and recovery
 
