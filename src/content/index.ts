@@ -12,6 +12,9 @@ import { advanced } from "./advanced";
 import { javascriptCourse } from "./js-course";
 import { platform } from "./platform";
 import { deepen } from "./senior-depth";
+import { withExampleContract } from "./example-contracts";
+import { semanticBoundaries } from "./semantic-boundaries";
+import { refineSemantics } from "./semantic-notes";
 import { arrangeQuiz } from "../lib/quiz";
 import { jsPathSlugs } from "./javascript-path";
 import type { TrackId } from "@/lib/types";
@@ -30,7 +33,11 @@ const catalog = [
   ...advanced,
   ...javascriptCourse,
   ...platform,
-].map(deepen);
+  ...semanticBoundaries,
+]
+  .map(deepen)
+  .map(refineSemantics)
+  .map(withExampleContract);
 // Make the language-first course the primary reading sequence; persisted progress uses stable slugs.
 export const lessons = [
   ...jsPathSlugs.map((slug) => catalog.find((item) => item.slug === slug)!),

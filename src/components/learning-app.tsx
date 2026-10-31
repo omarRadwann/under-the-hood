@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { version as releaseVersion } from "../../package.json";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -35,6 +36,7 @@ import { tracks, type Lesson, type TrackId } from "@/lib/types";
 import { useStudy, type Study } from "@/lib/study";
 import { ArchitectureStudio } from "./architecture-studio";
 import { CodeBlock } from "./code-block";
+import { CodeProject } from "./code-project";
 import { FailureCase } from "./failure-case";
 import { EventLoopLab, Lab } from "./labs";
 import { playgroundUrl } from "@/playground/presets";
@@ -176,7 +178,7 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
         </Link>
         <div className="edition">
           <span className="live-dot" />
-          SENIOR EDITION<span className="mono">v1.3.1</span>
+          SENIOR EDITION<span className="mono">v{releaseVersion}</span>
         </div>
         <nav aria-label="Main navigation">
           <span className="nav-heading">WORKSPACE</span>
@@ -189,7 +191,7 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
             >
               <item.icon size={17} />
               <span>{item.label}</span>
-              {item.id === "labs" && <span className="nav-count">9</span>}
+              {item.id === "labs" && <span className="nav-count">{labSlugs.length}</span>}
               {view === item.id && <span className="active-dot" />}
             </Link>
           ))}
@@ -992,6 +994,7 @@ function KnowledgeGraph({
 
 const labSlugs = [
   "event-loop",
+  "callback-boundaries-and-microtasks",
   "javascript-engine",
   "memory-and-garbage-collection",
   "render-and-commit",
@@ -1009,7 +1012,7 @@ function LabsView() {
       <PageIntro
         eyebrow="MAKE THE INVISIBLE INSPECTABLE"
         title="Learn it by changing it."
-        description="Nine interactive models. Pause the runtime, break a retaining path, expire a cache, or deny an operation—and inspect the reason behind the result."
+        description={`${labSlugs.length} interactive labs. Inspect a model or observe real browser event dispatch; test which boundary explains the result.`}
       />
       <PlaygroundBanner />
       <div className="lab-workspace">
@@ -1023,7 +1026,7 @@ function LabsView() {
                 className={selected === slug ? "selected" : ""}
                 onClick={() => setSelected(slug)}
               >
-                <span className="mono">0{i + 1}</span>
+                <span className="mono">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <strong>{item.title}</strong>
                   <small>{tracks.find((t) => t.id === item.track)?.short}</small>
@@ -1243,18 +1246,38 @@ function LessonView({
                     )}
                   </div>
                 )}
-                <CodeBlock
-                  code={lesson.code}
-                  language={lesson.language}
-                  title={`${lesson.slug}.${lesson.language === "typescript" ? "tsx" : lesson.language === "javascript" ? "js" : lesson.language === "sql" ? "sql" : "txt"}`}
-                />
+                {lesson.context && <p className="example-note">{lesson.context}</p>}
+                {lesson.files ? (
+                  <CodeProject
+                    key={lesson.slug}
+                    files={[
+                      {
+                        name: lesson.filename ?? "entry.mjs",
+                        language: lesson.language,
+                        code: lesson.code,
+                      },
+                      ...lesson.files,
+                    ]}
+                  />
+                ) : (
+                  <CodeBlock
+                    code={lesson.code}
+                    language={lesson.language}
+                    title={
+                      lesson.filename ??
+                      `${lesson.slug}.${lesson.language === "typescript" ? "tsx" : lesson.language === "javascript" ? "js" : lesson.language === "sql" ? "sql" : lesson.language === "json" ? "json" : "txt"}`
+                    }
+                  />
+                )}
                 {lesson.output && (
                   <div className="expected-output">
-                    <span className="eyebrow">EXPECTED OUTPUT</span>
+                    <span className="eyebrow">
+                      {lesson.files ? "EXPECTED PROJECT OUTPUT" : "EXPECTED OUTPUT"}
+                    </span>
                     <pre>{lesson.output}</pre>
                   </div>
                 )}
-                {!lesson.execution && (
+                {lesson.execution === "reference" && !lesson.context && (
                   <p className="example-note">
                     Examples isolate the mechanism. Names such as db, schemas, services, and domain
                     types represent application dependencies; these snippets are reference examples
@@ -1270,11 +1293,15 @@ function LessonView({
                         Reveal the worked answer
                         <ChevronRight size={15} />
                       </summary>
-                      <CodeBlock
-                        code={lesson.challenge.solution}
-                        language="javascript"
-                        title="worked-answer.js"
-                      />
+                      {lesson.challenge.kind === "explanation" ? (
+                        <p className="worked-answer">{lesson.challenge.solution}</p>
+                      ) : (
+                        <CodeBlock
+                          code={lesson.challenge.solution}
+                          language="javascript"
+                          title="worked-answer.js"
+                        />
+                      )}
                       <p>{lesson.challenge.explanation}</p>
                     </details>
                   </div>

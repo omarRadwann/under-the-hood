@@ -1,6 +1,6 @@
 # JavaScript coverage and mastery path
 
-64 language/runtime chapters in 6 stages. The project contains 156 lessons overall. The path includes every lesson in the JavaScript and async tracks exactly once.
+66 language/runtime chapters in 6 stages. The project contains 158 lessons overall. The path includes every lesson in the JavaScript and async tracks exactly once.
 
 This is an explicit curriculum map. It covers the major language and standard-library families and essential host integration, while linking method-level specification and compatibility details. It is not a claim that every platform API or experimental proposal has its own chapter.
 
@@ -47,18 +47,18 @@ Trace identity, receivers, environments, and construction.
 
 Mastery: Predict closures and TDZ, call/construct behavior, prototype lookup, descriptors, symbols, private brands, iteration, and immutable updates.
 
-- **Scope, closures & retained state** — `/learn/scope-and-closures` · Advanced · conceptual/reference context
-- **Hoisting & the temporal dead zone** — `/learn/hoisting-and-tdz` · Foundations · conceptual/reference context
-- **Values, references & equality** — `/learn/values-and-equality` · Advanced · conceptual/reference context
-- **Objects, prototypes & this** — `/learn/objects-and-prototypes` · Advanced · conceptual/reference context
+- **Scope, closures & retained state** — `/learn/scope-and-closures` · Advanced · worker context
+- **Hoisting & the temporal dead zone** — `/learn/hoisting-and-tdz` · Foundations · worker context
+- **Values, references & equality** — `/learn/values-and-equality` · Advanced · worker context
+- **Objects, prototypes & this** — `/learn/objects-and-prototypes` · Advanced · worker context
 - **Call, apply, bind, new & lexical this** — `/learn/function-call-semantics` · Deep dive · worker context
-- **Descriptors, Reflect & Proxy invariants** — `/learn/property-descriptors-and-proxies` · Deep dive · conceptual/reference context
+- **Descriptors, Reflect & Proxy invariants** — `/learn/property-descriptors-and-proxies` · Deep dive · worker context
 - **Classes, construction & private brands** — `/learn/classes-and-construction` · Deep dive · worker context
 - **Inheritance, super & composition contracts** — `/learn/inheritance-and-composition` · Advanced · worker context
 - **Symbols & language extension protocols** — `/learn/symbols-and-protocols` · Deep dive · worker context
 - **Descriptors, integrity levels & immutable updates** — `/learn/property-ownership-and-immutability` · Deep dive · worker context
 - **Pure functions, composition & algebraic assumptions** — `/learn/functional-design-in-javascript` · Advanced · worker context
-- **Iterators, generators & resource cleanup** — `/learn/iterators-and-generators` · Deep dive · conceptual/reference context
+- **Iterators, generators & resource cleanup** — `/learn/iterators-and-generators` · Deep dive · worker context
 
 Stage project: Build a small observable domain model with explicit ownership. Test nested observer calls, descriptor invariants, private-method receivers, iteration cleanup, and structural-sharing assumptions.
 
@@ -68,18 +68,19 @@ Connect language guarantees to versioned engine and host behavior.
 
 Mastery: Distinguish linking from evaluation, realms from agents, reachability from cleanup, specialized code from semantics, and byte ownership from view identity.
 
-- **Inside the JavaScript engine** — `/learn/javascript-engine` · Deep dive · conceptual/reference context
-- **Execution contexts & the call stack** — `/learn/execution-context` · Foundations · conceptual/reference context
-- **Modules, bundlers & tree shaking** — `/learn/modules-and-bundlers` · Advanced · conceptual/reference context
-- **ESM linking, live bindings & cycles** — `/learn/module-linking-and-cycles` · Deep dive · reference context
+- **Inside the JavaScript engine** — `/learn/javascript-engine` · Deep dive · worker context
+- **Execution contexts & the call stack** — `/learn/execution-context` · Foundations · worker context
+- **Strict mode, eval & generated-function scope** — `/learn/strict-eval-and-source-goals` · Deep dive · worker context
+- **Modules, bundlers & tree shaking** — `/learn/modules-and-bundlers` · Advanced · node context
+- **ESM linking, live bindings & cycles** — `/learn/module-linking-and-cycles` · Deep dive · node context
 - **Runtime targets, ESM/CJS & package contracts** — `/learn/modules-tooling-and-compatibility` · Deep dive · reference context
 - **Realms, intrinsics & cross-boundary identity** — `/learn/realms-and-cross-realm-identity` · Deep dive · browser context
-- **Memory & garbage collection** — `/learn/memory-and-garbage-collection` · Deep dive · conceptual/reference context
-- **WeakMap, WeakRef & finalization** — `/learn/weak-references` · Deep dive · conceptual/reference context
+- **Memory & garbage collection** — `/learn/memory-and-garbage-collection` · Deep dive · browser context
+- **WeakMap, WeakRef & finalization** — `/learn/weak-references` · Deep dive · worker context
 - **Memory leaks, retained graphs & heap evidence** — `/learn/memory-leaks-and-retention` · Deep dive · worker context
-- **Shapes, inline caches & deoptimization** — `/learn/shapes-and-inline-caches` · Deep dive · conceptual/reference context
+- **Shapes, inline caches & deoptimization** — `/learn/shapes-and-inline-caches` · Deep dive · worker context
 - **Profiling JIT behavior without benchmark folklore** — `/learn/engine-optimization-investigation` · Deep dive · worker context
-- **ArrayBuffer, typed views & endianness** — `/learn/binary-memory` · Deep dive · conceptual/reference context
+- **ArrayBuffer, typed views & endianness** — `/learn/binary-memory` · Deep dive · worker context
 - **Binary protocols, framing & ownership** — `/learn/binary-protocols-and-encoding` · Deep dive · worker context
 
 Stage project: Build a bounded binary-message decoder and profile a repeated workload. Test split frames, malformed lengths, shared aliases, retention paths, cross-realm checks, and the real packaged artifact.
@@ -90,22 +91,22 @@ Control initiation, continuation, pressure, lifetime, and ownership.
 
 Mastery: Trace browser/Node work, promise resolution, rejection chains, await, scheduling policies, worker communication, streaming, async context, and Atomics.
 
-- **The event loop** — `/learn/event-loop` · Deep dive · conceptual/reference context
-- **Promises & error propagation** — `/learn/promises` · Advanced · conceptual/reference context
-- **Promise resolution & thenable assimilation** — `/learn/promise-assimilation` · Deep dive · conceptual/reference context
+- **The event loop** — `/learn/event-loop` · Deep dive · worker context
+- **Promises & error propagation** — `/learn/promises` · Advanced · worker context
+- **Promise resolution & thenable assimilation** — `/learn/promise-assimilation` · Deep dive · worker context
 - **Promise construction, settlement & rejection ownership** — `/learn/promise-construction-and-rejections` · Deep dive · worker context
-- **Async functions & continuation** — `/learn/async-await` · Advanced · conceptual/reference context
-- **Cancellation, deadlines & races** — `/learn/cancellation-and-races` · Advanced · conceptual/reference context
+- **Async functions & continuation** — `/learn/async-await` · Advanced · worker context
+- **Cancellation, deadlines & races** — `/learn/cancellation-and-races` · Advanced · browser context
 - **Promise combinators, deadlines & losing work** — `/learn/promise-combinators-and-timeouts` · Deep dive · worker context
 - **Debounce, throttle & latest-operation ownership** — `/learn/debounce-throttle-and-scheduling` · Advanced · worker context
-- **Concurrency limits & race conditions** — `/learn/concurrency-control` · Advanced · conceptual/reference context
+- **Concurrency limits & race conditions** — `/learn/concurrency-control` · Advanced · reference context
 - **Concurrency limits, queues & scheduling fairness** — `/learn/concurrency-limits-and-fairness` · Deep dive · worker context
-- **Node.js, libuv & nextTick** — `/learn/node-event-loop` · Deep dive · conceptual/reference context
-- **Workers & parallel execution** — `/learn/workers-and-parallelism` · Advanced · conceptual/reference context
-- **Streams & backpressure** — `/learn/streams-and-backpressure` · Advanced · conceptual/reference context
+- **Node.js, libuv & nextTick** — `/learn/node-event-loop` · Deep dive · node context
+- **Workers & parallel execution** — `/learn/workers-and-parallelism` · Advanced · browser context
+- **Streams & backpressure** — `/learn/streams-and-backpressure` · Advanced · node context
 - **Async iterables, generators & cancellation ownership** — `/learn/async-iteration-and-cancellation` · Deep dive · worker context
-- **Async context & request isolation** — `/learn/async-context` · Deep dive · conceptual/reference context
-- **Shared memory, Atomics & synchronization** — `/learn/shared-memory-and-atomics` · Deep dive · conceptual/reference context
+- **Async context & request isolation** — `/learn/async-context` · Deep dive · node context
+- **Shared memory, Atomics & synchronization** — `/learn/shared-memory-and-atomics` · Deep dive · browser context
 
 Stage project: Build a cancellable bounded job runner. Specify queue admission, active limits, result order, end-to-end deadlines, retries, stale completion guards, resource cleanup, and controlled failure schedules.
 
@@ -118,6 +119,7 @@ Mastery: Design deterministic resource ownership, safe extension points, event l
 - **Reentrancy: when synchronous code calls you back** — `/learn/reentrancy-and-observers` · Deep dive · worker context
 - **Resource ownership, disposal & using** — `/learn/resource-ownership` · Deep dive · worker context
 - **DOM events, delegation & shadow boundaries** — `/learn/dom-events-and-propagation` · Advanced · browser context
+- **Event callbacks & microtask checkpoints** — `/learn/callback-boundaries-and-microtasks` · Deep dive · browser context
 - **JavaScript security: code, keys & capabilities** — `/learn/language-security-boundaries` · Deep dive · worker context
 
 Stage project: Integrate the previous projects into a search interface with explicit listener lifetimes, per-owner cancellation, validated data, bounded work, and a written threat model. Produce failure tests and a profile-based review.
@@ -204,6 +206,6 @@ Related chapter: `/learn/language-and-hosts`.
 
 ## Evidence and limits
 
-Forty added chapters include worked edge-case challenges, solutions, practice investigations, explicit execution contexts, and at least four mechanism stages. Thirty-six new chapter programs run directly in the worker playground. Module/package and browser DOM examples state their separate execution requirements. A lazy-iterator-helper experiment adds a runnable cleanup investigation. Engine internals, host APIs, standards proposals, and newer built-ins are labeled by their actual contract rather than universalized.
+52 canonical lesson programs run directly in the worker playground. Each has a reviewed expected-output fixture and a native uninstrumented comparison. Multi-file ESM projects, Node examples, browser DOM integration, and application fragments state their separate execution requirements. The event-dispatch lab uses real DOM callbacks to distinguish trusted input from nested programmatic dispatch. Engine internals, host APIs, standards proposals, and newer built-ins are labeled by their actual contract rather than universalized.
 
 Use VERIFICATION.md for current checks and REFERENCE-CHECK.json for point-in-time link status. Self-assessed completion is not an automated certification.

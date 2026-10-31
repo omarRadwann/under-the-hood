@@ -2,7 +2,7 @@
 
 [Open the live website](https://omarradwann.github.io/under-the-hood/) · [Start the JavaScript mastery path](https://omarradwann.github.io/under-the-hood/javascript/) · [Open training studio](https://omarradwann.github.io/under-the-hood/practice/)
 
-A Next.js learning workspace with **156 lessons**, a dedicated **64-chapter JavaScript mastery path**, nine interactive models, ten failure investigations, a SOLID workbench, and **50 editable experiments**. JavaScript progresses from the first program to advanced language/runtime and production reasoning, alongside React, Next.js, security, data, architecture, and patterns.
+A Next.js learning workspace with **158 lessons**, a dedicated **66-chapter JavaScript mastery path**, ten interactive models, ten failure investigations, a SOLID workbench, and **66 editable experiments**. JavaScript progresses from the first program to advanced language/runtime and production reasoning, alongside React, Next.js, security, data, architecture, and patterns. All 52 runnable JavaScript lessons open their exact displayed source with reviewed output fixtures; multi-file examples have accessible file tabs.
 
 ## Run locally
 
@@ -65,7 +65,7 @@ Open **/practice** for twelve repair exercises with **46 executable behavioral c
 
 The exercises cover presence/coercion, collection identity, iterator cleanup, bounded concurrency, stale-result authority, reentrant notification, immutable updates, external-store snapshots, cache-key isolation, stale-refill fencing, binary framing, and asynchronous cleanup. Every supplied broken starter fails at least one check; every reference passes all its checks in a fresh worker.
 
-The competency map connects **all 156 lessons in ten domains** to an invariant, evidence to produce, and a failure scenario. React contract exercises check JavaScript state protocols; use the separate React playground to inspect real mounted components. TypeScript is erased in execution exercises, so the compiler is required for static type claims. Passing listed checks is useful evidence, not comprehensive certification.
+The competency map connects **all 158 lessons in ten domains** to an invariant, evidence to produce, and a failure scenario. React contract exercises check JavaScript state protocols; use the separate React playground to inspect real mounted components. TypeScript is erased in execution exercises, so the compiler is required for static type claims. Passing listed checks is useful evidence, not comprehensive certification.
 
 Eight new deep dives cover CSS constraints/containment, forms/focus/recovery, IndexedDB and multi-tab coordination, observers/frame scheduling, advanced TypeScript type algebra, React Actions/optimism, request/cache authority, and custom elements/shadow boundaries. Twenty-four existing chapters have additional mechanism and tradeoff analysis, including every pattern/SOLID chapter. Quiz positions are deterministically varied while preserving each answer's meaning.
 
@@ -133,7 +133,7 @@ pnpm exec prettier --check src tests
 
 With the production server running, `node scripts/check-routes.mjs` checks every public prerendered route and the unknown-lesson 404 behavior. Set `APP_URL` to check another local base URL. Run `pnpm curriculum` to regenerate [the full curriculum index](CURRICULUM.md).
 
-The 58 model/compiler/runtime/content/grading tests verify actual edited output, native timer behavior, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) for reproduced defects and evidence. These checks do not prove every reference snippet or every external runtime implementation.
+The 69 model/compiler/runtime/content/grading tests verify actual edited output, native timer behavior, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. Content checks also execute real ESM projects, Node I/O/compression, PostgreSQL transfer rollback, and controlled cancellation/security/cache contracts. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) and [per-example evidence](EXAMPLE-VERIFICATION.md) for scope and limits. These checks do not prove every reference snippet or every external runtime implementation.
 
 ## Source organization
 

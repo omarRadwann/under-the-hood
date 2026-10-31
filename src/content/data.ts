@@ -24,7 +24,7 @@ export const data = [
         body: "Cache-aside reads load on miss; writes update the source and invalidate or update representations. Race ordering can reinsert stale data after invalidation. Versioned keys, event-driven invalidation, or bounded staleness may be needed. Measure useful hit rate, origin load, and invalidation lag rather than hit rate alone.",
       },
     ],
-    code: `const inFlight = new Map<string, Promise<Product>>();\nfunction singleFlight(key: string, load: () => Promise<Product>) {\n  const existing = inFlight.get(key);\n  if (existing) return existing;\n  const promise = load().finally(() => inFlight.delete(key));\n  inFlight.set(key, promise);\n  return promise;\n}\n// Process-local coalescing only; not a durable cache or distributed lock.`,
+    code: `const inFlight = new Map<string, Promise<Product>>();\nfunction singleFlight(key: string, load: () => Promise<Product>) {\n  const existing = inFlight.get(key);\n  if (existing) return existing;\n  const promise = Promise.resolve().then(load).finally(() => inFlight.delete(key));\n  inFlight.set(key, promise);\n  return promise;\n}\n// Register before invoking load; synchronous throws become rejections.\n// No recursive same-key dependency, cancellation, or distributed coordination.\n// This coalesces in-flight work; it does not retain settled values.`,
     pitfalls: [
       "No maximum cache size.",
       "Caching authorization-dependent data under a public key.",
@@ -65,7 +65,7 @@ export const data = [
         body: "Serialization failures and deadlocks need bounded retries of the entire transaction. External side effects such as emails or payments should not be repeated inside an automatically retried unit. Keep transactions short and use an outbox for reliable post-commit work when needed.",
       },
     ],
-    code: `BEGIN;\nUPDATE accounts SET balance = balance - 100\n  WHERE id = 'A' AND balance >= 100;\n-- Verify one row changed before continuing.\nUPDATE accounts SET balance = balance + 100 WHERE id = 'B';\nCOMMIT;\n-- Also enforce relevant schema constraints and retry policy.`,
+    code: `-- PostgreSQL; accounts.id is unique and balance is NOT NULL.\nBEGIN;\nDO $$\nBEGIN\n  UPDATE accounts SET balance = balance - 100\n    WHERE id = 'A' AND balance >= 100;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Debit rejected'; END IF;\n  UPDATE accounts SET balance = balance + 100 WHERE id = 'B';\n  IF NOT FOUND THEN RAISE EXCEPTION 'Credit account missing'; END IF;\nEND;\n$$;\nCOMMIT;\n-- Any raised exception aborts the transaction, including the debit.\n-- Enforce schema/domain constraints; retry deadlocks as a whole unit.`,
     language: "sql",
     pitfalls: [
       "Assuming BEGIN alone prevents every race.",

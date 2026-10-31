@@ -290,7 +290,7 @@ export function deepen(item: Lesson): Lesson {
   return {
     ...item,
     minutes: item.minutes + steps.length * 4,
-    steps: [...item.steps, ...steps],
+    steps: [...new Map([...item.steps, ...steps].map((step) => [step.title, step])).values()],
     sources: [
       ...item.sources,
       ...(references[item.slug] ?? [])

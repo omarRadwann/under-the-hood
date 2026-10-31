@@ -1,6 +1,6 @@
 # Curriculum index
 
-156 lessons across 10 tracks. Each lesson includes a mental model, mechanism, code, pitfalls, practice, a quiz, and references. Architecture and pattern lessons also include explicit tradeoffs.
+158 lessons across 10 tracks. Each lesson includes a mental model, mechanism, code, pitfalls, practice, a quiz, and references. Architecture and pattern lessons also include explicit tradeoffs.
 
 ## JavaScript internals
 
@@ -43,6 +43,9 @@ From first expressions to object protocols, memory, and engine optimization. Bui
   - Prerequisites: scope-and-closures.
 - **Inside the JavaScript engine** — Follow source code through parsing, bytecode, optimization, and deoptimization. Route: `/learn/javascript-engine`.
 - **Execution contexts & the call stack** — Understand what a function call creates, what the stack holds, and why recursion overflows. Route: `/learn/execution-context`.
+- **Strict mode, eval & generated-function scope** — Separate parsing goals, inherited strictness, direct evaluation, and global code construction. Route: `/learn/strict-eval-and-source-goals`.
+  - Invariant: A code-construction mechanism's environment and strictness must be understood before reasoning about its names or authority.
+  - Prerequisites: hoisting-and-tdz, execution-context.
 - **Modules, bundlers & tree shaking** — Follow the import graph from live bindings to production chunks. Route: `/learn/modules-and-bundlers`.
 - **ESM linking, live bindings & cycles** — Separate module discovery, linking, initialization, evaluation, dynamic loading, and top-level await. Route: `/learn/module-linking-and-cycles`.
 - **Runtime targets, ESM/CJS & package contracts** — Separate parsing, syntax transforms, built-in APIs, conditional exports, package identity, and deployment support. Route: `/learn/modules-tooling-and-compatibility`.
@@ -91,6 +94,9 @@ Trace the stack, follow the queues, and make concurrency predictable.
 - **Shared memory, Atomics & synchronization** — Distinguish shared bytes from a correct concurrent protocol. Route: `/learn/shared-memory-and-atomics`.
   - Invariant: A shared read-modify-write invariant needs synchronization, not merely a shared buffer.
   - Prerequisites: workers-and-parallelism, binary-memory.
+- **Event callbacks & microtask checkpoints** — Explain why a real user click and button.click() can expose different listener/microtask orderings. Route: `/learn/callback-boundaries-and-microtasks`.
+  - Invariant: A queued microtask runs at an eligible checkpoint; synchronous nesting and host callback cleanup determine when that checkpoint can occur.
+  - Prerequisites: event-loop, dom-events-and-propagation.
 
 ## React under the hood
 

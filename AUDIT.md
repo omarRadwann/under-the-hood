@@ -1,5 +1,29 @@
 # Engineering audit and coverage map
 
+## Version 1.4.0 content and semantics audit
+
+The registry contains **158 lessons in ten tracks**, a **66-chapter JavaScript/async path**, **52 runnable lesson programs**, **66 total playground starters**, **34 explicit invariants**, and **ten interactive models**. The path includes every JavaScript/async lesson exactly once, with validated prerequisites. The coverage crosswalk maps the major language and built-in families; it does not promise a separate chapter for every platform method or experimental proposal.
+
+| Finding | Correction and evidence |
+| --- | --- |
+| Some legacy JavaScript lessons opened a different experiment or had no asserted output. | All 52 worker lessons open their exact displayed source. Reviewed output fixtures are compared with instrumented execution and a separate uninstrumented strict-async run. All 52 also ran in the browser and matched those fixtures. |
+| Module examples concatenated independent files into invalid declarations. | Accessible file tabs preserve real project boundaries. Native ESM tests demonstrate live imports, captured values, default expression versus binding, safe/deadly cycles, and callable `then` exports. Node I/O ordering and compression execute in real files too. |
+| A cancellation result could pass its guard and be committed by a later continuation after ownership changed. | The example owns a synchronous commit directly after the final generation/abort check. A controlled reverse-completion schedule proves that only the newest result commits. |
+| Browser callback checkpoints were easy to confuse with task completion. | A new advanced chapter and real DOM lab compare trusted clicks with nested `button.click()`. The observed microtask order differs for the two paths; the lab records only its own callbacks. |
+| Strict wrappers, real modules, direct/indirect eval, and generated functions had insufficiently explicit boundaries. | A new executable lesson explains their distinct scope/strictness/source-goal contracts. Added notes address conversion hints, inherited sparse indexes, structured cloning, weak eligibility, iterator closing, first-resolution locking, and module namespace assimilation. |
+| Several React snippets called hooks at module initialization, combined alternative update sequences, or accessed `document` during render. | Examples now use valid component/custom-hook boundaries; batching alternatives have separate files; the portal acquires its host after mounting. Hook-scope and syntax checks prevent the reproduced structural errors. |
+| Conceptual React stages implied separate global render/reconcile passes and misplaced layout cleanup. | The model identifies reconciliation as render work, old layout cleanup during commit mutation work, and new layout setup after mutations. The engine feedback card now reflects changed string input. Rooted listener retention is distinguished from unreachable cycles. |
+| Written answers were styled as runnable JavaScript; some snippets depended on unstated context. | Explanation answers render as prose. Every example has an execution classification; multi-file, Node, browser, server, and application integration requirements are explicit. |
+| Delimiter-joined tenant cache keys could collide; single-flight called loaders before registration. | Tuple encoding preserves string dimensions, with authorization/representation scope explained. Single-flight registers before deferred loader invocation and releases settled entries. Tests cover collisions, shared work, synchronous throws, and recovery. |
+| The SSRF example followed redirects despite warning against that behavior. | It now refuses redirects, bounds IDs, checks server configuration, and uses a deadline. Controlled fetch tests verify those options; response consumption and caller authorization remain explicit responsibilities. |
+| The transfer could debit A and commit without confirming B existed. | The PostgreSQL block rejects either failed update and aborts the whole transfer. Real PostgreSQL/PGlite tests verify missing destination, insufficient funds, and successful balanced transfer. |
+| The Server Action collected all form fields and separated authorization from the write. | It selects named fields, rejects duplicate required fields, and calls a domain port responsible for authorization at mutation. Tests verify metadata exclusion, duplicates, and no invalidation after denial. The application still must implement that authoritative port correctly. |
+| Duplicate mechanism headings repeated generic and expanded explanations. | Expanded mechanisms replace matching headings. File-tab selection resets by lesson identity and supports arrows/Home/End with accessible tab/panel relationships. |
+
+Current checks: **69 tests pass**, strict TypeScript and the nested-path production export pass, **892 exported files** resolve **7,448 local link/asset targets**, and **169 local application routes/assets** return 200 with the expected unknown-lesson 404. The dependency audit reports no known vulnerabilities. Browser evidence includes all 52 output comparisons, native/programmatic events, file-tab keyboard use, written answers, and mobile/tablet reflow.
+
+[EXAMPLE-VERIFICATION.md](EXAMPLE-VERIFICATION.md) records evidence per lesson. Backend/framework fragments require their stated dependencies; parsing is not a deployed backend integration test. PostgreSQL transfer checks do not prove multi-connection isolation. Instrumentation remains observable and is not a native profiler or private-queue inspector. These are bounded, reproducible checks, not a universal zero-defect guarantee. Earlier release records below retain their historical counts.
+
 ## Version 1.3.1 correctness audit
 
 This pass reproduced defects in executed programs and browser workflows before fixing them. The curriculum remains 156 lessons; the change focuses on correctness and usability.

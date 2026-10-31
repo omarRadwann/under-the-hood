@@ -1,5 +1,6 @@
 import type { PlaygroundPreset } from "./types";
-import { javascriptCourse } from "@/content/js-course";
+import { lessons } from "@/content";
+const executableLessons = lessons.filter((lesson) => lesson.execution === "worker");
 
 export const presets: PlaygroundPreset[] = [
   {
@@ -133,34 +134,24 @@ export const presets: PlaygroundPreset[] = [
       "Iteration is demand-driven. A terminal consumer advances the pipeline, and an early boundary can trigger producer cleanup.",
     source: `function* source() {\n  try {\n    for (let n = 1; ; n++) { console.log('produce:', n); yield n; }\n  } finally { console.log('producer closed'); }\n}\nconst results = Iterator.from(source()).map(n => n * 2).take(3).toArray();\nconsole.log('results:', results);`,
   },
-  ...javascriptCourse
-    .filter((chapter) => chapter.execution === "worker")
-    .map((chapter) => ({
-      id: `js-${chapter.slug}`,
-      mode: "event-loop" as const,
-      name: chapter.title,
-      description: chapter.description,
-      concept: chapter.mental.split(". ")[0] + ".",
-      source: chapter.code,
-    })),
+  ...executableLessons.map((chapter) => ({
+    id: `js-${chapter.slug}`,
+    mode: "event-loop" as const,
+    name: chapter.title,
+    description: chapter.description,
+    concept: chapter.mental.split(". ")[0] + ".",
+    source: chapter.code,
+  })),
 ];
 
 export const lessonPlaygrounds: Record<string, { mode: PlaygroundPreset["mode"]; preset: string }> =
   {
     ...Object.fromEntries(
-      javascriptCourse
-        .filter((chapter) => chapter.execution === "worker")
-        .map((chapter) => [
-          chapter.slug,
-          { mode: "event-loop" as const, preset: `js-${chapter.slug}` },
-        ]),
+      executableLessons.map((chapter) => [
+        chapter.slug,
+        { mode: "event-loop" as const, preset: `js-${chapter.slug}` },
+      ]),
     ),
-    "event-loop": { mode: "event-loop", preset: "queues" },
-    promises: { mode: "event-loop", preset: "errors" },
-    "promise-assimilation": { mode: "event-loop", preset: "assimilation" },
-    "async-await": { mode: "event-loop", preset: "await" },
-    "scope-and-closures": { mode: "event-loop", preset: "closures" },
-    "iterators-and-generators": { mode: "event-loop", preset: "iterator-helpers" },
     "render-and-commit": { mode: "react", preset: "state-batching" },
     "state-and-batching": { mode: "react", preset: "state-batching" },
     "effects-and-cleanup": { mode: "react", preset: "effect-lifetime" },

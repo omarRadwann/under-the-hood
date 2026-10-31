@@ -178,7 +178,7 @@ export const nextjs = [
         body: "After successful persistence, invalidate relevant cache tags or paths with the intended consistency semantics. React action-state and pending APIs can represent progress; optimistic UI needs reconciliation on failure. Business success must not depend solely on a button being disabled.",
       },
     ],
-    code: `'use server';\nexport async function renameProject(form: FormData) {\n  const session = await requireSession();\n  const input = RenameProjectSchema.parse(Object.fromEntries(form));\n  await authorizeProject(session.user.id, input.id, 'rename');\n  await db.project.update({\n    where: { id: input.id }, data: { name: input.name },\n  });\n  updateTag('project:' + input.id);\n}`,
+    code: `'use server';\nexport async function renameProject(form: FormData) {\n  const session = await requireSession();\n  if (form.getAll('id').length !== 1 || form.getAll('name').length !== 1)\n    throw new Error('Expected one id and one name');\n  const input = RenameProjectSchema.parse({\n    id: form.get('id'), name: form.get('name'),\n  });\n  // This application port enforces current authorization with the write.\n  await projectCommands.renameAuthorized({\n    actorId: session.user.id, id: input.id, name: input.name,\n  });\n  updateTag('project:' + input.id);\n}\n// Schema validates strings, lengths, and domain constraints.\n// renameAuthorized must use the domain's atomic predicate/locking/isolation policy.`,
     pitfalls: [
       "Trusting a resource ID because it came from your own UI.",
       "Performing authorization only in a parent layout.",

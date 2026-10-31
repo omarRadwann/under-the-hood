@@ -9,6 +9,8 @@ import { formatValue } from "../src/playground/format";
 import { reactSandboxDocument } from "../src/playground/sandbox";
 import { isRuntimeEvent } from "../src/playground/validate";
 import { javascriptCourse } from "../src/content/js-course";
+import { lessons } from "../src/content";
+import * as Babel from "@babel/standalone";
 import type { RuntimePacket, RuntimeEvent, PlaygroundMode } from "../src/playground/types";
 
 function execute(
@@ -48,16 +50,42 @@ test("every starter compiles, including TSX imports and JSX", () => {
   }
 });
 
-test("all 36 self-contained new course programs execute in a fresh runtime", async () => {
-  const chapters = javascriptCourse.filter((chapter) => chapter.execution === "worker");
-  assert.equal(chapters.length, 36);
+test("all 52 worker lessons match reviewed outputs and uninstrumented native execution", async () => {
+  const chapters = lessons.filter((chapter) => chapter.execution === "worker");
+  assert.equal(chapters.length, 52);
   for (const chapter of chapters) {
+    const nativeCode = Babel.transform(chapter.code, {
+      filename: "example.ts",
+      presets: ["typescript"],
+      parserOpts: { allowAwaitOutsideFunction: true },
+    })!.code!;
+    const native = await new Promise<string>((resolve, reject) => {
+      const worker = new Worker(new URL("./native-reference-harness.mjs", import.meta.url));
+      const timer = setTimeout(() => {
+        void worker.terminate();
+        reject(new Error("Native timeout: " + chapter.slug));
+      }, 4000);
+      worker.once("error", (error) => {
+        clearTimeout(timer);
+        void worker.terminate();
+        reject(error);
+      });
+      worker.once("message", (packet) => {
+        clearTimeout(timer);
+        void worker.terminate();
+        if (packet.error) reject(new Error(chapter.slug + ": " + packet.error));
+        else resolve(packet.lines.join("\n"));
+      });
+      worker.postMessage({ code: nativeCode });
+    });
     const result = await execute(chapter.code);
     assert.equal(result.error, undefined, `${chapter.slug}: ${result.error}`);
     assert.ok(
       result.events.some((e) => e.kind === "console"),
       chapter.slug,
     );
+    assert.ok(chapter.output, "Missing reviewed output: " + chapter.slug);
+    assert.equal(native, chapter.output, chapter.slug + " native output");
     if (chapter.output)
       assert.equal(
         result.events

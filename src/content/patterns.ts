@@ -194,7 +194,7 @@ export const patterns = [
         body: "A renamed SDK interface is still vendor-shaped. Design the contract from application needs and map types at the adapter. Do not wrap stable language primitives without a useful boundary; the mapping and testing cost must buy actual isolation.",
       },
     ],
-    code: `type SaveDraft = (draft: Draft) => Promise<void>;\nfunction createAutosave(save: SaveDraft) {\n  return async (draft: Draft) => {\n    validateDraft(draft);\n    await save(draft);\n  };\n}\nconst autosave = createAutosave(httpDraftAdapter.save);`,
+    code: `type SaveDraft = (draft: Draft) => Promise<void>;\nfunction createAutosave(save: SaveDraft) {\n  return async (draft: Draft) => {\n    validateDraft(draft);\n    await save(draft);\n  };\n}\nconst autosave = createAutosave(draft => httpDraftAdapter.save(draft));\n// The forwarding function preserves an adapter method's receiver.`,
     pitfalls: [
       "A dependency injection container hiding dependencies instead of exposing them.",
       "Ports that copy every vendor-specific type.",

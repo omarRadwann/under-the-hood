@@ -16,7 +16,7 @@ import { javascriptCourse } from "../src/content/js-course";
 import { lessonPlaygrounds, presets } from "../src/playground/presets";
 
 test("every lesson has a unique valid route and a valid track", () => {
-  assert.equal(lessons.length, 156);
+  assert.equal(lessons.length, 158);
   assert.equal(new Set(lessons.map((l) => l.slug)).size, lessons.length);
   for (const l of lessons) {
     assert.match(l.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
@@ -34,8 +34,8 @@ test("every lesson has a unique valid route and a valid track", () => {
 
 test("the six-stage JavaScript path covers every language/runtime chapter exactly once", () => {
   assert.equal(jsStages.length, 6);
-  assert.equal(jsPathSlugs.length, 64);
-  assert.equal(new Set(jsPathSlugs).size, 64);
+  assert.equal(jsPathSlugs.length, 66);
+  assert.equal(new Set(jsPathSlugs).size, 66);
   const expected = lessons
     .filter((l) => l.track === "javascript" || l.track === "async")
     .map((l) => l.slug);
@@ -68,14 +68,17 @@ test("new chapters have worked challenges, explicit environments, and valid runn
     if (chapter.execution === "worker") {
       const target = lessonPlaygrounds[chapter.slug];
       assert.ok(target, chapter.slug);
-      assert.equal(presets.find((p) => p.id === target.preset)?.source, chapter.code);
+      assert.equal(
+        presets.find((p) => p.id === target.preset)?.source,
+        getLesson(chapter.slug)!.code,
+      );
     }
   }
 });
 
 test("advanced boundaries have explicit invariants and valid acyclic prerequisite links", () => {
   const advanced = lessons.filter((l) => l.invariant);
-  assert.equal(advanced.length, 32);
+  assert.equal(advanced.length, 34);
   function visit(slug: string, path: string[] = []) {
     assert.ok(!path.includes(slug), `prerequisite cycle: ${[...path, slug].join(" → ")}`);
     const item = getLesson(slug);

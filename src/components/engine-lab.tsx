@@ -89,7 +89,11 @@ export function EngineLab() {
       </div>
       <div className="engine-artifact">
         <span className="eyebrow">INTERNAL REPRESENTATION · ILLUSTRATIVE</span>
-        <code>{stages[stage].artifact}</code>
+        <code>
+          {stage === 3 && changed
+            ? "Observed + inputs now include string × number → concatenation"
+            : stages[stage].artifact}
+        </code>
       </div>
       <div className="lab-explanation">
         <Cpu size={21} />

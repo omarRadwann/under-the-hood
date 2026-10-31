@@ -1,6 +1,6 @@
 {
   "name": "under-the-hood",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "dev": "node scripts/build-playground.mjs && next dev --hostname 0.0.0.0",
@@ -30,6 +30,7 @@
     "@babel/core": "8.0.10",
     "@babel/traverse": "8.0.10",
     "@babel/types": "^8.0.10",
+    "@electric-sql/pglite": "^0.5.13",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

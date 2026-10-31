@@ -8,6 +8,7 @@ export type LabKind =
   | "cache"
   | "streaming"
   | "machine"
+  | "events"
   | "flow";
 export type TrackId =
   | "javascript"
@@ -36,6 +37,9 @@ export interface Lesson {
   mental: string;
   steps: Step[];
   code: string;
+  filename?: string;
+  files?: { name: string; language: string; code: string }[];
+  context?: string;
   language: string;
   output?: string;
   pitfalls: string[];
@@ -46,7 +50,12 @@ export interface Lesson {
   invariant?: string;
   prerequisites?: string[];
   execution?: "worker" | "browser" | "node" | "reference";
-  challenge?: { prompt: string; solution: string; explanation: string };
+  challenge?: {
+    prompt: string;
+    solution: string;
+    explanation: string;
+    kind?: "code" | "explanation";
+  };
 }
 
 export const tracks: {

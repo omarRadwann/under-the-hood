@@ -78,7 +78,15 @@ test("training and competency links cover every track without dangling lesson re
     for (const prerequisite of lesson.prerequisites ?? []) assert.ok(getLesson(prerequisite));
   }
   assert.equal(deepenedSlugs.length, 24);
-  for (const slug of deepenedSlugs) assert.ok(getLesson(slug)!.steps.length >= 5, slug);
+  for (const slug of deepenedSlugs) {
+    const steps = getLesson(slug)!.steps;
+    assert.ok(steps.length >= 4, slug);
+    assert.equal(
+      new Set(steps.map((step) => step.title)).size,
+      steps.length,
+      slug + ": duplicate mechanism heading",
+    );
+  }
 });
 test("quiz arrangement preserves meaning and is stable without a fixed answer position", () => {
   const quiz = {

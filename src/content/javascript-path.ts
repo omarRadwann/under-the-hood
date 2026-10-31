@@ -78,6 +78,7 @@ export const jsStages = [
     slugs: [
       "javascript-engine",
       "execution-context",
+      "strict-eval-and-source-goals",
       "modules-and-bundlers",
       "module-linking-and-cycles",
       "modules-tooling-and-compatibility",
@@ -132,6 +133,7 @@ export const jsStages = [
       "reentrancy-and-observers",
       "resource-ownership",
       "dom-events-and-propagation",
+      "callback-boundaries-and-microtasks",
       "language-security-boundaries",
     ],
   },

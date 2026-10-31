@@ -202,15 +202,15 @@ export const lifecycle = [
   },
   {
     title: "Reconcile",
-    body: "Match type, position, and keys. Determine preserved state and the host changes needed for the candidate.",
+    body: "Reconciliation is part of render work: match type, position, and keys while computing the candidate. These inspection cards separate concerns, not two globally sequential passes.",
   },
   {
     title: "Commit",
-    body: "Apply the chosen host changes. The UI now reflects the selected render. Render work does not always require DOM mutations.",
+    body: "Commit the selected work. Relevant old layout effects clean up during commit mutation work; host changes and ref work have their own ordering. A render need not produce DOM mutations.",
   },
   {
     title: "Layout effects",
-    body: "Run relevant cleanup/setup and layout measurements before paint. Synchronous work here blocks painting.",
+    body: "Run relevant new layout-effect setups and measurements after DOM mutations, before browser paint. Their old cleanups belong to commit mutation work. Synchronous work here blocks painting.",
   },
   {
     title: "Passive effects",

@@ -23,6 +23,7 @@ import type { Lesson } from "@/lib/types";
 import { CodeBlock } from "./code-block";
 import { EngineLab } from "./engine-lab";
 import { StateMachineLab } from "./state-machine-lab";
+import { EventDispatchLab } from "./event-dispatch-lab";
 
 function Controls({
   step,
@@ -429,7 +430,10 @@ export function ReactLab() {
         <button className="button small" disabled={phase < 0 || phase >= 3} onClick={discard}>
           Discard candidate
         </button>
-        <span className="muted tiny">Detailed scheduler/ref/effect internals are simplified.</span>
+        <span className="muted tiny">
+          Inspection cards simplify internals. Reconciliation is part of render; layout effects are
+          part of commit.
+        </span>
       </div>
       <div className="trace-log">
         {log.map((l, i) => (
@@ -480,7 +484,7 @@ export function MemoryLab() {
           >
             <Braces size={18} />
             <span>
-              Listener → closure
+              Rooted target → listener → closure
               <small>{closure ? "Retains lexical binding" : "Listener cleaned up"}</small>
             </span>
             <span>{closure ? "●" : "○"}</span>
@@ -535,8 +539,9 @@ export function MemoryLab() {
           </strong>
           <p>
             Toggle both references. Removing the direct reference is insufficient while a listener
-            closure retains the binding. Real collectors choose their own timing; this button is a
-            teaching control, not a GC API.
+            closure retains the binding through a still-rooted target. An unreachable
+            target/listener cycle is not by itself a root. Real collectors choose their own timing;
+            this button is a teaching control, not a GC API.
           </p>
         </div>
       </div>
@@ -799,6 +804,8 @@ export function FlowLab({ lesson }: { lesson: Lesson }) {
 }
 export function Lab({ lesson }: { lesson: Lesson }) {
   switch (lesson.lab) {
+    case "events":
+      return <EventDispatchLab />;
     case "engine":
       return <EngineLab />;
     case "event-loop":

@@ -298,7 +298,7 @@ export const security = [
         body: "Apply response-size limits, connection deadlines, content-type handling, and restricted egress. Avoid returning raw fetched content under your trusted origin. Log destination classes and errors without recording authorization headers or signed private URLs.",
       },
     ],
-    code: `import 'server-only';\nconst base = new URL('https://trusted-api.example.com');\nexport async function getProduct(id: string) {\n  if (!/^[a-zA-Z0-9_-]+$/.test(id)) throw new Error('Invalid ID');\n  const url = new URL('/products/' + encodeURIComponent(id), base);\n  return fetch(url, { headers: { Authorization: 'Bearer ' + process.env.API_TOKEN } });\n}`,
+    code: `import 'server-only';\nconst base = new URL('https://trusted-api.example.com');\nexport async function getProduct(id: string) {\n  if (!/^[a-zA-Z0-9_-]{1,128}$/.test(id)) throw new Error('Invalid ID');\n  const token = process.env.API_TOKEN;\n  if (!token) throw new Error('API_TOKEN is not configured');\n  const url = new URL('/products/' + encodeURIComponent(id), base);\n  return fetch(url, {\n    redirect: 'error', signal: AbortSignal.timeout(5000),\n    headers: { Authorization: 'Bearer ' + token },\n  });\n}\n// Caller still owns response status, bounded body consumption, and authorization.`,
     pitfalls: [
       "Accepting a complete arbitrary URL when an identifier would suffice.",
       "Naming a secret NEXT_PUBLIC_API_SECRET.",
@@ -338,7 +338,7 @@ export const security = [
         body: "Create adversarial cross-tenant test fixtures with similar IDs and names. Audit sensitive operations with actor, tenant, operation, resource, decision, and correlation IDs while minimizing personal data. Retention and access to audit logs are themselves security decisions.",
       },
     ],
-    code: `type RequestContext = Readonly<{\n  actorId: string; tenantId: string; correlationId: string;\n}>;\nfunction projectCacheKey(ctx: RequestContext, id: string) {\n  return ['project', ctx.tenantId, id].join(':');\n}\n// A scoped key complements, never replaces, authorized reads.`,
+    code: `type RequestContext = Readonly<{\n  actorId: string; tenantId: string; correlationId: string;\n}>;\nfunction projectCacheKey(ctx: RequestContext, id: string) {\n  return JSON.stringify(['project', ctx.tenantId, id]);\n}\n// This value is actor-independent within a tenant; authorize every read.\n// Add actor/role/locale/version dimensions when the representation varies.\n// Tuple encoding avoids delimiter collisions; a key does not grant access.`,
     pitfalls: [
       "Tenant-scoping SQL but sharing cache entries across tenants.",
       "Using a mutable process-global currentTenant.",
