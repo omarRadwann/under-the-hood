@@ -1,6 +1,6 @@
 # JavaScript coverage and mastery path
 
-64 language/runtime chapters in 6 stages. The project contains 148 lessons overall. The path includes every lesson in the JavaScript and async tracks exactly once.
+64 language/runtime chapters in 6 stages. The project contains 156 lessons overall. The path includes every lesson in the JavaScript and async tracks exactly once.
 
 This is an explicit curriculum map. It covers the major language and standard-library families and essential host integration, while linking method-level specification and compatibility details. It is not a claim that every platform API or experimental proposal has its own chapter.
 

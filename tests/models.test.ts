@@ -16,7 +16,7 @@ import { javascriptCourse } from "../src/content/js-course";
 import { lessonPlaygrounds, presets } from "../src/playground/presets";
 
 test("every lesson has a unique valid route and a valid track", () => {
-  assert.equal(lessons.length, 148);
+  assert.equal(lessons.length, 156);
   assert.equal(new Set(lessons.map((l) => l.slug)).size, lessons.length);
   for (const l of lessons) {
     assert.match(l.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
@@ -75,7 +75,7 @@ test("new chapters have worked challenges, explicit environments, and valid runn
 
 test("advanced boundaries have explicit invariants and valid acyclic prerequisite links", () => {
   const advanced = lessons.filter((l) => l.invariant);
-  assert.equal(advanced.length, 24);
+  assert.equal(advanced.length, 32);
   function visit(slug: string, path: string[] = []) {
     assert.ok(!path.includes(slug), `prerequisite cycle: ${[...path, slug].join(" → ")}`);
     const item = getLesson(slug);

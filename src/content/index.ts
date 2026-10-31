@@ -10,6 +10,9 @@ import { architecture } from "./architecture";
 import { patterns } from "./patterns";
 import { advanced } from "./advanced";
 import { javascriptCourse } from "./js-course";
+import { platform } from "./platform";
+import { deepen } from "./senior-depth";
+import { arrangeQuiz } from "../lib/quiz";
 import { jsPathSlugs } from "./javascript-path";
 import type { TrackId } from "@/lib/types";
 
@@ -26,12 +29,13 @@ const catalog = [
   ...patterns,
   ...advanced,
   ...javascriptCourse,
-];
+  ...platform,
+].map(deepen);
 // Make the language-first course the primary reading sequence; persisted progress uses stable slugs.
 export const lessons = [
   ...jsPathSlugs.map((slug) => catalog.find((item) => item.slug === slug)!),
   ...catalog.filter((item) => !jsPathSlugs.includes(item.slug)),
-];
+].map((item) => ({ ...item, quiz: arrangeQuiz(item.quiz, item.slug) }));
 export const getLesson = (slug: string) => lessons.find((lesson) => lesson.slug === slug);
 export const getTrackLessons = (track: TrackId) =>
   lessons.filter((lesson) => lesson.track === track);

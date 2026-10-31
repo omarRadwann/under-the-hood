@@ -6,6 +6,7 @@ const sections = [
   "javascript",
   "labs",
   "playground",
+  "practice",
   "architecture",
   "saved",
   "progress",

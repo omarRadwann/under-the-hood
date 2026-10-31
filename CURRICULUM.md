@@ -1,6 +1,6 @@
 # Curriculum index
 
-148 lessons across 10 tracks. Each lesson includes a mental model, mechanism, code, pitfalls, practice, a quiz, and references. Architecture and pattern lessons also include explicit tradeoffs.
+156 lessons across 10 tracks. Each lesson includes a mental model, mechanism, code, pitfalls, practice, a quiz, and references. Architecture and pattern lessons also include explicit tradeoffs.
 
 ## JavaScript internals
 
@@ -116,6 +116,9 @@ Rendering, identity, scheduling, and the lifecycle of a reactive interface.
 - **Portals, refs & error-boundary scope** — Separate the React tree, the DOM tree, imperative access, and failure containment. Route: `/learn/portals-refs-and-error-boundaries`.
   - Invariant: DOM placement does not redefine React ownership, context, or every event relationship.
   - Prerequisites: render-and-commit, accessibility.
+- **Actions, optimistic state & mutation ownership** — Separate Action scheduling, pending UI, speculative projection, server authority, and recovery. Route: `/learn/actions-and-optimistic-state`.
+  - Invariant: An optimistic projection never becomes authoritative merely because it rendered; the confirmed mutation outcome owns reconciliation.
+  - Prerequisites: state-and-batching, concurrent-rendering, optimistic-ui.
 
 ## The Next.js architecture
 
@@ -135,6 +138,9 @@ Move confidently across server boundaries, streaming, routing, and caching.
 - **Deployment skew & cache coherence** — Reason about old clients, new servers, ephemeral instances, and versioned cached representations. Route: `/learn/deployment-cache-coherence`.
   - Invariant: A cache key and serialized representation must remain compatible with the deployment and authorization context that consumes them.
   - Prerequisites: nextjs-caching, schema-evolution.
+- **Request isolation, parallel reads & cache authority** — Keep request context, cached representations, authorization, and streaming boundaries coherent across users and instances. Route: `/learn/request-isolation-and-cache-authority`.
+  - Invariant: Every protected operation authorizes the current actor and resource; a reused representation must respect its declared audience.
+  - Prerequisites: nextjs-caching, server-actions, multi-tenant-security.
 
 ## Browser ↔ server
 
@@ -154,6 +160,18 @@ Follow a request through the layers that connect your frontend and backend.
 - **Service workers & offline coherence** — Treat an offline cache as another deployment and data-consistency boundary. Route: `/learn/service-workers-and-offline`.
   - Invariant: An offline response must preserve the correct user, version, and freshness policy rather than merely return something cached.
   - Prerequisites: http-caching, schema-evolution.
+- **CSS sizing, containing blocks & containment** — Explain overflow, intrinsic sizing, stacking contexts, cascade layers, and layout isolation from their actual constraints. Route: `/learn/css-layout-and-containment`.
+  - Invariant: A component's geometry and overlay behavior must hold under its real content, ancestors, writing mode, and available space.
+  - Prerequisites: browser-rendering.
+- **Browser storage, transactions & multi-tab ownership** — Design IndexedDB migrations, storage failure, cross-tab notification, and coordination without confusing durability with authority. Route: `/learn/browser-storage-and-coordination`.
+  - Invariant: Local state survives only under its stated storage contract; notifications and locks do not replace authoritative conflict resolution.
+  - Prerequisites: transactions-and-isolation, service-workers-and-offline.
+- **Observers, animation frames & measurement loops** — Choose MutationObserver, ResizeObserver, IntersectionObserver, and frame scheduling by the evidence each API actually provides. Route: `/learn/observers-and-frame-scheduling`.
+  - Invariant: A measurement callback must converge and release all registrations when its owner ends.
+  - Prerequisites: browser-rendering, event-loop.
+- **Custom elements, shadow DOM & integration contracts** — Integrate platform components through lifecycle, properties, slots, composed events, focus, and styling boundaries. Route: `/learn/web-components-and-shadow-boundaries`.
+  - Invariant: A component's public contract survives connection changes, property updates, and boundary crossing without leaking registrations.
+  - Prerequisites: dom-events-and-propagation, css-layout-and-containment.
 
 ## Identity & security
 
@@ -214,6 +232,12 @@ Turn good code into resilient, observable, accessible software.
 - **Algorithmic cost, virtualization & fairness** — Reduce work before memoizing it and preserve interaction contracts when rendering less DOM. Route: `/learn/complexity-and-virtualization`.
   - Invariant: A faster view must preserve identity, focus, navigation, and the user's ability to reach the data.
   - Prerequisites: performance-budgets, browser-rendering.
+- **Forms, focus & recoverable user intent** — Connect native submission, validation, focus, composition input, and accessible recovery. Route: `/learn/forms-focus-and-recovery`.
+  - Invariant: A failed submission preserves the user's recoverable intent and exposes an understandable next action.
+  - Prerequisites: accessibility, dom-events-and-propagation.
+- **Type algebra, inference & honest generic APIs** — Use conditional, mapped, indexed, and template-literal types without hiding runtime uncertainty or compiler cost. Route: `/learn/typescript-type-algebra`.
+  - Invariant: A generic API preserves a useful relationship the implementation can honor; a type assertion is not runtime evidence.
+  - Prerequisites: typescript-boundaries, typescript-variance.
 
 ## Frontend architecture
 

@@ -32,3 +32,4 @@ Learning state and edited drafts are browser-local. A deployed domain starts its
 ## Updating and recovery
 
 Push a new commit to `main` to run verification and publish. A failed build leaves the previous deployed version in place. Restore a prior source commit through a new commit and let the same pipeline redeploy; no force push is required. Review the Actions run and `github-pages` deployment environment to identify the published source revision.
+The v1.3 workflow also verifies the published release manifest against the exact source revision, requests every published application route/asset, and checks unknown-lesson 404 behavior. Run `APP_URL=<site-base-url> node scripts/check-live.mjs` in a POSIX shell, or set `$env:APP_URL` first in PowerShell. A bounded propagation wait allows the new artifact to become visible; a failed smoke check marks the workflow failed without claiming a successful verification.

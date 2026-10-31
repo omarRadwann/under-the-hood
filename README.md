@@ -1,12 +1,12 @@
 # Under the Hood
 
-[Open the live website](https://omarradwann.github.io/under-the-hood/) · [Start the JavaScript mastery path](https://omarradwann.github.io/under-the-hood/javascript/)
+[Open the live website](https://omarradwann.github.io/under-the-hood/) · [Start the JavaScript mastery path](https://omarradwann.github.io/under-the-hood/javascript/) · [Open training studio](https://omarradwann.github.io/under-the-hood/practice/)
 
-A Next.js learning workspace with **148 lessons**, a dedicated **64-chapter JavaScript mastery path**, nine interactive models, ten failure investigations, a SOLID workbench, and **50 editable experiments**. JavaScript progresses from the first program to advanced language/runtime and production reasoning, alongside React, Next.js, security, data, architecture, and patterns.
+A Next.js learning workspace with **156 lessons**, a dedicated **64-chapter JavaScript mastery path**, nine interactive models, ten failure investigations, a SOLID workbench, and **50 editable experiments**. JavaScript progresses from the first program to advanced language/runtime and production reasoning, alongside React, Next.js, security, data, architecture, and patterns.
 
 ## Run locally
 
-Requires Node.js 22.18+ on the 22.x line, or 24.11+ (matching Babel 8's supported engines). Verified with Node 24.19.0.
+Requires Node.js 22.18+ on the 22.x line, or 24.11+ (matching Babel 8's supported engines). Verified with Node 24.22.1.
 
 ```sh
 pnpm install
@@ -38,12 +38,12 @@ All lessons, models, React previews, and editable experiments work in the static
 | ---------------------- | ------: | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | JavaScript internals   |      49 | Engine tiering, contexts, closures, TDZ, prototypes, numeric domains, modules, descriptors/proxies, iterators, binary memory, weak references, shapes |
 | Async and runtime      |      15 | Event loops, promises, await, cancellation, Node/libuv, workers, backpressure, races, assimilation, async context, Atomics                            |
-| React internals        |      12 | Render/commit, state, effects, identity, transitions, memoization, stores, RSC, Fiber/lanes, hooks, hydration/IDs, portals/refs/errors                |
-| Next.js architecture   |      10 | Routing, SSR/static/PPR, Cache Components, mutations, BFFs, streaming, Proxy, recovery, serialization, deployment coherence                           |
-| Browser and network    |      10 | Requests, HTTP, CORS/cookies, caching, realtime, rendering, retries, API styles, multiplexing, service workers                                        |
+| React internals        |      13 | Render/commit, state, effects, identity, transitions, memoization, stores, RSC, Fiber/lanes, hooks, hydration/IDs, portals/refs/errors                |
+| Next.js architecture   |      11 | Routing, SSR/static/PPR, Cache Components, mutations, BFFs, streaming, Proxy, recovery, serialization, deployment coherence                           |
+| Browser and network    |      14 | Requests, HTTP, CORS/cookies, caching, realtime, rendering, retries, API styles, multiplexing, service workers                                        |
 | Identity and security  |       9 | Sessions, authorization, OIDC/PKCE, XSS/CSP, CSRF, JWT rotation, SSRF/secrets, tenants, supply-chain capabilities                                     |
 | Data and systems       |      10 | Cache races, isolation, query plans, N+1, optimistic reconciliation, outbox, consistency, migrations, fencing, sagas                                  |
-| Production engineering |      12 | Type boundaries, testing, telemetry, performance, accessibility, overload, delivery, debugging, variance, model tests, Unicode/time, complexity       |
+| Production engineering |      14 | Type boundaries, testing, telemetry, performance, accessibility, overload, delivery, debugging, variance, model tests, Unicode/time, complexity       |
 | Frontend architecture  |       9 | Modular monoliths, feature slices, hexagonal boundaries, microfrontends, state, design systems, BFFs, ADRs, fitness functions                         |
 | Patterns and SOLID     |      12 | Five SOLID principles, Strategy, Adapter/Repository, Observer, state machines, Command/CQRS, compound/headless UI, functional core                    |
 
@@ -58,6 +58,16 @@ Open **`/javascript`**. Six stages cover foundations; data and built-ins; functi
 The 40 added chapters each include at least four mechanism stages, a concrete program, pitfalls, a practical investigation, a quiz, and a revealable edge-case challenge with a worked solution. Thirty-six programs run directly from their lessons in the worker playground. Browser DOM and separate-module/package examples name their required context. A lazy-iterator-helper experiment adds runnable early-cleanup evidence.
 
 The course has a searchable roadmap, per-stage outcomes and mastery projects, existing-slug progress, a **19-family language crosswalk**, and eight expandable built-in/platform reference families. [JAVASCRIPT-COVERAGE.md](JAVASCRIPT-COVERAGE.md) exports the exact map and scope. It distinguishes language semantics, engine implementations, browser/Node APIs, newer built-ins, and proposals rather than promising universal support.
+
+## Training studio
+
+Open **/practice** for twelve repair exercises with **46 executable behavioral checks**. Predict a failure, edit the implementation, run the checks, inspect recorded calls/continuations/timers, and explain the invariant. Reference solutions and the check source are inspectable. Drafts, predictions, and attempt summaries persist locally; reference-assisted work stays labeled.
+
+The exercises cover presence/coercion, collection identity, iterator cleanup, bounded concurrency, stale-result authority, reentrant notification, immutable updates, external-store snapshots, cache-key isolation, stale-refill fencing, binary framing, and asynchronous cleanup. Every supplied broken starter fails at least one check; every reference passes all its checks in a fresh worker.
+
+The competency map connects **all 156 lessons in ten domains** to an invariant, evidence to produce, and a failure scenario. React contract exercises check JavaScript state protocols; use the separate React playground to inspect real mounted components. TypeScript is erased in execution exercises, so the compiler is required for static type claims. Passing listed checks is useful evidence, not comprehensive certification.
+
+Eight new deep dives cover CSS constraints/containment, forms/focus/recovery, IndexedDB and multi-tab coordination, observers/frame scheduling, advanced TypeScript type algebra, React Actions/optimism, request/cache authority, and custom elements/shadow boundaries. Twenty-four existing chapters have additional mechanism and tradeoff analysis, including every pattern/SOLID chapter. Quiz positions are deterministically varied while preserving each answer's meaning.
 
 ## Editable execution playgrounds
 
@@ -103,6 +113,7 @@ The SOLID workbench shows coupling examples beside possible refactors and explai
 | `/javascript`             | Six-stage language-first mastery path, coverage and reference |
 | `/labs`                   | All nine lab models                                           |
 | `/playground`             | Editable JavaScript, React, and caching experiments           |
+| `/practice`               | Repair exercises, runtime evidence, competency map            |
 | `/architecture`           | Scenario comparisons and SOLID refactors                      |
 | `/learn/[slug]`           | Deep dive, interactive model, practice, and local notes       |
 | `/saved`                  | Bookmarked lessons                                            |
@@ -122,7 +133,7 @@ pnpm exec prettier --check src tests
 
 With the production server running, `node scripts/check-routes.mjs` checks every public prerendered route and the unknown-lesson 404 behavior. Set `APP_URL` to check another local base URL. Run `pnpm curriculum` to regenerate [the full curriculum index](CURRICULUM.md).
 
-The 36 meaningful model/compiler/runtime tests verify actual edited output, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed messages, safe console snapshots, and content/prerequisite integrity alongside the original model and persistence checks. They do not claim to prove every reference snippet or every external runtime implementation.
+The 41 meaningful model/compiler/runtime/content/grading tests verify actual edited output, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed messages, safe console snapshots, and content/prerequisite integrity alongside the original model and persistence checks. They do not claim to prove every reference snippet or every external runtime implementation.
 
 ## Source organization
 

@@ -40,6 +40,12 @@ import { EventLoopLab, Lab } from "./labs";
 import { playgroundUrl } from "@/playground/presets";
 import { JavaScriptPath } from "./javascript-path";
 import { jsPathSlugs, jsStages } from "@/content/javascript-path";
+import { exercises } from "@/content/training";
+
+const TrainingStudio = dynamic(() => import("./training-studio"), {
+  ssr: false,
+  loading: () => <p className="muted">Loading the training studio…</p>,
+});
 
 const Playground = dynamic(() => import("./playground"), {
   ssr: false,
@@ -52,6 +58,7 @@ type View =
   | "library"
   | "labs"
   | "playground"
+  | "practice"
   | "architecture"
   | "saved"
   | "progress"
@@ -63,6 +70,7 @@ const nav = [
   { id: "library", href: "/library", label: "Knowledge map", icon: Network },
   { id: "labs", href: "/labs", label: "Interactive labs", icon: FlaskConical },
   { id: "playground", href: "/playground", label: "Code playground", icon: Terminal },
+  { id: "practice", href: "/practice", label: "Training studio", icon: CheckCircle2 },
   { id: "architecture", href: "/architecture", label: "Architecture studio", icon: GitBranch },
 ];
 export function LearningApp({ view, slug }: { view: View; slug?: string }) {
@@ -168,7 +176,7 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
         </Link>
         <div className="edition">
           <span className="live-dot" />
-          SENIOR EDITION<span className="mono">v1.2</span>
+          SENIOR EDITION<span className="mono">v1.3</span>
         </div>
         <nav aria-label="Main navigation">
           <span className="nav-heading">WORKSPACE</span>
@@ -263,13 +271,15 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
                         ? "Interactive labs"
                         : view === "playground"
                           ? "Code playground"
-                          : view === "javascript"
-                            ? "JavaScript mastery"
-                            : view === "progress"
-                              ? "Learning path"
-                              : view === "saved"
-                                ? "Saved lessons"
-                                : "Glossary"}
+                          : view === "practice"
+                            ? "Training studio"
+                            : view === "javascript"
+                              ? "JavaScript mastery"
+                              : view === "progress"
+                                ? "Learning path"
+                                : view === "saved"
+                                  ? "Saved lessons"
+                                  : "Glossary"}
             </strong>
           </div>
           <div className="topbar-actions">
@@ -309,6 +319,11 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
             </Suspense>
           )}
           {view === "labs" && <LabsView />}
+          {view === "practice" && (
+            <Suspense fallback={<p>Loading your exercises…</p>}>
+              <TrainingStudio />
+            </Suspense>
+          )}
           {view === "playground" && (
             <Suspense fallback={<p>Loading your experiment…</p>}>
               <Playground />
@@ -468,6 +483,19 @@ function Overview({ study }: { study: Study }) {
           </Link>
         </div>
         <PlaygroundBanner />
+        <div className="training-home-link">
+          <CheckCircle2 size={20} />
+          <div>
+            <strong>Build evidence for your understanding.</strong>
+            <span>
+              12 repair exercises · 46 behavioral checks · a competency map across every track
+            </span>
+          </div>
+          <Link href="/practice">
+            Enter training studio
+            <ArrowRight size={15} />
+          </Link>
+        </div>
         <div className="section-heading">
           <div>
             <span className="eyebrow">DON’T JUST READ IT. TRACE IT.</span>
@@ -1297,6 +1325,21 @@ function LessonView({
                   </div>
                 </div>
                 <Quiz key={lesson.slug} lesson={lesson} />
+                {exercises.some((exercise) => exercise.lessons.includes(lesson.slug)) && (
+                  <div className="lesson-training-link">
+                    <span className="eyebrow accent">TEST THE CONTRACT</span>
+                    <h3>Repair it. Run it. Explain it.</h3>
+                    {exercises
+                      .filter((exercise) => exercise.lessons.includes(lesson.slug))
+                      .map((exercise) => (
+                        <Link key={exercise.id} href={"/practice?exercise=" + exercise.id}>
+                          {exercise.title}
+                          <span>{exercise.checks.length} behavioral checks</span>
+                          <ArrowRight size={15} />
+                        </Link>
+                      ))}
+                  </div>
+                )}
               </section>
               <section id="sources" className="article-section sources-section">
                 <span className="eyebrow">REFERENCES & FURTHER READING</span>

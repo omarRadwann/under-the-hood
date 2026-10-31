@@ -1,5 +1,17 @@
 # Engineering audit and coverage map
 
+## Version 1.3 findings and corrections
+
+The current registry contains 156 lessons. This audit found real teaching weaknesses: 123 of the original 148 quizzes placed the answer first, 19 chapters used only a broad landing-page reference, several senior mechanisms were brief, and practice did not include an executable repair-and-feedback loop.
+
+- Quiz choices now have stable per-lesson variation with answer identity preserved. Current positions are 64/41/51 across the three choices.
+- Topic-specific primary references supplement those 19 chapters. All 184 unique source/crosswalk URLs resolve at review time; the obsolete OWASP Java-specific JWT link was replaced by its current general JWT cheat sheet.
+- Eight platform/framework/type-system deep dives fill the concrete gaps listed in README.md. They explicitly name browser or contextual execution requirements. Twenty-four older chapters add two mechanism/review stages each, including every SOLID/design-pattern chapter.
+- The training studio has twelve edited-code exercises and 46 checks. Calibration establishes that every reference passes and every broken starter fails a real behavioral check. Drafts and predictions persist locally; reference use is labeled. Ten competency domains link every lesson to evidence and failure investigations.
+- The Next 16.4 Cache Components example now declares partialPrefetching explicitly, matching the installed guide. The typecheck command generates route types before compiling, so it works without a previous full build.
+
+The curriculum is a maintained, explicit coverage map. It does not establish that every browser API, engine heuristic, experimental proposal, or organization-specific production concern has its own tutorial. A passing exercise establishes its stated checks; geometry, authorization, distributed consistency, and real React integration need their named system-level evidence.
+
 Reviewed against the source project and current primary documentation on October 31, 2026. This is a bounded review with explicit evidence, not a guarantee that a finite curriculum contains all engineering knowledge.
 
 ## Findings before this revision
@@ -27,18 +39,18 @@ Reviewed against the source project and current primary documentation on October
 
 ## Completed coverage map
 
-The registry now contains **148 lessons in 10 tracks**, including **24 advanced boundaries** with explicit invariants and acyclic prerequisite links. CURRICULUM.md lists every route and prerequisite.
+The registry now contains **156 lessons in 10 tracks**, including **32 explicit boundaries** with explicit invariants and acyclic prerequisite links. CURRICULUM.md lists every route and prerequisite.
 
 | Layer            | Core coverage                                                                                                                    | Added depth                                                                                                                                            |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | JavaScript (49)  | Engine pipeline, execution/scope, closure retention, TDZ, receivers/prototypes, copying/coercion, modules, collection            | Descriptor/Proxy invariants, iterator cleanup, binary ownership, weak lifetimes, shapes/inline caches; numeric-domain and prototype-pollution guidance |
 | Async (15)       | Browser/Node loops, promises, await, cancellation, pools, workers, pressure, races                                               | Thenable assimilation, async context, shared memory/Atomics; scheduling fairness and bounded work                                                      |
-| React (12)       | Render versus commit, state queues, effects, keys, transitions, memo/context, stores, RSC                                        | Fiber/lanes, hook identity, hydration/useId, portals/refs/error scope; current Effect Event constraints                                                |
-| Next.js (10)     | App Router, rendering modes, Cache Components, actions, BFFs, streaming, Proxy, recovery                                         | RSC transport/data exposure and deployment/cache compatibility                                                                                         |
+| React (13)       | Render versus commit, state queues, effects, keys, transitions, memo/context, stores, RSC                                        | Fiber/lanes, hook identity, hydration/useId, portals/refs/error scope; current Effect Event constraints                                                |
+| Next.js (11)     | App Router, rendering modes, Cache Components, actions, BFFs, streaming, Proxy, recovery                                         | RSC transport/data exposure and deployment/cache compatibility                                                                                         |
 | Network (10)     | Request layers, HTTP semantics, CORS/cookies, caching, realtime, rendering, retries, API contracts                               | HTTP/2 versus HTTP/3 loss dependencies, service-worker/offline version coherence                                                                       |
 | Security (9)     | Authentication, resource authorization, OIDC/PKCE, XSS/CSP, CSRF, JWT rotation, SSRF/secrets, tenants                            | Supply-chain execution phases and sandbox capabilities                                                                                                 |
 | Data (10)        | Cache races, transactions/isolation, indexes, N+1, optimistic recovery, outbox, consistency, migrations                          | Leases/fencing and saga compensation/ambiguous outcomes                                                                                                |
-| Production (12)  | Runtime validation, testing, telemetry, performance, accessibility, overload, delivery, debugging                                | Variance, model-based testing, Unicode/time-zone domains, complexity/virtualization                                                                    |
+| Production (14)  | Runtime validation, testing, telemetry, performance, accessibility, overload, delivery, debugging                                | Variance, model-based testing, Unicode/time-zone domains, complexity/virtualization                                                                    |
 | Architecture (9) | Modular monoliths, feature slices, hexagonal direction, microfrontends, state, design systems, BFFs, ADRs                        | Enforceable fitness functions and reviewable exceptions                                                                                                |
 | Patterns (12)    | All five SOLID principles, Strategy, Adapter/Repository, Observer, machines, Command/CQRS, compound/headless UI, functional core | Existing concrete refactors, behavioral contracts, selection criteria, and failure cases retained                                                      |
 

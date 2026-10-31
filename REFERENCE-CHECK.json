@@ -1,5 +1,9 @@
 [
   {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types",
+    "status": 200
+  },
+  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Language_overview",
     "status": 200
   },
@@ -8,15 +12,7 @@
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types",
-    "status": 200
-  },
-  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Data_structures",
-    "status": 200
-  },
-  {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators",
     "status": 200
   },
   {
@@ -24,11 +20,15 @@
     "status": 200
   },
   {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration",
+    "status": 200
+  },
+  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling",
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators",
     "status": 200
   },
   {
@@ -52,6 +52,10 @@
     "status": 200
   },
   {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt",
+    "status": 200
+  },
+  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
     "status": 200
   },
@@ -61,15 +65,7 @@
     "redirect": "https://tc39.es/ecma262/"
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt",
-    "status": 200
-  },
-  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
-    "status": 200
-  },
-  {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections",
     "status": 200
   },
   {
@@ -77,15 +73,15 @@
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
-    "status": 200
-  },
-  {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections",
     "status": 200
   },
   {
     "url": "https://unicode.org/reports/tr15/",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
     "status": 200
   },
   {
@@ -101,7 +97,7 @@
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
     "status": 200
   },
   {
@@ -113,12 +109,33 @@
     "status": 200
   },
   {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain",
+    "status": 200
+  },
+  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this",
     "status": 200
   },
   {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind",
     "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness",
+    "status": 200,
+    "redirect": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Equality_comparisons_and_sameness"
   },
   {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -130,11 +147,7 @@
     "redirect": "https://tc39.es/ecma262/"
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes",
-    "status": 200
-  },
-  {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super",
     "status": 200
   },
   {
@@ -142,7 +155,7 @@
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes",
     "status": 200
   },
   {
@@ -150,19 +163,11 @@
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce",
-    "status": 200
-  },
-  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols",
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules",
-    "status": 200
-  },
-  {
-    "url": "https://v8.dev/blog/sparkplug",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce",
     "status": 200
   },
   {
@@ -170,11 +175,7 @@
     "status": 200
   },
   {
-    "url": "https://nodejs.org/api/packages.html",
-    "status": 200
-  },
-  {
-    "url": "https://nodejs.org/api/esm.html",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules",
     "status": 200
   },
   {
@@ -182,7 +183,19 @@
     "status": 200
   },
   {
+    "url": "https://v8.dev/blog/sparkplug",
+    "status": 200
+  },
+  {
+    "url": "https://nodejs.org/api/packages.html",
+    "status": 200
+  },
+  {
     "url": "https://nodejs.org/api/vm.html",
+    "status": 200
+  },
+  {
+    "url": "https://nodejs.org/api/esm.html",
     "status": 200
   },
   {
@@ -190,11 +203,11 @@
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef",
+    "url": "https://v8.dev/blog/fast-properties",
     "status": 200
   },
   {
-    "url": "https://v8.dev/blog/fast-properties",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef",
     "status": 200
   },
   {
@@ -206,11 +219,11 @@
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide/In_depth",
+    "url": "https://developer.chrome.com/docs/devtools/performance",
     "status": 200
   },
   {
-    "url": "https://developer.chrome.com/docs/devtools/memory-problems",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide/In_depth",
     "status": 200
   },
   {
@@ -223,13 +236,19 @@
     "status": 200
   },
   {
+    "url": "https://developer.chrome.com/docs/devtools/memory-problems",
+    "status": 200,
+    "redirect": "https://developer.chrome.com/docs/devtools/memory-problems?hl=es-419"
+  },
+  {
     "url": "https://nodejs.org/api/process.html#event-unhandledrejection",
     "status": 200,
     "redirect": "https://nodejs.org/api/process.html"
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Glossary/Debounce",
-    "status": 200
+    "url": "https://html.spec.whatwg.org/multipage/webappapis.html#event-loops",
+    "status": 200,
+    "redirect": "https://html.spec.whatwg.org/multipage/webappapis.html"
   },
   {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -240,19 +259,8 @@
     "status": 200
   },
   {
-    "url": "https://html.spec.whatwg.org/multipage/webappapis.html#event-loops",
-    "status": 200,
-    "redirect": "https://html.spec.whatwg.org/multipage/webappapis.html"
-  },
-  {
-    "url": "https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick",
-    "status": 200,
-    "redirect": "https://nodejs.org/learn/asynchronous-work/event-loop-timers-and-nexttick"
-  },
-  {
-    "url": "https://nodejs.org/en/learn/modules/backpressuring-in-streams",
-    "status": 200,
-    "redirect": "https://nodejs.org/learn/modules/backpressuring-in-streams"
+    "url": "https://developer.mozilla.org/en-US/docs/Glossary/Debounce",
+    "status": 200
   },
   {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of",
@@ -264,8 +272,18 @@
     "redirect": "https://nodejs.org/learn/asynchronous-work/dont-block-the-event-loop"
   },
   {
+    "url": "https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick",
+    "status": 200,
+    "redirect": "https://nodejs.org/learn/asynchronous-work/event-loop-timers-and-nexttick"
+  },
+  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fromAsync",
     "status": 200
+  },
+  {
+    "url": "https://nodejs.org/en/learn/modules/backpressuring-in-streams",
+    "status": 200,
+    "redirect": "https://nodejs.org/learn/modules/backpressuring-in-streams"
   },
   {
     "url": "https://nodejs.org/api/async_context.html",
@@ -273,10 +291,6 @@
   },
   {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics",
-    "status": 200
-  },
-  {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent",
     "status": 200
   },
   {
@@ -292,12 +306,11 @@
     "status": 200
   },
   {
-    "url": "https://developer.chrome.com/docs/devtools/performance",
-    "status": 200,
-    "redirect": "https://developer.chrome.com/docs/devtools/performance?hl=pt-br"
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval",
+    "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent",
     "status": 200
   },
   {
@@ -305,15 +318,24 @@
     "status": 200
   },
   {
-    "url": "https://react.dev/learn",
-    "status": 200
-  },
-  {
     "url": "https://react.dev/learn/render-and-commit",
     "status": 200
   },
   {
+    "url": "https://react.dev/learn",
+    "status": 200
+  },
+  {
     "url": "https://react.dev/reference/react/useEffect",
+    "status": 200
+  },
+  {
+    "url": "https://dom.spec.whatwg.org/#events",
+    "status": 200,
+    "redirect": "https://dom.spec.whatwg.org/"
+  },
+  {
+    "url": "https://react.dev/learn/queueing-a-series-of-state-updates",
     "status": 200
   },
   {
@@ -325,24 +347,31 @@
     "status": 200
   },
   {
-    "url": "https://react.dev/reference/react/useTransition",
+    "url": "https://react.dev/learn/preserving-and-resetting-state",
     "status": 200
   },
   {
-    "url": "https://dom.spec.whatwg.org/#events",
-    "status": 200,
-    "redirect": "https://dom.spec.whatwg.org/"
+    "url": "https://react.dev/reference/react/useTransition",
+    "status": 200
   },
   {
     "url": "https://react.dev/reference/react/Suspense",
     "status": 200
   },
   {
-    "url": "https://react.dev/reference/react/useSyncExternalStore",
+    "url": "https://react.dev/learn/react-compiler/introduction",
+    "status": 200
+  },
+  {
+    "url": "https://react.dev/reference/react/memo",
     "status": 200
   },
   {
     "url": "https://react.dev/reference/rsc/server-components",
+    "status": 200
+  },
+  {
+    "url": "https://react.dev/reference/react/useSyncExternalStore",
     "status": 200
   },
   {
@@ -354,11 +383,11 @@
     "status": 200
   },
   {
-    "url": "https://nextjs.org/docs/app/getting-started/caching",
+    "url": "https://nextjs.org/docs/app/api-reference/functions/updateTag",
     "status": 200
   },
   {
-    "url": "https://nextjs.org/docs/app/api-reference/functions/updateTag",
+    "url": "https://nextjs.org/docs/app/getting-started/caching",
     "status": 200
   },
   {
@@ -366,15 +395,19 @@
     "status": 200
   },
   {
-    "url": "https://nextjs.org/docs/app",
-    "status": 200
-  },
-  {
     "url": "https://nextjs.org/docs/app/guides/data-security",
     "status": 200
   },
   {
+    "url": "https://nextjs.org/docs/app",
+    "status": 200
+  },
+  {
     "url": "https://nextjs.org/docs/app/guides/backend-for-frontend",
+    "status": 200
+  },
+  {
+    "url": "https://nextjs.org/docs/app/api-reference/file-conventions/loading",
     "status": 200
   },
   {
@@ -394,7 +427,28 @@
     "status": 200
   },
   {
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
+    "status": 200
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc9110",
+    "status": 200,
+    "redirect": "https://www.rfc-editor.org/info/rfc9110/"
+  },
+  {
     "url": "https://nextjs.org/docs/app/guides/authentication",
+    "status": 200
+  },
+  {
+    "url": "https://cheatsheetseries.owasp.org/",
+    "status": 200
+  },
+  {
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+    "status": 200
+  },
+  {
+    "url": "https://openid.net/specs/openid-connect-core-1_0.html",
     "status": 200
   },
   {
@@ -403,30 +457,29 @@
     "redirect": "https://www.rfc-editor.org/info/rfc9111/"
   },
   {
-    "url": "https://www.rfc-editor.org/rfc/rfc9110",
-    "status": 200,
-    "redirect": "https://www.rfc-editor.org/info/rfc9110/"
-  },
-  {
-    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
-    "status": 200
-  },
-  {
-    "url": "https://cheatsheetseries.owasp.org/",
-    "status": 200
-  },
-  {
-    "url": "https://openid.net/specs/openid-connect-core-1_0.html",
-    "status": 200
-  },
-  {
     "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+    "status": 200
+  },
+  {
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
+    "status": 200
+  },
+  {
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet",
+    "status": 200
+  },
+  {
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html",
     "status": 200
   },
   {
     "url": "https://www.rfc-editor.org/rfc/rfc7636",
     "status": 200,
     "redirect": "https://www.rfc-editor.org/info/rfc7636/"
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/using-explain.html",
+    "status": 200
   },
   {
     "url": "https://www.postgresql.org/docs/current/transaction-iso.html",
@@ -437,7 +490,15 @@
     "status": 200
   },
   {
-    "url": "https://www.postgresql.org/docs/current/using-explain.html",
+    "url": "https://react.dev/reference/react/useOptimistic",
+    "status": 200
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/ddl-alter.html",
+    "status": 200
+  },
+  {
+    "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html",
     "status": 200
   },
   {
@@ -445,15 +506,7 @@
     "status": 200
   },
   {
-    "url": "https://opentelemetry.io/docs/concepts/",
-    "status": 200
-  },
-  {
     "url": "https://testing-library.com/docs/guiding-principles/",
-    "status": 200
-  },
-  {
-    "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html",
     "status": 200
   },
   {
@@ -466,15 +519,24 @@
     "status": 200
   },
   {
-    "url": "https://martinfowler.com/architecture/",
-    "status": 200
-  },
-  {
-    "url": "https://feature-sliced.design/docs/get-started/overview",
+    "url": "https://opentelemetry.io/docs/concepts/",
     "status": 200
   },
   {
     "url": "https://web.dev/learn/performance",
+    "status": 200
+  },
+  {
+    "url": "https://martinfowler.com/architecture/",
+    "status": 200
+  },
+  {
+    "url": "https://web.dev/articles/vitals",
+    "status": 200,
+    "redirect": "https://web.dev/articles/vitals?hl=zh-cn"
+  },
+  {
+    "url": "https://feature-sliced.design/docs/get-started/overview",
     "status": 200
   },
   {
@@ -490,15 +552,6 @@
     "status": 200
   },
   {
-    "url": "https://www.cs.cmu.edu/~wing/publications/LiskovWing94.pdf",
-    "status": 200
-  },
-  {
-    "url": "https://alistair.cockburn.us/hexagonal-architecture/",
-    "status": 200,
-    "redirect": "https://alistair.cockburn.us/hexagonal-architecture"
-  },
-  {
     "url": "https://stately.ai/docs/state-machines-and-statecharts",
     "status": 200
   },
@@ -507,16 +560,16 @@
     "status": 200
   },
   {
-    "url": "https://web.dev/articles/vitals",
+    "url": "https://alistair.cockburn.us/hexagonal-architecture/",
     "status": 200,
-    "redirect": "https://web.dev/articles/vitals?hl=vi"
+    "redirect": "https://alistair.cockburn.us/hexagonal-architecture"
   },
   {
-    "url": "https://react.dev/learn/sharing-state-between-components",
+    "url": "https://www.cs.cmu.edu/~wing/publications/LiskovWing94.pdf",
     "status": 200
   },
   {
-    "url": "https://react.dev/reference/rules/rules-of-hooks",
+    "url": "https://react.dev/learn/sharing-state-between-components",
     "status": 200
   },
   {
@@ -524,11 +577,15 @@
     "status": 200
   },
   {
-    "url": "https://react.dev/reference/react-dom/client/hydrateRoot",
+    "url": "https://react.dev/reference/react/useId",
     "status": 200
   },
   {
-    "url": "https://react.dev/reference/react/useId",
+    "url": "https://react.dev/reference/rules/rules-of-hooks",
+    "status": 200
+  },
+  {
+    "url": "https://react.dev/reference/react-dom/client/hydrateRoot",
     "status": 200
   },
   {
@@ -545,17 +602,16 @@
     "status": 200
   },
   {
-    "url": "https://www.rfc-editor.org/rfc/rfc9114",
-    "status": 200,
-    "redirect": "https://www.rfc-editor.org/info/rfc9114/"
-  },
-  {
-    "url": "https://www.rfc-editor.org/rfc/rfc9113",
-    "status": 200,
-    "redirect": "https://www.rfc-editor.org/info/rfc9113/"
-  },
-  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
+    "status": 200
+  },
+  {
+    "url": "https://github.com/facebook/react/blob/main/packages/react-reconciler/src/ReactFiberWorkLoop.js",
+    "status": 200,
+    "redirect": "https://github.com/react/react/blob/main/packages/react-reconciler/src/ReactFiberWorkLoop.js"
+  },
+  {
+    "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-orchestration.html",
     "status": 200
   },
   {
@@ -567,28 +623,21 @@
     "status": 200
   },
   {
-    "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-orchestration.html",
-    "status": 200
-  },
-  {
-    "url": "https://github.com/facebook/react/blob/main/packages/react-reconciler/src/ReactFiberWorkLoop.js",
+    "url": "https://www.rfc-editor.org/rfc/rfc9113",
     "status": 200,
-    "redirect": "https://github.com/react/react/blob/main/packages/react-reconciler/src/ReactFiberWorkLoop.js"
-  },
-  {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter",
-    "status": 200
+    "redirect": "https://www.rfc-editor.org/info/rfc9113/"
   },
   {
     "url": "https://www.typescriptlang.org/docs/handbook/type-compatibility.html",
     "status": 200
   },
   {
-    "url": "https://www.thoughtworks.com/insights/articles/fitness-function-driven-development",
-    "status": 200
+    "url": "https://www.rfc-editor.org/rfc/rfc9114",
+    "status": 200,
+    "redirect": "https://www.rfc-editor.org/info/rfc9114/"
   },
   {
-    "url": "https://fast-check.dev/docs/advanced/model-based-testing/",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter",
     "status": 200
   },
   {
@@ -596,7 +645,100 @@
     "status": 200
   },
   {
+    "url": "https://fast-check.dev/docs/advanced/model-based-testing/",
+    "status": 200
+  },
+  {
+    "url": "https://www.thoughtworks.com/insights/articles/fitness-function-driven-development",
+    "status": 200
+  },
+  {
     "url": "https://cheatsheetseries.owasp.org/cheatsheets/Software_Supply_Chain_Security_Cheat_Sheet.html",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Display/Containing_block",
+    "status": 200
+  },
+  {
+    "url": "https://web.dev/articles/optimize-long-tasks",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/requestSubmit",
+    "status": 200
+  },
+  {
+    "url": "https://www.w3.org/WAI/tutorials/forms/notifications/",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascade/Cascade",
+    "status": 200,
+    "redirect": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascade/Introduction"
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API",
+    "status": 200
+  },
+  {
+    "url": "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html",
+    "status": 200
+  },
+  {
+    "url": "https://react.dev/reference/react-dom/components/form",
+    "status": 200
+  },
+  {
+    "url": "https://www.typescriptlang.org/docs/handbook/2/mapped-types.html",
+    "status": 200
+  },
+  {
+    "url": "https://react.dev/reference/react/useActionState",
+    "status": 200
+  },
+  {
+    "url": "https://nextjs.org/docs/app/api-reference/functions/cookies",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_components",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements",
+    "status": 200
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Internationalization",
     "status": 200
   },
   {
@@ -608,15 +750,11 @@
     "status": 200
   },
   {
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Internationalization",
-    "status": 200
-  },
-  {
     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Meta_programming",
     "status": 200
   },
   {
-    "url": "https://web.dev/articles/optimize-long-tasks",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Event/composed",
     "status": 200
   }
 ]

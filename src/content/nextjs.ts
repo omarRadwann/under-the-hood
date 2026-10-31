@@ -128,7 +128,7 @@ export const nextjs = [
         body: "Measure hit rate by key class, origin latency on misses, invalidation lag, and cache stampedes. A new deployment can change key scope. Revalidation is a distributed workflow, so test two server instances and a client with existing router state rather than testing only a hard reload.",
       },
     ],
-    code: `// next.config.ts: { cacheComponents: true }\nimport { cacheLife, cacheTag } from 'next/cache';\n\nexport async function getProduct(id: string) {\n  'use cache';\n  cacheLife('minutes');\n  cacheTag('product:' + id);\n  return db.product.findUnique({ where: { id } });\n}\n// A Server Action can call updateTag('product:' + id)\n// after an authorized, validated database mutation.`,
+    code: `// next.config.ts: { cacheComponents: true, partialPrefetching: true }\nimport { cacheLife, cacheTag } from 'next/cache';\n\nexport async function getProduct(id: string) {\n  'use cache';\n  cacheLife('minutes');\n  cacheTag('product:' + id);\n  return db.product.findUnique({ where: { id } });\n}\n// A Server Action can call updateTag('product:' + id)\n// after an authorized, validated database mutation.`,
     pitfalls: [
       "Teaching Next 14 fetch defaults as current universal behavior.",
       "Caching session-derived data without an isolation-safe key.",

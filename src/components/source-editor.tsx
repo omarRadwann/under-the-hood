@@ -89,11 +89,13 @@ export function SourceEditor({
   onChange,
   onRun,
   activeLine,
+  label = "Playground code editor",
 }: {
   value: string;
   onChange: (value: string) => void;
   onRun: () => void;
   activeLine: number | null;
+  label?: string;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const editor = useRef<EditorView | null>(null);
@@ -121,7 +123,7 @@ export function SourceEditor({
           theme,
           recordedLine,
           EditorView.contentAttributes.of({
-            "aria-label": "Playground code editor",
+            "aria-label": label,
             "aria-multiline": "true",
             spellcheck: "false",
           }),

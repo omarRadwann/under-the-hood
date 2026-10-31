@@ -1,13 +1,13 @@
 {
   "name": "under-the-hood",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "scripts": {
     "dev": "node scripts/build-playground.mjs && next dev --hostname 0.0.0.0",
     "build": "node scripts/build-playground.mjs && next build",
     "build:pages": "node scripts/build-pages.mjs",
     "start": "next start --hostname 0.0.0.0",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "test": "node scripts/build-playground.mjs && tsx --test tests/*.test.ts",
     "format": "prettier --write src tests scripts",
     "curriculum": "tsx scripts/export-curriculum.ts"

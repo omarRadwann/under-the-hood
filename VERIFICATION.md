@@ -1,5 +1,18 @@
 # Verification record
 
+## Version 1.3 training and depth audit
+
+The current release contains 156 lessons, 32 lessons with explicit invariants, the unchanged 64-chapter JavaScript path, 50 playground starters, and twelve additional repair exercises with 46 behavioral checks.
+
+- All **41 automated tests pass**, including fresh-worker execution of every training reference and rejection of every broken starter. Negative TypeScript fixture cases are checked by the production compiler.
+- The optimized static export and strict TypeScript pass. The new route and all new lesson routes are generated; source and referenced primary documentation are checked separately.
+- All **184 unique references** returned HTTP 200. This is point-in-time reachability evidence.
+- Browser verification executed all twelve training references and all 46 checks. An independently edited parsing repair moved from 1/4 to 4/4, Ctrl/Cmd Enter ran the code, and a reload retained source and progress. Source changes require another run to establish current results.
+- Recorded-call selection updated the snapshot and source highlight. A runaway loop failed within the instruction budget; reset and a later run recovered.
+- The competency map contains ten domains and links all 156 lessons. Reference-assisted runs are labeled; completion is not a certification or proof of unlisted cases.
+
+The earlier release evidence below records the original playground and deployment checks. The new runtime reuses the same opaque-frame worker containment.
+
 Checked October 31, 2026 with Next.js 16.4.3, React 19.3.1, TypeScript 5.9.3, Babel 8.0.10, Node.js 24.19.0, and pnpm 11.25.0.
 
 ## Automated checks
@@ -70,3 +83,5 @@ All 42 JavaScript experiments also completed successfully in the final productio
 - The deployment workflow checks tests, static compilation, and exported targets before publishing. The normal server build remains available separately.
 
 The first public deployment succeeded in [GitHub Actions](https://github.com/omarRadwann/under-the-hood/actions/runs/41223088745). Post-deployment HTTP checks passed for all 158 public routes/assets and an unknown-lesson 404. The live JavaScript, cache, and React playgrounds also executed successfully over HTTPS. `LIVE-VERIFICATION.json` records the public URL and HTTP results; this supplements the fuller static-preview regression above.
+
+Final v1.3 static checks: 882 exported files, 7,319 local link/asset targets resolved, and 167 public application routes/assets returned 200 in the header-free static preview. The unknown lesson returned 404. Desktop 1440px and mobile 390px had no horizontal page overflow; closed mobile navigation was absent from focus/visibility. The compact domain picker selected the matching exercise. A new CSS lesson's rearranged quiz accepted the correct semantic answer, and the expanded Liskov mechanism rendered. No browser errors were reported during these checks. The release manifest and post-deployment smoke checker also verify exact revision and route/404 behavior for future releases.

@@ -50,9 +50,11 @@ for (const file of files.filter((path) => [".html", ".css"].includes(extname(pat
 }
 for (const required of [
   ".nojekyll",
+  "release.json",
   "404.html",
   "javascript/index.html",
   "playground/index.html",
+  "practice/index.html",
   "playground-assets/worker-sandbox.html",
   "playground-assets/react-runtime.js",
 ]) {
