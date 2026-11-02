@@ -387,7 +387,14 @@ export default function TrainingStudio() {
                     choose(exercises.find((item) => item.domain === next)!.id);
                 }}
               >
-                {["All", "JavaScript", "Async", "React contracts", "Caching"].map((domain) => (
+                {[
+                  "All",
+                  "JavaScript",
+                  "Async",
+                  "React contracts",
+                  "Caching",
+                  "Problem solving",
+                ].map((domain) => (
                   <option key={domain}>{domain}</option>
                 ))}
               </select>

@@ -1,5 +1,13 @@
 # Verification record
 
+## Version 1.5.0 interview sprint
+
+The production export contains **899 files**, **7,674 resolved local link/asset targets**, and **170 successful local application route/asset requests**, with the expected unknown-lesson 404. All four interview views were checked at 390px and 768px viewports: page/content widths matched (375px and 753px after scrollbars), each had one main h1 and no unnamed visible buttons. Notes export produced valid JSON retaining a zero rating and the guide-consulted flag. Formatting and dependency audit pass.
+
+Checked November 2, 2026. **75 tests pass**. All 20 reference solutions pass 78 checks, every broken starter is rejected by at least one check, and all eight new solutions pass 32 checks through the browser UI. The new interview route and its links are included in the nested-path static export and deployment route checks.
+
+Calendar tests cover a November 5 Thursday target, leap dates, invalid dates, and whole-day arithmetic. Timer tests cover delayed ticks and zero clamping; browser checks exercise running across workspace tabs, pause, and reset. Storage validates known questions/blocks and preserves score zero and other tabs' different answers. Local browser tests verify notes/references and role-boundary selection. Self-ratings, source disclosure, and host/integration limits remain explicit.
+
 ## Version 1.4.1 cache-model verification
 
 The full suite passes **70/70 tests**. The cache lab stores an entry deadline at refill and labels TTL as a future-refill setting. Browser checks confirm that increasing TTL leaves the old t=5s deadline intact, expiry refills with a t=65s deadline, and reducing future TTL to 5s leaves that entry fresh at t=10s. Production export and strict TypeScript pass with 892 files and 7,448 resolved local targets. Exact-revision deployment evidence is saved separately. The 1.4.0 browser/example records below describe unchanged code paths.

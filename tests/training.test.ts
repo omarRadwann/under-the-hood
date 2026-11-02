@@ -43,11 +43,11 @@ async function grade(source: string, exercise: (typeof exercises)[number]) {
   });
 }
 
-test("every reference solution passes all 46 behavioral checks in a fresh native runtime", async () => {
-  assert.equal(exercises.length, 12);
+test("every reference solution passes all 78 behavioral checks in a fresh native runtime", async () => {
+  assert.equal(exercises.length, 20);
   assert.equal(
     exercises.reduce((sum, exercise) => sum + exercise.checks.length, 0),
-    46,
+    78,
   );
   for (const exercise of exercises) {
     const result = await grade(exercise.solution, exercise);

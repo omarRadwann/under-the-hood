@@ -1,5 +1,13 @@
 # Engineering audit and coverage map
 
+## Version 1.5.0 interview preparation
+
+The new `/interview/` workspace connects a configurable three-session plan to eight executable problem-solving drills, 25 discussion prompts, a coding/full-mock timer, self-review, local outlines/mistake logs, export, and a six-boundary feature walkthrough. It is tailored to the supplied Bask Health posting; the prompts are authored practice, not confirmed interview questions.
+
+Training now has **20 exercises and 78 behavioral checks**. All references pass and every intentionally broken starter fails at least one listed check. The eight new references also pass all **32** checks in the real browser grader. Contracts state mutation, tie, endpoint, Unicode, cycle, identity, and complexity assumptions rather than relying on a happy-path example.
+
+The full suite has **75 passing tests**, including calendar boundaries, background-timer catch-up, validated rehearsal storage, zero ratings, stale-tab preservation, and all interview cross-links/session durations. Browser checks verify plan tracking, persisted outlines/ratings, guide disclosure, the running/paused/reset timer, and the boundary walkthrough. Passing cases and self-ratings are evidence for practice, not an interview-readiness certification. See [INTERVIEW-PREP.md](INTERVIEW-PREP.md) for the intended study sequence and limits.
+
 ## Version 1.4.1 cache-model follow-up
 
 A final interaction audit found that changing the conceptual cache lab's TTL slider reinterpreted an existing entry's freshness. Entries now store their own expiry deadline. The control is labeled **TTL for next refill**, and the current deadline is visible. Changing future refill policy cannot retroactively extend or shorten a stored entry. A regression verifies both directions, expiry-boundary refill, and the newly assigned deadline. The full suite now contains **70 passing tests**; the 1.4.0 semantic/example evidence below is unchanged.

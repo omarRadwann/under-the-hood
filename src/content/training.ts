@@ -1,7 +1,9 @@
+import { problemSolving } from "./problem-solving";
+
 export interface Exercise {
   id: string;
   title: string;
-  domain: "JavaScript" | "Async" | "React contracts" | "Caching";
+  domain: "JavaScript" | "Async" | "React contracts" | "Caching" | "Problem solving";
   difficulty: "Precision" | "Concurrency" | "Systems";
   brief: string;
   contract: string;
@@ -463,6 +465,7 @@ export const exercises: Exercise[] = [
       },
     ],
   },
+  ...problemSolving,
 ];
 
 export const reviewDomains = [

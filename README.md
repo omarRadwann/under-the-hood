@@ -1,5 +1,7 @@
 # Under the Hood
 
+[Prepare for a senior technical interview](https://omarradwann.github.io/under-the-hood/interview/) with a three-session sprint, eight executable coding patterns, 25 discussion guides, a practice timer/mock, and a Bask Health role walkthrough. See [the preparation guide](INTERVIEW-PREP.md).
+
 [Open the live website](https://omarradwann.github.io/under-the-hood/) · [Start the JavaScript mastery path](https://omarradwann.github.io/under-the-hood/javascript/) · [Open training studio](https://omarradwann.github.io/under-the-hood/practice/)
 
 A Next.js learning workspace with **158 lessons**, a dedicated **66-chapter JavaScript mastery path**, ten interactive models, ten failure investigations, a SOLID workbench, and **66 editable experiments**. JavaScript progresses from the first program to advanced language/runtime and production reasoning, alongside React, Next.js, security, data, architecture, and patterns. All 52 runnable JavaScript lessons open their exact displayed source with reviewed output fixtures; multi-file examples have accessible file tabs.
@@ -61,7 +63,7 @@ The course has a searchable roadmap, per-stage outcomes and mastery projects, ex
 
 ## Training studio
 
-Open **/practice** for twelve repair exercises with **46 executable behavioral checks**. Predict a failure, edit the implementation, run the checks, inspect recorded calls/continuations/timers, and explain the invariant. Reference solutions and the check source are inspectable. Drafts, predictions, and attempt summaries persist locally; reference-assisted work stays labeled.
+Open **/practice** for twenty repair exercises with **78 executable behavioral checks**. Predict a failure, edit the implementation, run the checks, inspect recorded calls/continuations/timers, and explain the invariant. Reference solutions and the check source are inspectable. Drafts, predictions, and attempt summaries persist locally; reference-assisted work stays labeled.
 
 The exercises cover presence/coercion, collection identity, iterator cleanup, bounded concurrency, stale-result authority, reentrant notification, immutable updates, external-store snapshots, cache-key isolation, stale-refill fencing, binary framing, and asynchronous cleanup. Every supplied broken starter fails at least one check; every reference passes all its checks in a fresh worker.
 
@@ -133,7 +135,7 @@ pnpm exec prettier --check src tests
 
 With the production server running, `node scripts/check-routes.mjs` checks every public prerendered route and the unknown-lesson 404 behavior. Set `APP_URL` to check another local base URL. Run `pnpm curriculum` to regenerate [the full curriculum index](CURRICULUM.md).
 
-The 70 model/compiler/runtime/content/grading tests verify actual edited output, native timer behavior, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. Content checks also execute real ESM projects, Node I/O/compression, PostgreSQL transfer rollback, and controlled cancellation/security/cache contracts. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) and [per-example evidence](EXAMPLE-VERIFICATION.md) for scope and limits. These checks do not prove every reference snippet or every external runtime implementation.
+The 75 model/compiler/runtime/content/grading tests verify actual edited output, native timer behavior, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. Content checks also execute real ESM projects, Node I/O/compression, PostgreSQL transfer rollback, and controlled cancellation/security/cache contracts. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) and [per-example evidence](EXAMPLE-VERIFICATION.md) for scope and limits. These checks do not prove every reference snippet or every external runtime implementation.
 
 ## Source organization
 

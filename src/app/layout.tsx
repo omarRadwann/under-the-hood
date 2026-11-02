@@ -5,6 +5,7 @@ import "./globals.css";
 import "./playground.css";
 import "./javascript.css";
 import "./training.css";
+import "./interview.css";
 
 export const metadata: Metadata = {
   title: "Under the Hood — The engineering behind the interface",

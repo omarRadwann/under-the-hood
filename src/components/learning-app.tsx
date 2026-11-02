@@ -49,6 +49,11 @@ const TrainingStudio = dynamic(() => import("./training-studio"), {
   loading: () => <p className="muted">Loading the training studio…</p>,
 });
 
+const InterviewHub = dynamic(() => import("./interview-hub"), {
+  ssr: false,
+  loading: () => <p className="muted">Loading your interview workspace…</p>,
+});
+
 const Playground = dynamic(() => import("./playground"), {
   ssr: false,
   loading: () => <p className="muted">Loading the execution workbench…</p>,
@@ -61,6 +66,7 @@ type View =
   | "labs"
   | "playground"
   | "practice"
+  | "interview"
   | "architecture"
   | "saved"
   | "progress"
@@ -73,6 +79,7 @@ const nav = [
   { id: "labs", href: "/labs", label: "Interactive labs", icon: FlaskConical },
   { id: "playground", href: "/playground", label: "Code playground", icon: Terminal },
   { id: "practice", href: "/practice", label: "Training studio", icon: CheckCircle2 },
+  { id: "interview", href: "/interview", label: "Interview sprint", icon: Clock3 },
   { id: "architecture", href: "/architecture", label: "Architecture studio", icon: GitBranch },
 ];
 export function LearningApp({ view, slug }: { view: View; slug?: string }) {
@@ -273,15 +280,17 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
                         ? "Interactive labs"
                         : view === "playground"
                           ? "Code playground"
-                          : view === "practice"
-                            ? "Training studio"
-                            : view === "javascript"
-                              ? "JavaScript mastery"
-                              : view === "progress"
-                                ? "Learning path"
-                                : view === "saved"
-                                  ? "Saved lessons"
-                                  : "Glossary"}
+                          : view === "interview"
+                            ? "Interview sprint"
+                            : view === "practice"
+                              ? "Training studio"
+                              : view === "javascript"
+                                ? "JavaScript mastery"
+                                : view === "progress"
+                                  ? "Learning path"
+                                  : view === "saved"
+                                    ? "Saved lessons"
+                                    : "Glossary"}
             </strong>
           </div>
           <div className="topbar-actions">
@@ -321,6 +330,11 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
             </Suspense>
           )}
           {view === "labs" && <LabsView />}
+          {view === "interview" && (
+            <Suspense fallback={<p>Loading your interview preparation…</p>}>
+              <InterviewHub />
+            </Suspense>
+          )}
           {view === "practice" && (
             <Suspense fallback={<p>Loading your exercises…</p>}>
               <TrainingStudio />
@@ -484,6 +498,17 @@ function Overview({ study }: { study: Study }) {
           </Link>
         </div>
         <PlaygroundBanner />
+        <div className="interview-home-link">
+          <Clock3 size={24} />
+          <div>
+            <span className="eyebrow">THE TECHNICAL ROUND</span>
+            <strong>Turn understanding into an answer you can defend.</strong>
+            <p>Eight coding patterns, a timed mock, and a role-aligned preparation sprint.</p>
+          </div>
+          <Link href="/interview">
+            Start interview sprint <ArrowRight size={16} />
+          </Link>
+        </div>
         <div className="training-home-link">
           <CheckCircle2 size={20} />
           <div>
