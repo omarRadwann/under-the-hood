@@ -1,16 +1,19 @@
 # Engineering audit and coverage map
 
+## Version 1.6.0 public engineering workshop
+
+The public workspace is now a general **Engineering workshop** at `/workshop/`. It contains three learning tracks, eight coding patterns, 25 technical discussions, and a six-boundary system-design walkthrough. Role-specific preparation content and scheduling controls are removed from the current application and documentation. Existing coding drafts, grading records, and learning notes are preserved through internal compatibility aliases. Obsolete planning fields are discarded when records are parsed and exported.
+
+Regression coverage checks every workshop target, state validation, zero ratings, current/legacy record precedence, stale-tab preservation, and renamed exercise links/drafts. The existing runtime and behavioral checks continue to validate the executable algorithms. See [WORKSHOP.md](WORKSHOP.md) for the public learning flow and its evidence limits.
+
+
 ## Version 1.5.1 grading precision
 
 A deliberate incorrect-return probe showed that bracket checks accepted numeric 0/1 through truthiness. They now require literal booleans. The dependency-order check also verifies array shape and exact input-node membership in addition to edge order. A fresh-runtime mutation regression rejects both numeric boolean substitutes and a result with a foreign node. The full suite now has **76 passing tests**; the exercise bank still has 20 exercises and 78 checks.
 
-## Version 1.5.0 interview preparation
+## Version 1.5.0 coding and discussion exercises
 
-The new `/interview/` workspace connects a configurable three-session plan to eight executable problem-solving drills, 25 discussion prompts, a coding/full-mock timer, self-review, local outlines/mistake logs, export, and a six-boundary feature walkthrough. It is tailored to the supplied Bask Health posting; the prompts are authored practice, not confirmed interview questions.
-
-Training now has **20 exercises and 78 behavioral checks**. All references pass and every intentionally broken starter fails at least one listed check. The eight new references also pass all **32** checks in the real browser grader. Contracts state mutation, tie, endpoint, Unicode, cycle, identity, and complexity assumptions rather than relying on a happy-path example.
-
-The full suite has **75 passing tests**, including calendar boundaries, background-timer catch-up, validated rehearsal storage, zero ratings, stale-tab preservation, and all interview cross-links/session durations. Browser checks verify plan tracking, persisted outlines/ratings, guide disclosure, the running/paused/reset timer, and the boundary walkthrough. Passing cases and self-ratings are evidence for practice, not an interview-readiness certification. See [INTERVIEW-PREP.md](INTERVIEW-PREP.md) for the intended study sequence and limits.
+Eight problem-solving drills add 32 executable checks to the training bank, bringing it to **20 exercises and 78 behavioral checks**. All references pass and every intentionally broken starter fails at least one listed check. Contracts state mutation, tie, endpoint, Unicode, cycle, identity, and complexity assumptions. The release also introduced 25 authored discussion prompts, local explanation records, self-review, and a conceptual six-boundary feature walkthrough.
 
 ## Version 1.4.1 cache-model follow-up
 

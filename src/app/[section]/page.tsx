@@ -7,7 +7,7 @@ const sections = [
   "labs",
   "playground",
   "practice",
-  "interview",
+  "workshop",
   "architecture",
   "saved",
   "progress",

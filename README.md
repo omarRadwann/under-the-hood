@@ -1,6 +1,6 @@
 # Under the Hood
 
-[Prepare for a senior technical interview](https://omarradwann.github.io/under-the-hood/interview/) with a three-session sprint, eight executable coding patterns, 25 discussion guides, a practice timer/mock, and a Bask Health role walkthrough. See [the preparation guide](INTERVIEW-PREP.md).
+[Open the Engineering workshop](https://omarradwann.github.io/under-the-hood/workshop/) for three general learning tracks, eight executable coding patterns, 25 technical discussions, local learning notes, and a six-boundary system-design walkthrough. See [the workshop guide](WORKSHOP.md).
 
 [Open the live website](https://omarradwann.github.io/under-the-hood/) · [Start the JavaScript mastery path](https://omarradwann.github.io/under-the-hood/javascript/) · [Open training studio](https://omarradwann.github.io/under-the-hood/practice/)
 
@@ -115,6 +115,7 @@ The SOLID workbench shows coupling examples beside possible refactors and explai
 | `/javascript`             | Six-stage language-first mastery path, coverage and reference |
 | `/labs`                   | All nine lab models                                           |
 | `/playground`             | Editable JavaScript, React, and caching experiments           |
+| `/workshop`               | General learning tracks, coding patterns, discussions, system design |
 | `/practice`               | Repair exercises, runtime evidence, competency map            |
 | `/architecture`           | Scenario comparisons and SOLID refactors                      |
 | `/learn/[slug]`           | Deep dive, interactive model, practice, and local notes       |
@@ -135,7 +136,7 @@ pnpm exec prettier --check src tests
 
 With the production server running, `node scripts/check-routes.mjs` checks every public prerendered route and the unknown-lesson 404 behavior. Set `APP_URL` to check another local base URL. Run `pnpm curriculum` to regenerate [the full curriculum index](CURRICULUM.md).
 
-The 76 model/compiler/runtime/content/grading tests verify actual edited output, native timer behavior, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. Content checks also execute real ESM projects, Node I/O/compression, PostgreSQL transfer rollback, and controlled cancellation/security/cache contracts. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) and [per-example evidence](EXAMPLE-VERIFICATION.md) for scope and limits. These checks do not prove every reference snippet or every external runtime implementation.
+The 77 model/compiler/runtime/content/grading tests verify actual edited output, native timer behavior, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. Content checks also execute real ESM projects, Node I/O/compression, PostgreSQL transfer rollback, and controlled cancellation/security/cache contracts. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) and [per-example evidence](EXAMPLE-VERIFICATION.md) for scope and limits. These checks do not prove every reference snippet or every external runtime implementation.
 
 ## Source organization
 

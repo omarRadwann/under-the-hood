@@ -1,4 +1,5 @@
 import type { Exercise } from "../content/training";
+import { legacyExerciseId } from "./exercise-ids";
 
 export const CHECK_MARKER = "__UTH_CHECK__";
 export interface CheckResult {
@@ -67,7 +68,7 @@ export function parseTraining(
     if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
     const result: Record<string, TrainingRecord> = {};
     for (const exercise of exercises) {
-      const record = raw[exercise.id];
+      const record = raw[exercise.id] ?? raw[legacyExerciseId(exercise.id)];
       if (
         !record ||
         record.total !== exercise.checks.length ||

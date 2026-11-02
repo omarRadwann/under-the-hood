@@ -1,0 +1,773 @@
+.workshop-hub {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 48px 42px 30px;
+}
+.workshop-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+.workshop-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.workshop-hero h1 {
+  font-size: clamp(32px, 3.5vw, 48px);
+  line-height: 1.15;
+  letter-spacing: -1.6px;
+  margin: 20px 0;
+}
+.workshop-hero h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.workshop-hero p {
+  max-width: 640px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.workshop-topic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.workshop-topic-tags span {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.workshop-method {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+.workshop-method ol {
+  padding-left: 22px;
+  margin-bottom: 0;
+}
+.workshop-method li {
+  padding: 8px 0 8px 5px;
+  color: var(--accent);
+}
+.workshop-method strong,
+.workshop-method li span {
+  display: block;
+}
+.workshop-method li span {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.workshop-evidence-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 40px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+}
+.workshop-evidence-strip > div {
+  padding: 18px 22px;
+  border-right: 1px solid var(--border);
+}
+.workshop-evidence-strip > div:last-child {
+  border: 0;
+}
+.workshop-evidence-strip strong {
+  display: block;
+  color: var(--accent);
+  font: 25px var(--font-mono);
+}
+.workshop-evidence-strip span {
+  color: var(--muted);
+  display: block;
+  font-size: 11px;
+  margin-top: 6px;
+}
+.workshop-workspace-note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0 28px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.workshop-workspace-note button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.workshop-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+}
+.workshop-tabs button {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 13px 14px;
+  text-align: left;
+  background: transparent;
+  color: var(--muted);
+}
+.workshop-tabs button[aria-pressed="true"] {
+  color: var(--accent);
+  background: var(--accent-dark);
+  border-color: #435136;
+}
+.workshop-tabs strong,
+.workshop-tabs span {
+  display: block;
+}
+.workshop-tabs span {
+  font-size: 10px;
+  margin-top: 3px;
+}
+.workshop-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  align-items: end;
+  margin: 38px 0 25px;
+}
+.workshop-section-heading h2 {
+  font-size: 26px;
+  line-height: 1.3;
+  letter-spacing: -0.7px;
+  margin: 9px 0 0;
+}
+.workshop-section-heading > p {
+  color: var(--muted);
+  max-width: 470px;
+  font-size: 12px;
+  margin: 0;
+}
+.workshop-track {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 18px 0;
+  background: var(--panel);
+  overflow: hidden;
+}
+.workshop-track > header {
+  display: flex;
+  gap: 16px;
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.workshop-track h3 {
+  margin: 2px 0 4px;
+  font-size: 20px;
+}
+.workshop-track header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.workshop-track-number {
+  color: var(--accent);
+  font: 26px var(--font-mono);
+}
+.workshop-block {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 12px;
+  padding: 17px 24px;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.workshop-block:last-child {
+  border: 0;
+}
+.workshop-block-check {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.workshop-block-check input {
+  margin-top: 5px;
+  flex: 0 0 auto;
+  accent-color: var(--accent);
+}
+.workshop-block-check strong,
+.workshop-block-check small {
+  display: block;
+}
+.workshop-block-check small {
+  color: var(--muted);
+  margin-top: 3px;
+  font-size: 12px;
+}
+.workshop-block p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 5px 0 12px;
+}
+.workshop-block-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.workshop-block-links :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+}
+.workshop-track footer {
+  padding: 18px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+}
+.workshop-track footer strong {
+  color: var(--accent);
+}
+.workshop-track footer p {
+  color: var(--muted);
+  margin: 6px 0;
+}
+.workshop-tracks > details {
+  margin: 22px 0;
+  color: var(--muted);
+}
+.workshop-tracks summary,
+.workshop-problem summary {
+  color: var(--accent);
+  cursor: pointer;
+}
+.workshop-coding-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.workshop-drill-list,
+.workshop-question-list {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+}
+.workshop-drill-list button,
+.workshop-question-list button {
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-align: left;
+  padding: 14px 16px;
+}
+.workshop-drill-list button[aria-pressed="true"],
+.workshop-question-list button[aria-pressed="true"] {
+  background: var(--accent-dark);
+  border-color: #687852;
+}
+.workshop-drill-list span,
+.workshop-question-list small {
+  display: block;
+  color: var(--accent);
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+.workshop-drill-list strong,
+.workshop-question-list strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+.workshop-question-list button > span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 6px;
+}
+.workshop-problem,
+.workshop-answer,
+.workshop-boundary-detail {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+  min-width: 0;
+}
+.workshop-problem h3,
+.workshop-answer h3,
+.workshop-boundary-detail h3 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 10px 0 20px;
+}
+.workshop-problem > p,
+.workshop-question-prompt {
+  color: var(--muted);
+  line-height: 1.8;
+}
+.workshop-invariant {
+  border-left: 2px solid var(--accent);
+  background: var(--accent-dark);
+  padding: 15px 18px;
+  margin: 22px 0;
+}
+.workshop-invariant strong {
+  color: var(--accent);
+  font-size: 12px;
+}
+.workshop-invariant p {
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+.workshop-problem details {
+  padding: 20px 0;
+}
+.workshop-problem li,
+.workshop-discussion-guide li,
+.workshop-callout li {
+  color: var(--muted);
+  margin: 9px 0;
+}
+.workshop-notes-label {
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 22px 0;
+}
+.workshop-notes-label textarea {
+  width: 100%;
+  min-height: 140px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 14px;
+  line-height: 1.7;
+}
+.workshop-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+.workshop-filters > label:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.workshop-filters select {
+  max-width: 100%;
+  padding: 8px 12px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.workshop-weak-toggle {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+.workshop-weak-toggle input,
+.workshop-self-rating input {
+  accent-color: var(--accent);
+}
+.workshop-answer-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.workshop-question-list {
+  max-height: 850px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+.workshop-assisted {
+  display: block;
+  color: var(--yellow);
+  margin-top: 10px;
+}
+.workshop-discussion-guide {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px;
+  margin-top: 20px;
+}
+.workshop-discussion-guide h4 {
+  color: var(--accent);
+  font-size: 13px;
+  margin: 5px 0 12px;
+}
+.workshop-discussion-guide h4:not(:first-child) {
+  margin-top: 24px;
+}
+.workshop-discussion-guide ol,
+.workshop-discussion-guide ul {
+  padding-left: 20px;
+  font-size: 13px;
+}
+.workshop-self-rating {
+  border: 0;
+  border-top: 1px solid var(--border);
+  padding: 20px 0 0;
+  margin: 28px 0;
+  display: grid;
+  gap: 10px;
+}
+.workshop-self-rating legend {
+  color: var(--muted);
+  font-size: 11px;
+  padding-right: 10px;
+}
+.workshop-self-rating label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+}
+.workshop-self-rating label span {
+  font: 12px var(--font-mono);
+  color: var(--accent);
+}
+.workshop-study-links {
+  display: grid;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+.workshop-study-links a {
+  color: var(--accent);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.workshop-empty {
+  color: var(--muted);
+  padding: 20px;
+}
+.workshop-design-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.workshop-design-summary section {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+}
+.workshop-design-summary h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+.workshop-design-summary p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 0;
+}
+.workshop-command-map {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: 24px 0;
+  gap: 7px;
+}
+.workshop-command-map button {
+  min-width: 0;
+  padding: 15px 12px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  text-align: left;
+}
+.workshop-command-map button[aria-pressed="true"] {
+  background: var(--accent-dark);
+  border-color: #687852;
+}
+.workshop-command-map span {
+  display: block;
+  color: var(--accent);
+  font: 12px var(--font-mono);
+  margin-bottom: 8px;
+}
+.workshop-command-map strong {
+  display: block;
+  font-size: 12px;
+}
+.workshop-command-map svg {
+  color: var(--muted);
+  margin-top: 12px;
+}
+.workshop-boundary-detail > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.workshop-boundary-detail h4 {
+  color: var(--accent);
+  font-size: 12px;
+}
+.workshop-boundary-detail p {
+  color: var(--muted);
+  font-size: 13px;
+}
+.workshop-boundary-detail small {
+  display: block;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+}
+.workshop-design-prompts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+.workshop-design-prompts button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--accent);
+  padding: 18px;
+  text-align: left;
+}
+.workshop-design-prompts strong {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+}
+.workshop-design-prompts svg {
+  flex-shrink: 0;
+}
+.workshop-callout {
+  border-left: 2px solid var(--accent);
+  padding: 8px 22px;
+  margin-top: 28px;
+}
+.workshop-callout h3 {
+  font-size: 15px;
+}
+.workshop-callout ul {
+  padding-left: 18px;
+  font-size: 13px;
+}
+.workshop-footnote {
+  color: var(--muted);
+  font-size: 11px;
+  padding-top: 28px;
+  margin-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.workshop-home-link {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #435136;
+  background: var(--accent-dark);
+  border-radius: 10px;
+  padding: 24px;
+  margin: 24px 0;
+}
+.workshop-home-link > svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.workshop-home-link > div {
+  flex: 1;
+}
+.workshop-home-link > div > strong {
+  display: block;
+  margin: 6px 0;
+  font-size: 20px;
+}
+.workshop-home-link p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 12px;
+}
+.workshop-home-link > a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  font-size: 12px;
+}
+.workshop-hub :is(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.workshop-hub :is(p, strong, h1, h2, h3, h4, small, a) {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+  .workshop-hub {
+    padding: 32px 24px;
+  }
+  .workshop-hero {
+    gap: 24px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workshop-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .workshop-section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .workshop-coding-layout,
+  .workshop-answer-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 16px;
+  }
+  .workshop-command-map {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .workshop-block {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workshop-block-links {
+    justify-content: start;
+  }
+  .workshop-home-link {
+    flex-wrap: wrap;
+  }
+}
+@media (min-width: 761px) and (max-width: 1000px) {
+  .workshop-coding-layout,
+  .workshop-answer-layout,
+  .workshop-design-summary,
+  .workshop-boundary-detail > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workshop-drill-list,
+  .workshop-question-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .workshop-evidence-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .workshop-evidence-strip > div {
+    border-bottom: 1px solid var(--border);
+  }
+  .workshop-evidence-strip > div:nth-child(2) {
+    border-right: 0;
+  }
+  .workshop-evidence-strip > div:nth-child(3) {
+    border-bottom: 0;
+  }
+}
+@media (max-width: 760px) {
+  .workshop-hub {
+    padding: 28px 18px;
+  }
+  .workshop-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workshop-hero h1 {
+    font-size: 34px;
+    letter-spacing: -1px;
+  }
+  .workshop-method {
+    padding: 20px;
+  }
+  .workshop-evidence-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 24px;
+  }
+  .workshop-evidence-strip > div {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .workshop-evidence-strip > div:nth-child(2) {
+    border-right: 0;
+  }
+  .workshop-evidence-strip > div:nth-child(3) {
+    border-bottom: 0;
+  }
+  .workshop-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .workshop-tabs button {
+    padding: 12px;
+  }
+  .workshop-tabs span {
+    font-size: 10px;
+  }
+  .workshop-section-heading h2 {
+    font-size: 24px;
+  }
+  .workshop-track > header,
+  .workshop-block {
+    padding: 18px;
+  }
+  .workshop-track > header {
+    align-items: start;
+  }
+  .workshop-track h3 {
+    font-size: 18px;
+  }
+  .workshop-coding-layout,
+  .workshop-answer-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workshop-drill-list,
+  .workshop-question-list {
+    max-height: 260px;
+    overflow-y: auto;
+  }
+  .workshop-problem,
+  .workshop-answer,
+  .workshop-boundary-detail {
+    padding: 20px;
+  }
+  .workshop-design-summary,
+  .workshop-boundary-detail > div,
+  .workshop-design-prompts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workshop-boundary-detail > div {
+    gap: 8px;
+  }
+  .workshop-command-map {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .workshop-home-link {
+    padding: 20px;
+    gap: 14px;
+  }
+  .workshop-home-link > div {
+    min-width: 200px;
+  }
+}

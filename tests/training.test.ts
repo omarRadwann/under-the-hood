@@ -65,7 +65,7 @@ test("each intentionally broken starter is caught by its actual behavioral check
   }
 });
 test("coding checks reject truthy numeric answers and foreign graph nodes", async () => {
-  const brackets = exercises.find((exercise) => exercise.id === "interview-balanced-brackets")!;
+  const brackets = exercises.find((exercise) => exercise.id === "algorithm-balanced-brackets")!;
   const bracketMutation =
     brackets.solution +
     "\nconst originalBalanced=balanced; balanced=text=>Number(originalBalanced(text));";
@@ -75,7 +75,7 @@ test("coding checks reject truthy numeric answers and foreign graph nodes", asyn
     bracketResult.passed < brackets.checks.length,
     "Numeric 0/1 must not satisfy a boolean contract",
   );
-  const graph = exercises.find((exercise) => exercise.id === "interview-dependency-order")!;
+  const graph = exercises.find((exercise) => exercise.id === "algorithm-dependency-order")!;
   const graphMutation =
     graph.solution +
     "\nconst originalOrder=dependencyOrder; dependencyOrder=(nodes,edges)=>{const out=originalOrder(nodes,edges);return out===null?null:out.map(id=>id==='independent'?'foreign':id);};";

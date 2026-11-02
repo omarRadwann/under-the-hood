@@ -1,8 +1,8 @@
-export type InterviewGroup =
+export type WorkshopGroup =
   "JavaScript" | "React" | "Platform & Next.js" | "System design" | "Ownership";
-export interface InterviewQuestion {
+export interface DiscussionQuestion {
   id: string;
-  group: InterviewGroup;
+  group: WorkshopGroup;
   title: string;
   prompt: string;
   guide: string[];
@@ -13,7 +13,7 @@ export interface InterviewQuestion {
 }
 const question = (
   id: string,
-  group: InterviewGroup,
+  group: WorkshopGroup,
   title: string,
   prompt: string,
   guide: string[],
@@ -21,16 +21,16 @@ const question = (
   traps: string[],
   lessons: string[],
   exercise?: string,
-): InterviewQuestion => ({ id, group, title, prompt, guide, followUps, traps, lessons, exercise });
+): DiscussionQuestion => ({ id, group, title, prompt, guide, followUps, traps, lessons, exercise });
 
-const groupOrder: InterviewGroup[] = [
+const groupOrder: WorkshopGroup[] = [
   "JavaScript",
   "React",
   "Platform & Next.js",
   "System design",
   "Ownership",
 ];
-export const interviewQuestions: InterviewQuestion[] = [
+export const discussionQuestions: DiscussionQuestion[] = [
   question(
     "ts-state",
     "Platform & Next.js",
@@ -111,7 +111,7 @@ export const interviewQuestions: InterviewQuestion[] = [
     ],
     ["Mixing for-of point counts with string indexes", "Moving left backwards"],
     ["strings-and-unicode", "complexity-and-virtualization"],
-    "interview-unique-window",
+    "algorithm-unique-window",
   ),
   question(
     "js-closure",
@@ -167,7 +167,7 @@ export const interviewQuestions: InterviewQuestion[] = [
     ],
     ["An exact-match search is the same operation", "No explanation of boundary updates"],
     ["control-flow-and-loops", "complexity-and-virtualization"],
-    "interview-lower-bound",
+    "algorithm-lower-bound",
   ),
   question(
     "react-snapshot",
@@ -338,7 +338,7 @@ export const interviewQuestions: InterviewQuestion[] = [
     "web-forms",
     "Platform & Next.js",
     "Build a form that survives failure",
-    "A care-team member submits an edit with keyboard or pointer input. Define validation, pending state, repeated submission, error announcements, and focus recovery.",
+    "A workspace member submits an edit with keyboard or pointer input. Define validation, pending state, repeated submission, error announcements, and focus recovery.",
     [
       "Use form submission semantics and named controls. Capture submitter intent, handle repeated values deliberately, and validate at the server boundary.",
       "Preserve recoverable input on failure and distinguish field errors, authorization denial, conflicts, and uncertain remote outcomes.",
@@ -393,7 +393,7 @@ export const interviewQuestions: InterviewQuestion[] = [
     "system-booking",
     "System design",
     "Handle an ambiguous booking response",
-    "Two users try to reserve one appointment slot. One request times out after the server may have committed. Design the frontend and authoritative command protocol.",
+    "Two users try to reserve one resource slot. One request times out after the server may have committed. Design the frontend and authoritative command protocol.",
     [
       "Clarify product invariants and the slot/time representation. UI disabled states do not protect a cross-user reservation invariant.",
       "Use authoritative constraints/conditional writes or suitable isolation. Verify the affected row/commit outcome; retry transaction conflicts as a whole safe unit.",
@@ -481,7 +481,7 @@ export const interviewQuestions: InterviewQuestion[] = [
       "Define the user problem, constraints, invariants, accepted inputs, and a reviewable plan before relying on a generated implementation.",
       "Inspect generated dependency choices, data flow, authorization, cleanup, and failure paths. Use an independent contract or test oracle so tests do not repeat the same mistake.",
       "Verify the real boundaries through types, runtime validation, integration/browser evidence, and staged rollout. Keep sensitive production data out of ad hoc prompts and demos.",
-      "Record decisions and communicate remaining uncertainty. Ask what tools are permitted in the actual interview; the employer's AI workflow does not establish interview rules.",
+      "Record decisions and communicate remaining uncertainty. Follow the project's data-handling and tool policies.",
     ],
     [
       "Give a specific example where you rejected a generated approach.",
@@ -512,7 +512,7 @@ export const interviewQuestions: InterviewQuestion[] = [
     "own-automation",
     "Ownership",
     "Make automation understandable",
-    "An automated system proposes changes for a care-team dashboard. Design the interaction so people can understand what happened, what is pending, and what they control.",
+    "An automated system proposes changes for an operations dashboard. Design the interaction so people can understand what happened, what is pending, and what they control.",
     [
       "Separate a suggestion, a requested action, an authoritative commit, and a failure. Show actor/provenance and relevant status without implying uncertain success.",
       "Define permission and confirmation boundaries with product owners; a convincing explanation does not grant the automation authority.",
@@ -533,56 +533,48 @@ export const interviewQuestions: InterviewQuestion[] = [
 
 export const codingDrills = [
   {
-    id: "interview-pair-sum",
+    id: "algorithm-pair-sum",
     pattern: "Lookup map",
-    minutes: 20,
     focus: "Complement lookup before insertion; explain duplicate and tie policy.",
   },
   {
-    id: "interview-unique-window",
+    id: "algorithm-unique-window",
     pattern: "Sliding window",
-    minutes: 25,
     focus: "A monotonic left boundary and an explicit Unicode unit.",
   },
   {
-    id: "interview-lower-bound",
+    id: "algorithm-lower-bound",
     pattern: "Binary search",
-    minutes: 20,
     focus: "A half-open interval invariant, duplicates, and insertion endpoints.",
   },
   {
-    id: "interview-merge-windows",
+    id: "algorithm-merge-windows",
     pattern: "Sort + scan",
-    minutes: 25,
     focus: "State the endpoint policy, preserve ownership, then merge.",
   },
   {
-    id: "interview-tree-preorder",
+    id: "algorithm-tree-preorder",
     pattern: "Iterative DFS",
-    minutes: 25,
     focus: "Preserve sibling order and explain graph versus tree assumptions.",
   },
   {
-    id: "interview-lru-cache",
+    id: "algorithm-lru-cache",
     pattern: "Ordered map / LRU",
-    minutes: 30,
     focus: "Capacity after every write, recency, identity, and undefined values.",
   },
   {
-    id: "interview-balanced-brackets",
+    id: "algorithm-balanced-brackets",
     pattern: "Stack warm-up",
-    minutes: 10,
     focus: "Nesting is stronger than equal counts. Define the input language.",
   },
   {
-    id: "interview-dependency-order",
+    id: "algorithm-dependency-order",
     pattern: "Graph / topological order",
-    minutes: 35,
     focus: "Indegrees, disconnected cycles, duplicate edges, and queue cost.",
   },
 ];
 
-export const sprintSessions = [
+export const learningTracks = [
   {
     id: "language",
     title: "JavaScript + problem solving",
@@ -591,7 +583,6 @@ export const sprintSessions = [
     blocks: [
       {
         id: "warmup",
-        minutes: 15,
         title: "Practice the five-step problem-solving loop",
         detail:
           "Clarify → trace a small example → choose a structure/invariant → implement → test and explain complexity.",
@@ -599,22 +590,19 @@ export const sprintSessions = [
       },
       {
         id: "maps",
-        minutes: 25,
         title: "Map lookup, then a sliding window",
         detail:
           "Solve pair sum first. Trace duplicates and a window whose left edge must not retreat.",
-        exercise: "interview-pair-sum",
+        exercise: "algorithm-pair-sum",
       },
       {
         id: "window",
-        minutes: 30,
         title: "Implement the unique-window contract",
         detail: "Use the runner, then explain code points and the extra-space bound out loud.",
-        exercise: "interview-unique-window",
+        exercise: "algorithm-unique-window",
       },
       {
         id: "async",
-        minutes: 30,
         title: "Predict scheduling and repair stale results",
         detail:
           "Explain the event loop, then prove latest-owner commits with reordered completions.",
@@ -623,7 +611,6 @@ export const sprintSessions = [
       },
       {
         id: "recall",
-        minutes: 20,
         title: "Closed-book explanation and mistake log",
         detail:
           "Re-explain two missed points without notes; write the invariant you originally violated.",
@@ -631,7 +618,7 @@ export const sprintSessions = [
       },
     ],
     extra: [
-      "Use binary search and interval merging as two additional timed problems.",
+      "Use binary search and interval merging as two additional problems.",
       "Do not read a solution until you have written an approach and at least three tests.",
     ],
   },
@@ -642,7 +629,6 @@ export const sprintSessions = [
     blocks: [
       {
         id: "snapshot",
-        minutes: 25,
         title: "Predict state, keys, and rendering",
         detail:
           "Use the real React playground. Explain count 1 versus 3, then reordered editable rows.",
@@ -650,7 +636,6 @@ export const sprintSessions = [
       },
       {
         id: "effects",
-        minutes: 25,
         title: "Defend effect cleanup and snapshot identity",
         detail: "Discuss a query race, unmount, external subscriptions, and a no-op write.",
         question: "react-store",
@@ -658,15 +643,13 @@ export const sprintSessions = [
       },
       {
         id: "lru",
-        minutes: 35,
         title: "Build a bounded LRU cache",
         detail:
           "Discuss API behavior and eviction before implementing. Test undefined and object keys.",
-        exercise: "interview-lru-cache",
+        exercise: "algorithm-lru-cache",
       },
       {
         id: "browser",
-        minutes: 20,
         title: "Investigate a slow, inaccessible form",
         detail:
           "Name the evidence for layout/interaction cost; cover keyboard, focus, and recoverable errors.",
@@ -674,25 +657,23 @@ export const sprintSessions = [
       },
       {
         id: "teach",
-        minutes: 15,
-        title: "Explain one fix in two minutes",
+        title: "Explain and verify a fix",
         detail: "Give the symptom, mechanism, fix, test, and one limit of your evidence.",
         question: "react-speed",
       },
     ],
     extra: [
       "Implement the iterative tree traversal, then discuss how a graph changes its assumptions.",
-      "Rehearse the CSS clipping/stacking question at mobile width and 200% zoom.",
+      "Explore the CSS clipping/stacking scenario at mobile width and 200% zoom.",
     ],
   },
   {
     id: "systems",
-    title: "Bask role rehearsal + full mock",
+    title: "System boundaries and engineering judgment",
     outcome: "Connect a user action to tenant-safe persistence, recovery, and production evidence.",
     blocks: [
       {
         id: "design",
-        minutes: 25,
         title: "Trace a rescheduling command end to end",
         detail:
           "Clarify the booking invariant, typed API, runtime schema, tenant policy, transaction, and uncertain response.",
@@ -700,7 +681,6 @@ export const sprintSessions = [
       },
       {
         id: "boundary",
-        minutes: 15,
         title: "Defend the Next.js and cache boundaries",
         detail:
           "Distinguish server/client execution, private representations, invalidation, and stale refills.",
@@ -708,59 +688,23 @@ export const sprintSessions = [
         exercise: "stale-refill-fence",
       },
       {
-        id: "mock",
-        minutes: 60,
-        title: "Run the uninterrupted practice mock",
-        detail:
-          "Use the mock timer and speak your reasoning. Review only after the round finishes.",
+        id: "integration",
+        title: "Review an integrated feature",
+        detail: "Connect UI intent, runtime validation, authorization, persistence, and recovery.",
         question: "api-trust",
       },
       {
         id: "stories",
-        minutes: 20,
-        title: "Prepare two true ownership stories",
+        title: "Document engineering decisions",
         detail:
           "One incident and one delivery tradeoff; include your contribution, evidence, and what you learned.",
         question: "own-incident",
       },
     ],
     extra: [
-      "Extend the mock with topological order if core problems are already solid.",
-      "Prepare a concrete example of reviewing and correcting AI-generated code.",
+      "Explore dependency ordering once the core contracts are clear.",
+      "Review a concrete example of correcting AI-generated code.",
     ],
-  },
-];
-
-export const mockStages = [
-  {
-    title: "Clarify",
-    minutes: 5,
-    prompt:
-      "Restate the function/API, inputs, outputs, constraints, mutation policy, and one ambiguous edge case. Ask permission to use any tool.",
-  },
-  {
-    title: "Solve",
-    minutes: 25,
-    prompt:
-      "Trace a simple example. Describe the straightforward approach, then your data structure and invariant. Implement while narrating decisions.",
-  },
-  {
-    title: "Test & defend",
-    minutes: 10,
-    prompt:
-      "Run normal, empty, duplicate, and boundary cases. Explain a counterexample to a broken version, plus complexity and its assumptions.",
-  },
-  {
-    title: "Frontend follow-up",
-    minutes: 15,
-    prompt:
-      "Connect the algorithm to a UI. Discuss result ownership, accessibility, performance, runtime validation, and the server's authority.",
-  },
-  {
-    title: "Ownership",
-    minutes: 5,
-    prompt:
-      "Tell one evidence-based project story. State your contribution, a tradeoff, result, and learning. Ask a useful question about the team's quality bar.",
   },
 ];
 
@@ -791,7 +735,7 @@ export const commandStages = [
   {
     title: "Atomic write",
     contract:
-      "Protect the booking/version invariant using the database's real constraints and concurrency behavior.",
+      "Protect the resource/version invariant using the database's real constraints and concurrency behavior.",
     failure: "Concurrent writers both appear valid, or a timeout hides a successful commit.",
     evidence:
       "Use controlled concurrent transactions and operation identity; verify commit and rollback behavior.",

@@ -2,7 +2,7 @@ import type { Exercise } from "./training";
 
 export const problemSolving: Exercise[] = [
   {
-    id: "interview-pair-sum",
+    id: "algorithm-pair-sum",
     title: "Find a pair without reusing an element",
     domain: "Problem solving",
     difficulty: "Precision",
@@ -40,7 +40,7 @@ export const problemSolving: Exercise[] = [
     ],
   },
   {
-    id: "interview-merge-windows",
+    id: "algorithm-merge-windows",
     title: "Coalesce availability windows",
     domain: "Problem solving",
     difficulty: "Precision",
@@ -77,7 +77,7 @@ export const problemSolving: Exercise[] = [
     ],
   },
   {
-    id: "interview-unique-window",
+    id: "algorithm-unique-window",
     title: "Find the longest unique text window",
     domain: "Problem solving",
     difficulty: "Precision",
@@ -113,7 +113,7 @@ export const problemSolving: Exercise[] = [
     ],
   },
   {
-    id: "interview-tree-preorder",
+    id: "algorithm-tree-preorder",
     title: "Traverse a nested navigation tree",
     domain: "Problem solving",
     difficulty: "Systems",
@@ -149,7 +149,7 @@ export const problemSolving: Exercise[] = [
     ],
   },
   {
-    id: "interview-lower-bound",
+    id: "algorithm-lower-bound",
     title: "Find an insertion boundary with binary search",
     domain: "Problem solving",
     difficulty: "Precision",
@@ -183,7 +183,7 @@ export const problemSolving: Exercise[] = [
     ],
   },
   {
-    id: "interview-lru-cache",
+    id: "algorithm-lru-cache",
     title: "Build a bounded LRU cache",
     domain: "Problem solving",
     difficulty: "Systems",
@@ -220,7 +220,7 @@ export const problemSolving: Exercise[] = [
     ],
   },
   {
-    id: "interview-balanced-brackets",
+    id: "algorithm-balanced-brackets",
     title: "Validate nested bracket pairs",
     domain: "Problem solving",
     difficulty: "Precision",
@@ -256,7 +256,7 @@ export const problemSolving: Exercise[] = [
     ],
   },
   {
-    id: "interview-dependency-order",
+    id: "algorithm-dependency-order",
     title: "Order dependencies and detect a cycle",
     domain: "Problem solving",
     difficulty: "Systems",

@@ -16,6 +16,7 @@ import { exercises, reviewDomains } from "@/content/training";
 import { getLesson, getTrackLessons, lessons } from "@/content";
 import { tracks } from "@/lib/types";
 import { updateStoredValue } from "@/lib/local-state";
+import { canonicalExerciseId, readTrainingDraft } from "@/lib/exercise-ids";
 import {
   CHECK_MARKER,
   parseCheck,
@@ -35,7 +36,9 @@ const recordKey = "uth.training.records.v1";
 type Status = "idle" | "compiling" | "running" | "complete" | "error" | "stopped";
 export default function TrainingStudio() {
   const params = useSearchParams();
-  const exercise = exercises.find((item) => item.id === params.get("exercise")) ?? exercises[0];
+  const exercise =
+    exercises.find((item) => item.id === canonicalExerciseId(params.get("exercise") ?? "")) ??
+    exercises[0];
   const [view, setView] = useState<"bench" | "map">("bench");
   const [domain, setDomain] = useState("All");
   const [source, setSource] = useState(exercise.starter);
@@ -93,7 +96,7 @@ export default function TrainingStudio() {
     setSelectedEvent(null);
     let draft;
     try {
-      draft = JSON.parse(localStorage.getItem("uth.training.draft.v1." + exercise.id) ?? "null");
+      draft = JSON.parse(readTrainingDraft(localStorage, exercise.id) ?? "null");
     } catch {
       /* Malformed drafts use the original challenge. */
     }

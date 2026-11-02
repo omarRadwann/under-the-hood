@@ -1,16 +1,20 @@
 # Verification record
 
+## Version 1.6.0 public workshop
+
+**77 tests pass**, strict TypeScript passes, and the nested-path production export resolves **7,674 local link/asset targets** across **898 files**. All **170 application route/asset requests** succeed, with the expected unknown-lesson 404. The obsolete workspace route is no longer exported. The production dependency audit reports no known vulnerabilities.
+
+The four general workshop views were checked at mobile and tablet widths with one main heading, named controls, and no horizontal page overflow. A tablet layout pass widened the view selectors and stacked narrow content panels. Existing local explanation text, a zero self-rating, a consulted-guide flag, and practice progress survive migration. Export produces valid JSON containing only version, completed blocks, answers, and the learning log. Compatibility checks preserve renamed exercise links, grading records, and deliberately empty code drafts.
+
+The current application and documentation contain general developer-learning content. Role-specific preparation and scheduling features are removed. Listed behavioral checks and self-review remain bounded evidence; they do not establish universal correctness or mastery.
+
 ## Version 1.5.1 grading precision
 
-**76 tests pass.** Added a mutation regression for incorrect numeric bracket returns and foreign graph nodes. All reference solutions continue to satisfy the stricter boolean and node-membership checks. This follow-up changes grading predicates, while preserving the preparation plan, 25 discussions, eight coding patterns, and 78 listed checks.
+**76 tests pass.** Added a mutation regression for incorrect numeric bracket returns and foreign graph nodes. All reference solutions continue to satisfy the stricter boolean and node-membership checks. This follow-up changes grading predicates, while preserving the 25 discussions, eight coding patterns, and 78 listed checks.
 
-## Version 1.5.0 interview sprint
+## Version 1.5.0 coding exercise evidence
 
-The production export contains **899 files**, **7,674 resolved local link/asset targets**, and **170 successful local application route/asset requests**, with the expected unknown-lesson 404. All four interview views were checked at 390px and 768px viewports: page/content widths matched (375px and 753px after scrollbars), each had one main h1 and no unnamed visible buttons. Notes export produced valid JSON retaining a zero rating and the guide-consulted flag. Formatting and dependency audit pass.
-
-Checked November 2, 2026. **75 tests pass**. All 20 reference solutions pass 78 checks, every broken starter is rejected by at least one check, and all eight new solutions pass 32 checks through the browser UI. The new interview route and its links are included in the nested-path static export and deployment route checks.
-
-Calendar tests cover a November 5 Thursday target, leap dates, invalid dates, and whole-day arithmetic. Timer tests cover delayed ticks and zero clamping; browser checks exercise running across workspace tabs, pause, and reset. Storage validates known questions/blocks and preserves score zero and other tabs' different answers. Local browser tests verify notes/references and role-boundary selection. Self-ratings, source disclosure, and host/integration limits remain explicit.
+All 20 reference solutions passed their 78 listed checks; every intentionally broken starter failed at least one check. All eight new solutions passed their 32 checks through the browser grader. Local explanation records, zero ratings, guide disclosure, and conceptual boundary selection were checked. These records establish the listed behaviors rather than comprehensive correctness or mastery.
 
 ## Version 1.4.1 cache-model verification
 

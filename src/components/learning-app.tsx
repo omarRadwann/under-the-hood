@@ -49,9 +49,9 @@ const TrainingStudio = dynamic(() => import("./training-studio"), {
   loading: () => <p className="muted">Loading the training studio…</p>,
 });
 
-const InterviewHub = dynamic(() => import("./interview-hub"), {
+const WorkshopHub = dynamic(() => import("./workshop-hub"), {
   ssr: false,
-  loading: () => <p className="muted">Loading your interview workspace…</p>,
+  loading: () => <p className="muted">Loading your workshop workspace…</p>,
 });
 
 const Playground = dynamic(() => import("./playground"), {
@@ -66,7 +66,7 @@ type View =
   | "labs"
   | "playground"
   | "practice"
-  | "interview"
+  | "workshop"
   | "architecture"
   | "saved"
   | "progress"
@@ -79,7 +79,7 @@ const nav = [
   { id: "labs", href: "/labs", label: "Interactive labs", icon: FlaskConical },
   { id: "playground", href: "/playground", label: "Code playground", icon: Terminal },
   { id: "practice", href: "/practice", label: "Training studio", icon: CheckCircle2 },
-  { id: "interview", href: "/interview", label: "Interview sprint", icon: Clock3 },
+  { id: "workshop", href: "/workshop", label: "Engineering workshop", icon: BookOpen },
   { id: "architecture", href: "/architecture", label: "Architecture studio", icon: GitBranch },
 ];
 export function LearningApp({ view, slug }: { view: View; slug?: string }) {
@@ -280,8 +280,8 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
                         ? "Interactive labs"
                         : view === "playground"
                           ? "Code playground"
-                          : view === "interview"
-                            ? "Interview sprint"
+                          : view === "workshop"
+                            ? "Engineering workshop"
                             : view === "practice"
                               ? "Training studio"
                               : view === "javascript"
@@ -330,9 +330,9 @@ export function LearningApp({ view, slug }: { view: View; slug?: string }) {
             </Suspense>
           )}
           {view === "labs" && <LabsView />}
-          {view === "interview" && (
-            <Suspense fallback={<p>Loading your interview preparation…</p>}>
-              <InterviewHub />
+          {view === "workshop" && (
+            <Suspense fallback={<p>Loading the engineering workshop…</p>}>
+              <WorkshopHub />
             </Suspense>
           )}
           {view === "practice" && (
@@ -498,15 +498,18 @@ function Overview({ study }: { study: Study }) {
           </Link>
         </div>
         <PlaygroundBanner />
-        <div className="interview-home-link">
-          <Clock3 size={24} />
+        <div className="workshop-home-link">
+          <BookOpen size={24} />
           <div>
-            <span className="eyebrow">THE TECHNICAL ROUND</span>
-            <strong>Turn understanding into an answer you can defend.</strong>
-            <p>Eight coding patterns, a timed mock, and a role-aligned preparation sprint.</p>
+            <span className="eyebrow">PRACTICE THE MECHANISM</span>
+            <strong>Turn understanding into code you can explain.</strong>
+            <p>
+              Coding patterns, technical discussions, and system-design exercises for every
+              developer.
+            </p>
           </div>
-          <Link href="/interview">
-            Start interview sprint <ArrowRight size={16} />
+          <Link href="/workshop">
+            Open engineering workshop <ArrowRight size={16} />
           </Link>
         </div>
         <div className="training-home-link">
