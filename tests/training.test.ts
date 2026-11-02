@@ -64,6 +64,29 @@ test("each intentionally broken starter is caught by its actual behavioral check
     assert.ok(result.passed < exercise.checks.length, exercise.id + " incorrectly passed");
   }
 });
+test("coding checks reject truthy numeric answers and foreign graph nodes", async () => {
+  const brackets = exercises.find((exercise) => exercise.id === "interview-balanced-brackets")!;
+  const bracketMutation =
+    brackets.solution +
+    "\nconst originalBalanced=balanced; balanced=text=>Number(originalBalanced(text));";
+  const bracketResult = await grade(bracketMutation, brackets);
+  assert.equal(bracketResult.error, undefined);
+  assert.ok(
+    bracketResult.passed < brackets.checks.length,
+    "Numeric 0/1 must not satisfy a boolean contract",
+  );
+  const graph = exercises.find((exercise) => exercise.id === "interview-dependency-order")!;
+  const graphMutation =
+    graph.solution +
+    "\nconst originalOrder=dependencyOrder; dependencyOrder=(nodes,edges)=>{const out=originalOrder(nodes,edges);return out===null?null:out.map(id=>id==='independent'?'foreign':id);};";
+  const graphResult = await grade(graphMutation, graph);
+  assert.equal(graphResult.error, undefined);
+  assert.ok(
+    graphResult.passed < graph.checks.length,
+    "A valid edge order must still contain exactly the input nodes",
+  );
+});
+
 test("training and competency links cover every track without dangling lesson references", () => {
   assert.equal(new Set(exercises.map((exercise) => exercise.id)).size, exercises.length);
   assert.equal(reviewDomains.length, 10);

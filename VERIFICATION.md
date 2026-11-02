@@ -1,5 +1,9 @@
 # Verification record
 
+## Version 1.5.1 grading precision
+
+**76 tests pass.** Added a mutation regression for incorrect numeric bracket returns and foreign graph nodes. All reference solutions continue to satisfy the stricter boolean and node-membership checks. This follow-up changes grading predicates, while preserving the preparation plan, 25 discussions, eight coding patterns, and 78 listed checks.
+
 ## Version 1.5.0 interview sprint
 
 The production export contains **899 files**, **7,674 resolved local link/asset targets**, and **170 successful local application route/asset requests**, with the expected unknown-lesson 404. All four interview views were checked at 390px and 768px viewports: page/content widths matched (375px and 753px after scrollbars), each had one main h1 and no unnamed visible buttons. Notes export produced valid JSON retaining a zero rating and the guide-consulted flag. Formatting and dependency audit pass.

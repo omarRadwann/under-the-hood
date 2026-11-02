@@ -239,14 +239,20 @@ export const problemSolving: Exercise[] = [
     checks: [
       {
         name: "Nested and sequential pairs",
-        body: "assert(balanced('{[()]}') && balanced('()[]{}'));",
+        body: "assert(balanced('{[()]}')===true && balanced('()[]{}')===true);",
       },
-      { name: "Crossing is not nesting", body: "assert(!balanced('([)]') && !balanced('(]'));" },
+      {
+        name: "Crossing is not nesting",
+        body: "assert(balanced('([)]')===false && balanced('(]')===false);",
+      },
       {
         name: "Unmatched endpoints",
-        body: "assert(!balanced(')(') && !balanced('((') && !balanced(']'));",
+        body: "assert(balanced(')(')===false && balanced('((')===false && balanced(']')===false);",
       },
-      { name: "Empty and single pair", body: "assert(balanced('') && balanced('[]'));" },
+      {
+        name: "Empty and single pair",
+        body: "assert(balanced('')===true && balanced('[]')===true);",
+      },
     ],
   },
   {
@@ -270,7 +276,7 @@ export const problemSolving: Exercise[] = [
     checks: [
       {
         name: "Every dependency precedes its consumer",
-        body: "const nodes=['ui','db','api','independent'];const edges=[['db','api'],['api','ui']];const out=dependencyOrder(nodes,edges);assert(out && new Set(out).size===4 && edges.every(([a,b])=>out.indexOf(a)<out.indexOf(b)));",
+        body: "const nodes=['ui','db','api','independent'];const edges=[['db','api'],['api','ui']];const out=dependencyOrder(nodes,edges);assert(Array.isArray(out) && out.length===nodes.length && new Set(out).size===nodes.length && nodes.every(id=>out.includes(id)) && edges.every(([a,b])=>out.indexOf(a)<out.indexOf(b)));",
       },
       {
         name: "Cycles including disconnected cycles",

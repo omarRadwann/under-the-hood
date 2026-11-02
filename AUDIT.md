@@ -1,5 +1,9 @@
 # Engineering audit and coverage map
 
+## Version 1.5.1 grading precision
+
+A deliberate incorrect-return probe showed that bracket checks accepted numeric 0/1 through truthiness. They now require literal booleans. The dependency-order check also verifies array shape and exact input-node membership in addition to edge order. A fresh-runtime mutation regression rejects both numeric boolean substitutes and a result with a foreign node. The full suite now has **76 passing tests**; the exercise bank still has 20 exercises and 78 checks.
+
 ## Version 1.5.0 interview preparation
 
 The new `/interview/` workspace connects a configurable three-session plan to eight executable problem-solving drills, 25 discussion prompts, a coding/full-mock timer, self-review, local outlines/mistake logs, export, and a six-boundary feature walkthrough. It is tailored to the supplied Bask Health posting; the prompts are authored practice, not confirmed interview questions.
