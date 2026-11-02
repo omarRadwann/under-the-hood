@@ -37,7 +37,7 @@ export const objectModel = [
       "Draw the initialization order for a base field, base constructor, derived field, and derived constructor body. Add one overridden method and a private field, then test extracted and bound calls.",
     challenge: {
       prompt: "Does sharing the prototype grant a private brand?",
-      solution: `class Secret {\n  #value = 7;\n  read() { return this.#value; }\n}\nconst impostor = Object.create(Secret.prototype);\n// impostor.read() throws: it has the prototype, not the private brand.`,
+      solution: `class Secret {\n  #value = 7;\n  read() { return this.#value; }\n}\nconst impostor = Object.create(Secret.prototype);\ntry { impostor.read(); }\ncatch (error) { console.log(error.name); } // TypeError`,
       explanation:
         "Private-field eligibility is established through the class's initialization machinery. Prototype ancestry alone is insufficient.",
     },
@@ -266,7 +266,9 @@ export const objectModel = [
       "Create two .mjs files with a cycle. Make one version read too early and another defer the read through a function. Draw the initialization and call order, then remove the architectural cycle deliberately.",
     challenge: {
       prompt: "Is a local destructured copy also a live import binding?",
-      solution: `// Given: import * as counter from './counter.mjs'\n// const { count: snapshot } = counter;\n// counter.increment();\n// counter.count reflects the export's new value; snapshot retains its captured value.`,
+      kind: "explanation",
+      solution:
+        "After counter.increment(), counter.count reads the live exported binding. The local snapshot created by destructuring keeps the value captured before the increment. Run the complete ESM project above to verify both observations in their real module graph.",
       explanation:
         "The namespace property gives access to an exported binding, but ordinary destructuring initializes a new local binding with the value observed at that moment.",
     },
@@ -386,7 +388,7 @@ export const objectModel = [
       "Implement an asynchronous resource owner with nested acquisition, cancellation, and failures in both work and cleanup. Define release order and the caller-visible error evidence. Compare it with supported await-using behavior in your target runtime.",
     challenge: {
       prompt: "How does an async owner keep the resource alive until work settles?",
-      solution: `async function withAsyncResource(resource, work) {\n  try { return await work(resource); }\n  finally { await resource.close(); }\n}`,
+      solution: `async function withAsyncResource(resource, work) {\n  try { return await work(resource); }\n  finally { await resource.close(); }\n}\nconst resource = { async close() { console.log('closed'); } };\nconsole.log(await withAsyncResource(resource, async () => {\n  await Promise.resolve();\n  return 'result';\n})); // closed, then result`,
       explanation:
         "Awaiting inside the try makes the finally region cover the asynchronous operation's settlement. The cleanup error policy still needs deliberate design.",
     },

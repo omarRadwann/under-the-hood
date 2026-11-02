@@ -129,9 +129,10 @@ export function StateMachineLab() {
         <div>
           <strong>State and operation identity must both match</strong>
           <p>
-            Start #1, cancel it, then start #2. Deliver the late success from #1. The transition
-            rejects obsolete intent and keeps #2 active. This model has no real network or durable
-            job runner.
+            Start an operation, cancel it, then start another. Deliver the earlier operation's late
+            success. The transition rejects obsolete intent and keeps the current operation active.
+            Reset clears intent while preserving the next operation ID, so an old completion cannot
+            become current again. This model has no real network or durable job runner.
           </p>
         </div>
       </div>

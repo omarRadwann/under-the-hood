@@ -1,5 +1,6 @@
 import type { Lesson } from "@/lib/types";
 import verifiedOutputs from "./example-outputs.json";
+import challengeOutputs from "./challenge-outputs.json";
 
 const worker = new Set([
   "scope-and-closures",
@@ -249,5 +250,8 @@ export function withExampleContract(lesson: Lesson): Lesson {
   if (lesson.slug === "accessibility") result.code = "<>\n" + lesson.code + "\n</>";
   if (result.challenge && writtenAnswers.has(lesson.slug))
     result.challenge = { ...result.challenge, kind: "explanation" };
+  const challengeOutput = (challengeOutputs as Record<string, string>)[lesson.slug];
+  if (result.challenge && result.challenge.kind !== "explanation" && challengeOutput !== undefined)
+    result.challenge = { ...result.challenge, execution: "worker", output: challengeOutput };
   return result;
 }

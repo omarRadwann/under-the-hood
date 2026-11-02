@@ -4,7 +4,8 @@ import { Worker } from "node:worker_threads";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { compileExample } from "../src/playground/compiler";
-import { presets } from "../src/playground/presets";
+import { presets, playgroundUrl } from "../src/playground/presets";
+import challengeOutputs from "../src/content/challenge-outputs.json";
 import { formatValue } from "../src/playground/format";
 import { reactSandboxDocument } from "../src/playground/sandbox";
 import { isRuntimeEvent } from "../src/playground/validate";
@@ -50,34 +51,190 @@ test("every starter compiles, including TSX imports and JSX", () => {
   }
 });
 
+test("tracing preserves function-body hoisting, var redeclarations, lexical capture, and mutable names", async () => {
+  const probes = [
+    {
+      source:
+        "function outer(){function value(){return 1} var value=3; return value;} console.log(outer());",
+      expected: "3",
+    },
+    {
+      source:
+        "function outer(){var value; return value(); function value(){return 1}} console.log(outer());",
+      expected: "1",
+    },
+    {
+      source:
+        "function outer(){try{read()}catch(error){console.log(error.name)} let value=7; return read(); function read(){return value}} console.log(outer());",
+      expected: "ReferenceError\n7",
+    },
+    {
+      source:
+        "function outer(){function value(){value=7;return typeof value} return value()} console.log(outer());",
+      expected: "number",
+    },
+    {
+      source:
+        "function outer(value,read=()=>value){function value(){return 1} return [typeof read(),typeof value]} console.log(outer(9));",
+      expected: '["number","function"]',
+    },
+    {
+      source:
+        "function outer(){function value(){return 1} function value(){return 2} return value()} console.log(outer());",
+      expected: "2",
+    },
+    {
+      source:
+        "function outer(){function Item(x){this.x=x;this.target=new.target.name} var Item; return [Item.name,Item.length,new Item(7).x,new Item(7).target]} console.log(outer());",
+      expected: '["Item",1,7,"Item"]',
+    },
+    {
+      source:
+        "async function outer(){async function read(){return 7} var read=async()=>8; return await read()} console.log(await outer());",
+      expected: "8",
+    },
+    {
+      source:
+        "function outer(){function* values(){yield 7} var values; return [values.name,...values()]} console.log(outer());",
+      expected: '["values",7]',
+    },
+  ];
+  for (const probe of probes) {
+    const native: string[] = [];
+    await new Function("console", '"use strict";return(async()=>{' + probe.source + "})()")({
+      log: (...values: unknown[]) => native.push(values.map(formatValue).join(" ")),
+    });
+    assert.equal(native.join("\n"), probe.expected, probe.source + " native");
+    const result = await execute(probe.source);
+    assert.equal(result.error, undefined, probe.source);
+    assert.equal(
+      result.events
+        .filter((event) => event.kind === "console")
+        .map((event) => event.label)
+        .join("\n"),
+      probe.expected,
+      probe.source + " traced",
+    );
+  }
+});
+
+async function nativeOutput(source: string, label: string) {
+  const nativeCode = Babel.transform(source, {
+    filename: "example.ts",
+    presets: ["typescript"],
+    parserOpts: { allowAwaitOutsideFunction: true },
+  })!.code!;
+  const native = await new Promise<string>((resolve, reject) => {
+    const worker = new Worker(new URL("./native-reference-harness.mjs", import.meta.url));
+    const timer = setTimeout(() => {
+      void worker.terminate();
+      reject(new Error("Native timeout: " + label));
+    }, 4000);
+    worker.once("error", (error) => {
+      clearTimeout(timer);
+      void worker.terminate();
+      reject(error);
+    });
+    worker.once("message", (packet) => {
+      clearTimeout(timer);
+      void worker.terminate();
+      if (packet.error) reject(new Error(label + ": " + packet.error));
+      else resolve(packet.lines.join("\n"));
+    });
+    worker.postMessage({ code: nativeCode });
+  });
+  return native;
+}
+
+test("all 35 coded JavaScript answers match reviewed outputs, native execution, and their editor links", async () => {
+  const answers = lessons.filter(
+    (lesson) =>
+      ["javascript", "async"].includes(lesson.track) &&
+      lesson.challenge &&
+      lesson.challenge.kind !== "explanation",
+  );
+  assert.equal(answers.length, 35);
+  assert.deepEqual(
+    new Set(answers.map((lesson) => lesson.slug)),
+    new Set(Object.keys(challengeOutputs)),
+  );
+  for (const lesson of answers) {
+    const challenge = lesson.challenge!;
+    assert.equal(challenge.execution, "worker", lesson.slug);
+    const url = new URL(playgroundUrl(lesson.slug, "challenge")!, "https://example.test");
+    assert.equal(
+      presets.find((preset) => preset.id === url.searchParams.get("preset"))?.source,
+      challenge.solution,
+      lesson.slug,
+    );
+    assert.equal(
+      await nativeOutput(challenge.solution, lesson.slug),
+      challenge.output,
+      lesson.slug + " native",
+    );
+    const result = await execute(challenge.solution);
+    assert.equal(result.error, undefined, lesson.slug);
+    assert.equal(
+      result.events
+        .filter((event) => event.kind === "console")
+        .map((event) => event.label)
+        .join("\n"),
+      challenge.output,
+      lesson.slug + " traced",
+    );
+  }
+});
+
+test("for-await tracking preserves native continuation order, labels pending work, and resumes after closing", async () => {
+  const source = `async function consume() {
+    let next=0;
+    const source={ [Symbol.asyncIterator]() { return {
+      next() { const value=++next; return new Promise(resolve=>setTimeout(()=>resolve({value,done:false}),5)); },
+      return() { console.log('close'); return Promise.resolve({done:true}); }
+    }; } };
+    outer: for await(const value of source) {
+      if(value===1) continue outer;
+      console.log('value',value);
+      break;
+    }
+    console.log('after close');
+  }
+  const done=consume();
+  queueMicrotask(()=>console.log('outside'));
+  await done;`;
+  const expected = "outside\nvalue 2\nclose\nafter close";
+  assert.equal(await nativeOutput(source, "for-await"), expected);
+  const result = await execute(source);
+  assert.equal(result.error, undefined);
+  assert.equal(
+    result.events
+      .filter((event) => event.kind === "console")
+      .map((event) => event.label)
+      .join("\n"),
+    expected,
+  );
+  assert.ok(
+    result.events
+      .filter((event) => event.kind === "timer:start")
+      .every(
+        (event) =>
+          event.snapshot?.frames.find((frame) => frame.name === "consume")?.status === "suspended",
+      ),
+  );
+  const after = result.events.find(
+    (event) => event.kind === "console" && event.label === "after close",
+  );
+  assert.equal(
+    after?.snapshot?.frames.find((frame) => frame.name === "consume")?.status,
+    "running",
+  );
+});
+
 test("all 52 worker lessons match reviewed outputs and uninstrumented native execution", async () => {
   const chapters = lessons.filter((chapter) => chapter.execution === "worker");
   assert.equal(chapters.length, 52);
   for (const chapter of chapters) {
-    const nativeCode = Babel.transform(chapter.code, {
-      filename: "example.ts",
-      presets: ["typescript"],
-      parserOpts: { allowAwaitOutsideFunction: true },
-    })!.code!;
-    const native = await new Promise<string>((resolve, reject) => {
-      const worker = new Worker(new URL("./native-reference-harness.mjs", import.meta.url));
-      const timer = setTimeout(() => {
-        void worker.terminate();
-        reject(new Error("Native timeout: " + chapter.slug));
-      }, 4000);
-      worker.once("error", (error) => {
-        clearTimeout(timer);
-        void worker.terminate();
-        reject(error);
-      });
-      worker.once("message", (packet) => {
-        clearTimeout(timer);
-        void worker.terminate();
-        if (packet.error) reject(new Error(chapter.slug + ": " + packet.error));
-        else resolve(packet.lines.join("\n"));
-      });
-      worker.postMessage({ code: nativeCode });
-    });
+    const native = await nativeOutput(chapter.code, chapter.slug);
     const result = await execute(chapter.code);
     assert.equal(result.error, undefined, `${chapter.slug}: ${result.error}`);
     assert.ok(

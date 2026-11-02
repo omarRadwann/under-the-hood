@@ -734,7 +734,8 @@ export default function Playground() {
             loops/recursion have a budget. Instrumentation adds overhead and does not expose every
             engine-internal job. Registered reactions may never become runnable. A new run creates a
             fresh environment; drafts are local to this browser. Generators execute natively;
-            suspended generator frames are omitted from the logical call-lifetime panel.
+            suspended generator frames are omitted from the logical call-lifetime panel. Function
+            entries mark body execution; parameter initialization precedes that marker.
           </p>
           <p>
             React remains interactive after mounting. Stop removes the runtime; Unmount root asks

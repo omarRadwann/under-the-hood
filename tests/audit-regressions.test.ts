@@ -238,6 +238,18 @@ test("finally after rejected await resumes before observing native completion", 
     ["cleanup", "recovered"],
   );
 });
+
+test("timer delay conversion rejects BigInt primitives and conversion hooks before registration", async () => {
+  const result = await execute(
+    "for (const delay of [1n, {[Symbol.toPrimitive](){return 1n}}, Symbol('delay')]) { try { setTimeout(()=>console.log('unexpected'), delay); } catch(error) { console.log(error.name); } }",
+  );
+  assert.equal(result.error, undefined);
+  assert.deepEqual(
+    result.events.filter((event) => event.kind === "console").map((event) => event.label),
+    ["TypeError", "TypeError", "TypeError"],
+  );
+  assert.equal(result.events.filter((event) => event.kind === "timer:register").length, 0);
+});
 test("failing Promise species construction leaves no registered reaction", async () => {
   const result = await execute(
     "const promise = Promise.resolve(1); promise.constructor = {[Symbol.species]: function(){throw new Error('species');}}; try { promise.then(); } catch { console.log('caught'); }",

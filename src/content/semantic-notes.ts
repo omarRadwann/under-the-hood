@@ -1,5 +1,17 @@
 import type { Lesson, Step } from "@/lib/types";
 const notes: Record<string, Step[]> = {
+  "hoisting-and-tdz": [
+    {
+      title: "Function-body instantiation differs from block declarations",
+      body: "In a strict function body, a function declaration creates a var-scoped binding initialized before the body runs. A var declaration of that same name is permitted; an initializer can later replace the function value. Strict block-level function declarations are lexical bindings with a different scope and conflict rules. Moving a declaration into a try block can therefore change a program. Default parameter initializers can introduce a separate environment, so a closure created there does not automatically see later body declarations.",
+    },
+  ],
+  "async-iteration-and-cancellation": [
+    {
+      title: "Locate failure and use the current closing contract",
+      body: "When for-await adapts a synchronous iterator, it awaits yielded values through the async-from-sync adapter. Under the current specification, rejection while unwrapping a value from a not-done next result closes the synchronous iterator before propagating the failure; the generator's finally can run before the consumer's catch. Historical implementations differed, so validate the deployment runtime rather than memorizing older examples. This rule is not a blanket guarantee for every next, done, or value getter failure. A true async iterator's result value is not automatically unwrapped in the same way; async generators perform their own yield awaiting.",
+    },
+  ],
   "primitives-and-typeof": [
     {
       title: "Separate a type tag from a successful invocation",
@@ -74,6 +86,10 @@ const notes: Record<string, Step[]> = {
   ],
 };
 const references: Record<string, string> = {
+  "hoisting-and-tdz":
+    "https://tc39.es/ecma262/multipage/ordinary-and-exotic-objects-behaviours.html#sec-functiondeclarationinstantiation",
+  "async-iteration-and-cancellation":
+    "https://tc39.es/ecma262/multipage/control-abstraction-objects.html#sec-asyncfromsynciteratorcontinuation",
   "primitives-and-typeof":
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof",
   "operators-and-precedence":
@@ -100,6 +116,17 @@ export function refineSemantics(lesson: Lesson): Lesson {
   if (!additions) return lesson;
   return {
     ...lesson,
+    ...(lesson.slug === "hoisting-and-tdz"
+      ? {
+          challenge: {
+            prompt: "Can a function-body declaration share its name with var?",
+            solution:
+              "function inspect() {\n  console.log(read()); // callable before its declaration\n  var read; // redeclaration does not reset its value\n  function read() { return 'ready'; }\n  read = 3;\n  console.log(read);\n}\ninspect();",
+            explanation:
+              "Function-body instantiation initializes read to a function before evaluation starts. A var declaration with no initializer does not overwrite it. The later assignment replaces that mutable binding with 3. A strict block-scoped function declaration has different redeclaration rules.",
+          },
+        }
+      : {}),
     steps: [...lesson.steps, ...additions],
     sources: [
       ...lesson.sources,

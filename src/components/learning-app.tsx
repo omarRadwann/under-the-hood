@@ -1331,6 +1331,20 @@ function LessonView({
                         />
                       )}
                       <p>{lesson.challenge.explanation}</p>
+                      {lesson.challenge.output && (
+                        <div className="expected-output">
+                          <span className="eyebrow">EXPECTED WORKED-ANSWER OUTPUT</span>
+                          <pre>{lesson.challenge.output}</pre>
+                        </div>
+                      )}
+                      {playgroundUrl(lesson.slug, "challenge") && (
+                        <Link
+                          className="button small playground-lesson-link"
+                          href={playgroundUrl(lesson.slug, "challenge")!}
+                        >
+                          <Terminal size={15} /> Edit & run worked answer <ArrowUpRight size={14} />
+                        </Link>
+                      )}
                     </details>
                   </div>
                 )}

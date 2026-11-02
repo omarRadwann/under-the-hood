@@ -212,6 +212,24 @@ test("retry creates a new operation identity after failure", () => {
   assert.notEqual(s.activeId, id);
 });
 
+test("reset never reuses an issued operation identity or accepts its late completion", () => {
+  let state = uploadTransition(initialUpload, { type: "start" });
+  const oldId = state.activeId!;
+  state = uploadTransition(state, { type: "reset" });
+  assert.equal(state.status, "idle");
+  assert.equal(state.activeId, null);
+  state = uploadTransition(state, { type: "start" });
+  const currentId = state.activeId!;
+  assert.ok(currentId > oldId);
+  for (const type of ["success", "fail"] as const) {
+    state = uploadTransition(state, { type, id: oldId });
+    assert.equal(state.status, "uploading");
+    assert.equal(state.activeId, currentId);
+  }
+  state = uploadTransition(state, { type: "success", id: currentId });
+  assert.equal(state.status, "success");
+});
+
 test("corrupt and unsupported browser storage recover without crashing", () => {
   for (const raw of [null, "{", "null", "42", '"x"'])
     assert.equal(parseStudy(raw).completed.length, 0);

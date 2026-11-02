@@ -7,6 +7,7 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 import { execFile } from "node:child_process";
 import { gunzipSync } from "node:zlib";
+import { createRequire } from "node:module";
 import { PGlite } from "@electric-sql/pglite";
 import { lessons, getLesson } from "../src/content";
 import { presets, lessonPlaygrounds } from "../src/playground/presets";
@@ -277,6 +278,51 @@ test("the CommonJS I/O example and real compression pipeline work in Node", asyn
   assert.equal((await runProject("node-event-loop")).stdout, "immediate\ntimer");
   const input = '{"event":1}\n{"event":2}\n';
   assert.equal((await runProject("streams-and-backpressure", input)).restored, input);
+});
+
+test("the displayed AsyncLocalStorage pattern propagates request identity and restores caller context", async () => {
+  const records: { requestId: string }[] = [];
+  const context = await new Function(
+    "require",
+    "exports",
+    "doWork",
+    "logger",
+    "return (async()=>{" + compileExample("async-context") + ";return context;})()",
+  )(
+    createRequire(import.meta.url),
+    {},
+    async () => {
+      await Promise.resolve();
+    },
+    { info: (value: { requestId: string }) => records.push(value) },
+  );
+  assert.deepEqual(records, [{ requestId: "r1" }]);
+  assert.equal(context.getStore(), undefined);
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  const first = context.run({ requestId: "first" }, async () => {
+    await gate;
+    return context.getStore().requestId;
+  });
+  const second = context.run({ requestId: "second" }, async () => {
+    await Promise.resolve();
+    return context.getStore().requestId;
+  });
+  assert.equal(await second, "second");
+  release();
+  assert.equal(await first, "first");
+  assert.equal(context.getStore(), undefined);
+  context.disable();
+});
+
+test("the shared-memory lesson executes real Atomics operations under its documented Node alternative", () => {
+  const values: unknown[] = [];
+  new Function("console", getLesson("shared-memory-and-atomics")!.code)({
+    log: (value: unknown) => values.push(value),
+  });
+  assert.deepEqual(values, [1]);
 });
 test("the cancellation example guards its synchronous commit across reordered responses", async () => {
   const code = Babel.transform(getLesson("cancellation-and-races")!.code, {

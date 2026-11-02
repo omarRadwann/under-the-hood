@@ -1,6 +1,7 @@
 import type { PlaygroundPreset } from "./types";
 import { lessons } from "@/content";
 const executableLessons = lessons.filter((lesson) => lesson.execution === "worker");
+const executableAnswers = lessons.filter((lesson) => lesson.challenge?.execution === "worker");
 
 export const presets: PlaygroundPreset[] = [
   {
@@ -142,6 +143,14 @@ export const presets: PlaygroundPreset[] = [
     concept: chapter.mental.split(". ")[0] + ".",
     source: chapter.code,
   })),
+  ...executableAnswers.map((chapter) => ({
+    id: `answer-${chapter.slug}`,
+    mode: "event-loop" as const,
+    name: `Worked answer · ${chapter.title}`,
+    description: chapter.challenge!.prompt,
+    concept: chapter.challenge!.explanation,
+    source: chapter.challenge!.solution,
+  })),
 ];
 
 export const lessonPlaygrounds: Record<string, { mode: PlaygroundPreset["mode"]; preset: string }> =
@@ -162,7 +171,14 @@ export const lessonPlaygrounds: Record<string, { mode: PlaygroundPreset["mode"];
     "http-caching": { mode: "cache", preset: "cache-aside" },
     "cache-invalidation": { mode: "cache", preset: "refill-race" },
   };
-export function playgroundUrl(slug: string): string | null {
+export function playgroundUrl(
+  slug: string,
+  variant: "example" | "challenge" = "example",
+): string | null {
+  if (variant === "challenge")
+    return executableAnswers.some((chapter) => chapter.slug === slug)
+      ? `/playground?mode=event-loop&preset=answer-${slug}`
+      : null;
   const target = lessonPlaygrounds[slug];
   return target ? `/playground?mode=${target.mode}&preset=${target.preset}` : null;
 }

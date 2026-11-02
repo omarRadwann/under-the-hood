@@ -241,7 +241,12 @@ export const initialUpload: UploadMachine = {
 };
 export function uploadTransition(state: UploadMachine, event: UploadEvent): UploadMachine {
   const log = (value: string) => [value, ...state.log].slice(0, 7);
-  if (event.type === "reset") return initialUpload;
+  if (event.type === "reset")
+    return {
+      ...initialUpload,
+      nextId: state.nextId,
+      log: ["Reset intent. Previously issued operation IDs will not be reused."],
+    };
   if (event.type === "start") {
     if (state.status === "uploading")
       return { ...state, log: log("Rejected START: an operation is already active.") };

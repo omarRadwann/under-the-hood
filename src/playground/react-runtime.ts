@@ -2,6 +2,7 @@ import { formatValue as format, runtimeText } from "./format";
 import * as ActualReact from "react";
 import { createRoot, type Root } from "react-dom/client";
 import type { RuntimeEvent } from "./types";
+import { observeEffect } from "./effect-trace";
 
 declare global {
   interface Window {
@@ -70,7 +71,7 @@ function makeTrace(runId: string) {
       if (frame?.status === "suspended") {
         renew();
         frame.status = "running";
-        emit("resume", "Resume after rejected await");
+        emit("resume", "Resume at authored continuation");
       }
       guard();
     },
@@ -87,19 +88,19 @@ function makeTrace(runId: string) {
       const i = frames.findIndex((f) => f.id === id);
       if (i >= 0) frames.splice(i, 1);
     },
-    beforeAwait(value: unknown, next: number, id: number | null) {
+    beforeAwait(value: unknown, next: number, id: number | null, kind?: string) {
       line = next;
       const f = frames.find((f) => f.id === id);
       if (f) f.status = "suspended";
-      emit("await", "Suspend at await");
+      emit("await", kind === "iteration" ? "Enter async iteration boundary" : "Suspend at await");
       return value;
     },
-    afterAwait(value: unknown, next: number, id: number | null) {
+    afterAwait(value: unknown, next: number, id: number | null, kind?: string) {
       renew();
       line = next;
       const f = frames.find((f) => f.id === id);
       if (f) f.status = "running";
-      emit("resume", "Resume after await");
+      emit("resume", kind === "iteration" ? "Resume for-await body" : "Resume after await");
       return value;
     },
     owner() {
@@ -120,21 +121,20 @@ window.__uthBoot = (runId, strict) => {
   let root: Root | null = null;
   function wrapEffect(effect: ActualReact.EffectCallback, kind: string) {
     const owner = trace.owner();
-    return () => {
-      trace.renew();
-      trace.emit(
-        `react:${kind}`,
-        `${kind === "layout" ? "Layout" : "Passive"} effect setup · ${owner}`,
-      );
-      const cleanup = effect();
-      return typeof cleanup === "function"
-        ? () => {
-            trace.renew();
-            trace.emit("react:cleanup", `Effect cleanup · ${owner}`);
-            cleanup();
-          }
-        : undefined;
-    };
+    return observeEffect(
+      effect,
+      () => {
+        trace.renew();
+        trace.emit(
+          `react:${kind}`,
+          `${kind === "layout" ? "Layout" : "Passive"} effect setup · ${owner}`,
+        );
+      },
+      () => {
+        trace.renew();
+        trace.emit("react:cleanup", `Effect cleanup · ${owner}`);
+      },
+    );
   }
   const React = {
     ...ActualReact,

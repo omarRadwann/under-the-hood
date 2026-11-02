@@ -399,7 +399,7 @@ export const runtimeLanguage = [
       "Extract a pure pricing decision from a request handler. Supply time and policy versions explicitly, then test repeat execution, input aliasing, and the numerical assumptions needed for aggregation.",
     challenge: {
       prompt: "Can a locally mutating function still be pure to its callers?",
-      solution: `function squares(values) {\n  const output = [];\n  for (const value of values) output.push(value * value);\n  return output;\n}`,
+      solution: `function squares(values) {\n  const output = [];\n  for (const value of values) output.push(value * value);\n  return output;\n}\nconst input = [2, 3];\nconsole.log(squares(input), input); // [4, 9], [2, 3]`,
       explanation:
         "The output array is newly owned local state during calculation. If the function depends only on its inputs and does not mutate caller-visible state, local mutation need not violate observable purity.",
     },
@@ -457,10 +457,10 @@ export const runtimeLanguage = [
     practice:
       "Build a paginated async producer with an abort signal. Break after one item, reject a read, and cancel during a pending request. Prove which resources are owned and released on each path.",
     challenge: {
-      prompt: "Does calling an async generator consume its whole sequence?",
-      solution: `async function* source() { console.log('started'); yield 1; }\nconst iterator = source(); // body not yet advanced\nconsole.log('created');\nconsole.log(await iterator.next()); // starts the body`,
+      prompt: "How does current async-from-sync adaptation close a rejected yielded value?",
+      solution: `function* source() {\n  try { yield Promise.reject(new Error('failed value')); }\n  finally { console.log('producer closed'); }\n}\nconst iterator = source();\ntry {\n  for await (const value of iterator) console.log(value);\n} catch (error) { console.log(error.message); }\nconsole.log('consumer settled');\nconsole.log('closed state:', iterator.next().done);`,
       explanation:
-        "The returned iterator represents suspended work. Advancing it begins producing values under the async iteration protocol.",
+        "The current async-from-sync next continuation closes the not-done synchronous iterator when its wrapped value rejects, then propagates the rejection. Here finally logs before the consumer catches the failure, and the iterator is complete afterward. Older engines differed at this boundary; this example tests the modern closing contract rather than asserting that every iterator failure has the same cleanup path.",
     },
     quiz: {
       question: "Does async iteration by itself cancel every external operation?",

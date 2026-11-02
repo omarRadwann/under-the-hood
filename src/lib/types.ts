@@ -55,6 +55,8 @@ export interface Lesson {
     solution: string;
     explanation: string;
     kind?: "code" | "explanation";
+    execution?: "worker";
+    output?: string;
   };
 }
 

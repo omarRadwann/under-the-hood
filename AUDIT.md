@@ -1,5 +1,27 @@
 # Engineering audit and coverage map
 
+## Version 1.7.0 JavaScript semantics and execution audit
+
+This audit found and corrected five reproducible defects:
+
+| Finding | Correction and evidence |
+| --- | --- |
+| Function tracing moved function-body declarations into a block, rejecting legal `function`/`var` redeclarations. | Preserve the var binding and initialize its function value before authored body statements. Nine native-versus-instrumented probes cover hoisting, mutable self-reference, lexical capture/TDZ, duplicate declarations, parameter environments, construction metadata, async functions, and generators. |
+| `for await` suspension was absent from tracing and could consume React's synchronous execution deadline while waiting. | Observe native iteration boundaries without adding promise jobs or replacing iterator methods. Tests cover pending frames, labeled continue, early close, continuation order, and resumption. A browser React handler receives a value after a 650ms implicit iterator wait without a budget error. |
+| React effect observation discarded invalid return values and could hide an incorrect effect implementation. | Pass non-function returns through to React's own validation. Regressions preserve number, null, and promise returns; valid cleanup still executes. A browser probe now reports the invalid-return warning. |
+| Timer-delay conversion used `Number`, accepting BigInt values that the host's numeric conversion rejects. | Use numeric conversion that rejects BigInt and Symbol, including BigInt returned by a conversion hook, before registering a timer. |
+| Resetting the workflow reused operation IDs. | Reset intent while retaining the next unused identity. A reset/start/late-completion counterexample now leaves the newer operation active in both reducer and browser checks. |
+
+The JavaScript path still contains **66 chapters**: **50 JavaScript** and **16 async/runtime** lessons. Its 19-family coverage crosswalk has no dangling chapter references. The wider app contains 158 lessons. Documentation's stale track totals, experiment totals, and omitted tenth lab were corrected.
+
+All **35 coded JavaScript worked answers** now have separately authored output fixtures, an independent editor preset, and a direct lesson link. Definition-only or commented-out answers were made observable with safe demonstrations; the module-binding answer is prose pointing to its real ESM project. These answers join 52 executable lesson examples and 14 existing experiments for **101 total presets**. All 87 canonical JavaScript programs match reviewed output in native execution, instrumented execution, and the browser. The async-from-sync challenge teaches current iterator closing semantics, including their distinction from historical implementations.
+
+The suite has **86 passing tests**. All 20 training references pass 78 checks in fresh workers and in the browser; each intentionally broken starter fails at least one check. Real ESM, CommonJS I/O, compression, AsyncLocalStorage propagation/isolation, Atomics, PostgreSQL transfers, and controlled application contracts have separate evidence. React interaction and cache browser checks remain successful. The export resolves 7,709 local link/asset targets across 898 files.
+
+Primary semantic references: [function instantiation](https://tc39.es/ecma262/multipage/ordinary-and-exotic-objects-behaviours.html#sec-functiondeclarationinstantiation), [async-from-sync continuation](https://tc39.es/ecma262/multipage/control-abstraction-objects.html#sec-asyncfromsynciteratorcontinuation), [React effect contract](https://react.dev/reference/react/useEffect), and [Node asynchronous context](https://nodejs.org/api/async_context.html).
+
+This evidence covers the declared execution contexts and listed cases. The seven browser-host lessons and two application/package reference lessons have context requirements; the static site does not supply a production API, database service, cross-origin-isolation headers, or a private engine inspector. Atomics execution here does not establish a complete multi-agent protocol, and PGlite transfer checks do not establish multi-connection isolation. A family-level coverage map and a passing test suite are not proof that every method, platform, or possible input is covered.
+
 ## Version 1.6.0 public engineering workshop
 
 The public workspace is now a general **Engineering workshop** at `/workshop/`. It contains three learning tracks, eight coding patterns, 25 technical discussions, and a six-boundary system-design walkthrough. Role-specific preparation content and scheduling controls are removed from the current application and documentation. Existing coding drafts, grading records, and learning notes are preserved through internal compatibility aliases. Obsolete planning fields are discarded when records are parsed and exported.

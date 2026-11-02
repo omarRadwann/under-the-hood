@@ -99,7 +99,7 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
       // Rejection skips afterAwait; catch/finally still resume native execution.
       if (frame?.status === "suspended") {
         frame.status = "running";
-        emit("resume", "Resume after rejected await");
+        emit("resume", "Resume at authored continuation");
       }
       emit("statement", `Line ${line}`);
     },
@@ -116,22 +116,22 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
       if (index >= 0) frames.splice(index, 1);
       emit("return", `Return from ${name ?? "call"}`);
     },
-    beforeAwait(value: unknown, line: number, id: number | null) {
+    beforeAwait(value: unknown, line: number, id: number | null, kind?: string) {
       sourceLine = line;
       const f = frames.find((f) => f.id === id);
       if (f) f.status = "suspended";
       emit(
         "await",
-        "Suspend at await",
-        "The awaited value is passed through unchanged; native await schedules the continuation.",
+        kind === "iteration" ? "Enter async iteration boundary" : "Suspend at await",
+        "The value is passed through unchanged; native await and iterator protocols own continuation scheduling.",
       );
       return value;
     },
-    afterAwait(value: unknown, line: number, id: number | null) {
+    afterAwait(value: unknown, line: number, id: number | null, kind?: string) {
       sourceLine = line;
       const f = frames.find((f) => f.id === id);
       if (f) f.status = "running";
-      emit("resume", "Resume after await");
+      emit("resume", kind === "iteration" ? "Resume for-await body" : "Resume after await");
       return value;
     },
   };
@@ -153,7 +153,9 @@ host.onmessage = ({ data }: MessageEvent<{ runId: string; code: string; mode: st
   ) {
     if (typeof callback !== "function")
       throw new TypeError("Use a function callback; string timers are disabled.");
-    const ms = Math.max(0, Number(delay) || 0);
+    // HTML's numeric conversion rejects BigInt, including a BigInt primitive
+    // produced by an object's conversion hook. Number(...) would accept it.
+    const ms = Math.max(0, +delay || 0);
     if (ms > 2000) throw new Error("Use delays of at most 2,000ms in this bounded playground.");
     const id = ++callbackId;
     const invoke = () => {

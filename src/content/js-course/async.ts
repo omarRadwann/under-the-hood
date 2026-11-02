@@ -214,9 +214,9 @@ export const asyncCourse = [
       "Refactor three redundant or unsafe Promise constructors into direct async functions or synchronous callback bridges. Track every created promise's owner, including derived chains and cleanup failures.",
     challenge: {
       prompt: "Why can this constructed promise remain pending?",
-      solution: `// Anti-pattern: do not run without owning the executor's separate rejection.\n// new Promise(async resolve => {\n//   await Promise.resolve();\n//   throw new Error('rejects the async executor result');\n// });\n// Prefer: async function work() { await Promise.resolve(); throw new Error('owned rejection'); }`,
+      solution: `let executorResult;\nlet constructedSettled = false;\nconst constructed = new Promise(() => {\n  executorResult = (async () => {\n    await Promise.resolve();\n    throw new Error('separate rejection');\n  })();\n  return executorResult; // the constructor ignores this returned promise\n});\nconstructed.then(() => { constructedSettled = true; }, () => { constructedSettled = true; });\ntry { await executorResult; }\ncatch (error) { console.log(error.message); }\nconsole.log('constructed settled:', constructedSettled); // false`,
       explanation:
-        "The constructor ignores the async executor's returned promise. The intended constructed promise is never resolved or rejected through its supplied resolving functions in this path.",
+        "This controlled expansion keeps the executor's separate promise observable so its rejection is handled. Returning it from the executor does not settle the constructed promise. An async executor returns such a promise implicitly; without a separate owner its rejection can be unhandled. Prefer an async function directly when no callback bridge is needed.",
     },
     quiz: {
       question: "Does the Promise constructor adopt an async executor's returned promise?",

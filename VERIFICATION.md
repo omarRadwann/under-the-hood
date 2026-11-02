@@ -1,5 +1,17 @@
 # Verification record
 
+## Version 1.7.0 JavaScript and runtime verification
+
+- **86 tests pass.** All 52 canonical worker lesson programs and 35 coded worked answers match independently authored output fixtures in both native and instrumented execution. Every answer opens its exact displayed source in the editor.
+- All **101 presets** were exercised through the production preview's browser UI. The **87 canonical JavaScript programs** matched their output fixtures; the six additional JavaScript starters, four React presets, and four cache algorithms exhibited their declared behavior. No uncaught browser errors occurred in these positive checks.
+- All **20 training references** passed all **78 checks** in the browser and fresh-worker suite. Every broken starter remains rejected by at least one check.
+- React browser checks confirm batching to 3, effect setup/cleanup on dependency changes and child removal, preserved keyed drafts, and a parent render count of 2 with memoized child count 1. An invalid effect return now reaches React's warning. A real React handler resumes correctly after a 650ms implicit iterator wait.
+- All four cache experiments complete with their declared behavior: TTL refill, the deliberately demonstrated stale-refill race, request coalescing, and stale-while-revalidate. These examples do not claim to be Next.js/CDN cache implementations.
+- Reset/start/late-completion leaves the current workflow operation active. The hoisting worked-answer link navigates to the correct preset and produces `ready`, then `3`.
+- The worked-answer lesson has one main heading, named controls, and no horizontal page overflow at 390px and 768px viewports. Strict TypeScript, production export, formatting, and production dependency audit pass. The export contains **898 files** and **7,709 resolved local link/asset targets**.
+
+See [AUDIT.md](AUDIT.md) for corrections, primary references, declared scope, and host-specific limits. The records below retain evidence from earlier releases.
+
 ## Version 1.6.0 public workshop
 
 **77 tests pass**, strict TypeScript passes, and the nested-path production export resolves **7,674 local link/asset targets** across **898 files**. All **170 application route/asset requests** succeed, with the expected unknown-lesson 404. The obsolete workspace route is no longer exported. The production dependency audit reports no known vulnerabilities.

@@ -77,6 +77,8 @@ const nativeProjects = new Set([
   "streams-and-backpressure",
 ]);
 const controlledContracts = new Set([
+  "async-context",
+  "shared-memory-and-atomics",
   "cancellation-and-races",
   "multi-tenant-security",
   "ssrf-and-secrets",
@@ -88,7 +90,7 @@ const exampleLines = [
   "",
   "Generated from the canonical lesson registry. Parsing checks syntax, not application behavior. Worker checks compare the displayed program with reviewed expected output and an uninstrumented strict async execution. Node projects execute their named files. PostgreSQL checks use PGlite's real PostgreSQL engine for successful and rejected transfers; this does not establish multi-connection isolation. Controlled tests supply deterministic dependencies to the displayed functions. Other integration fragments still require their stated host/application dependencies.",
   "",
-  "Browser verification and exact release evidence are recorded in VERIFICATION.md. Challenge answers are syntax-checked when code, while explanation answers are rendered as prose. References and conceptual models require semantic review in addition to automated checks.",
+  "Browser verification and exact release evidence are recorded in VERIFICATION.md. All 35 coded JavaScript worked answers have reviewed output fixtures and execute in native and instrumented workers; their editor links open the exact displayed answer. Explanation answers render as prose. References and conceptual models require semantic review in addition to automated checks.",
   "",
   "| Lesson | Execution context | Files | Declared output | Automated example evidence |",
   "| --- | --- | ---: | --- | --- |",
@@ -109,6 +111,21 @@ const exampleLines = [
   }),
   "",
 ];
+exampleLines.push(
+  "## Executable JavaScript worked answers",
+  "",
+  "Each answer runs independently in the documented strict async worker context. Expected output is authored separately from execution; tests compare it with both the native and instrumented result. The async-from-sync cleanup example follows the current language closing contract, which older engines may not implement.",
+  "",
+  "| Chapter | Expected output | Evidence |",
+  "| --- | --- | --- |",
+  ...lessons
+    .filter((lesson) => lesson.challenge?.execution === "worker")
+    .map(
+      (lesson) =>
+        `| [${lesson.title}](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-${lesson.slug}) | ${lesson.challenge!.output!.replaceAll("\n", "<br>").replaceAll("|", "&#124;")} | Native + instrumented output fixture |`,
+    ),
+  "",
+);
 Promise.all([
   writeFile("CURRICULUM.md", lines.join("\n"), "utf8"),
   writeFile("JAVASCRIPT-COVERAGE.md", pathLines.join("\n"), "utf8"),

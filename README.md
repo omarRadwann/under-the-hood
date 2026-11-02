@@ -4,7 +4,7 @@
 
 [Open the live website](https://omarradwann.github.io/under-the-hood/) · [Start the JavaScript mastery path](https://omarradwann.github.io/under-the-hood/javascript/) · [Open training studio](https://omarradwann.github.io/under-the-hood/practice/)
 
-A Next.js learning workspace with **158 lessons**, a dedicated **66-chapter JavaScript mastery path**, ten interactive models, ten failure investigations, a SOLID workbench, and **66 editable experiments**. JavaScript progresses from the first program to advanced language/runtime and production reasoning, alongside React, Next.js, security, data, architecture, and patterns. All 52 runnable JavaScript lessons open their exact displayed source with reviewed output fixtures; multi-file examples have accessible file tabs.
+A Next.js learning workspace with **158 lessons**, a dedicated **66-chapter JavaScript mastery path**, ten interactive models, ten failure investigations, a SOLID workbench, and **101 editable experiments**. JavaScript progresses from the first program to advanced language/runtime and production reasoning, alongside React, Next.js, security, data, architecture, and patterns. All 52 runnable JavaScript lessons and 35 coded worked answers open their exact displayed source with reviewed output fixtures; multi-file examples have accessible file tabs.
 
 ## Run locally
 
@@ -38,8 +38,8 @@ All lessons, models, React previews, and editable experiments work in the static
 
 | Track                  | Lessons | Coverage                                                                                                                                              |
 | ---------------------- | ------: | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| JavaScript internals   |      49 | Engine tiering, contexts, closures, TDZ, prototypes, numeric domains, modules, descriptors/proxies, iterators, binary memory, weak references, shapes |
-| Async and runtime      |      15 | Event loops, promises, await, cancellation, Node/libuv, workers, backpressure, races, assimilation, async context, Atomics                            |
+| JavaScript internals   |      50 | Engine tiering, contexts, closures, TDZ, prototypes, numeric domains, modules, descriptors/proxies, iterators, binary memory, weak references, shapes |
+| Async and runtime      |      16 | Event loops, promises, await, cancellation, Node/libuv, workers, backpressure, races, assimilation, async context, Atomics                            |
 | React internals        |      13 | Render/commit, state, effects, identity, transitions, memoization, stores, RSC, Fiber/lanes, hooks, hydration/IDs, portals/refs/errors                |
 | Next.js architecture   |      11 | Routing, SSR/static/PPR, Cache Components, mutations, BFFs, streaming, Proxy, recovery, serialization, deployment coherence                           |
 | Browser and network    |      14 | Requests, HTTP, CORS/cookies, caching, realtime, rendering, retries, API styles, multiplexing, service workers                                        |
@@ -55,7 +55,7 @@ The 24 original advanced-boundary lessons include explicit invariants and prereq
 
 ## JavaScript from zero to expert reasoning
 
-Open **`/javascript`**. Six stages cover foundations; data and built-ins; functions and object protocols; runtime and memory; async/concurrency; and production judgment. The path includes all **49 JavaScript** and **15 async/runtime** chapters exactly once. Its next/previous navigation follows the JavaScript sequence, and the home page/sidebar prioritize it.
+Open **`/javascript`**. Six stages cover foundations; data and built-ins; functions and object protocols; runtime and memory; async/concurrency; and production judgment. The path includes all **50 JavaScript** and **16 async/runtime** chapters exactly once. Its next/previous navigation follows the JavaScript sequence, and the home page/sidebar prioritize it.
 
 The 40 added chapters each include at least four mechanism stages, a concrete program, pitfalls, a practical investigation, a quiz, and a revealable edge-case challenge with a worked solution. Thirty-six programs run directly from their lessons in the worker playground. Browser DOM and separate-module/package examples name their required context. A lazy-iterator-helper experiment adds runnable early-cleanup evidence.
 
@@ -75,13 +75,13 @@ Eight new deep dives cover CSS constraints/containment, forms/focus/recovery, In
 
 Open `/playground`. CodeMirror provides TypeScript/TSX highlighting, line numbers, undo/search, a recorded-line highlight, and Ctrl/Cmd Enter to run. Tab leaves the editor for keyboard access. A plain-text fallback, per-example local drafts, optional run-on-edit, stop/reset, console, trace export, replay, and event filters are included. Babel loads on the first run; no examples or source are sent to a remote execution service.
 
-- **JavaScript runtime:** 42 experiments cover the course plus native scheduling, thenable adoption, closures, await, collections, class initialization, binary parsing, lazy iterators, async iteration, debouncing, and bounded concurrency. Snapshots distinguish explicit microtasks from registered promise reactions.
+- **JavaScript runtime:** 93 experiments cover the course and its 35 executable worked answers, plus native scheduling, thenable adoption, closures, await, collections, class initialization, binary parsing, lazy iterators, async iteration, debouncing, and bounded concurrency. Snapshots distinguish explicit microtasks from registered promise reactions.
 - **React rendering:** four starters mount actual React 19.3 development components. Edit JSX/hooks, interact with the preview, toggle Strict Mode, compare named render entries with Profiler commits and effect lifetimes, and unmount through React cleanup.
 - **Caching algorithms:** four starters execute editable cache-aside/TTL, stale-refill race, single-flight, and stale-while-revalidate algorithms. Inspect actual store entries and origin versions. The logical TTL clock is separate from native timer time.
 
 Each run starts a fresh environment. Worker runs are limited to 3.5 seconds; examples have a 40,000-character source limit, a 1,200-event trace limit, and instrumented loop budgets. The React preview remains interactive after startup. Its opaque-origin frames and blob workers use restrictive resource policies. These are local learning sandboxes, not a complete hostile-code execution platform.
 
-Replay selects recorded evidence and source lines; it does not rewind the engine or live React DOM. Instrumentation adds overhead, can affect reflection, and does not expose every internal job or Fiber. Suspended generator frames are omitted from the logical call panel while generators execute natively. The 50 playground programs run under the local environment contract; other examples can require application services, real module files, or browser DOM access.
+Replay selects recorded evidence and source lines; it does not rewind the engine or live React DOM. Instrumentation adds overhead, can affect reflection, and does not expose every internal job or Fiber. Function entry markers observe body execution after parameter initialization; suspended generator frames are omitted while generators execute natively. The 101 playground programs run under the local environment contract; other examples can require application services, real module files, or browser DOM access.
 
 The ten advanced investigations add a selectable failure timeline, an invariant, a comparison of corrective designs, verification guidance, and production signals. They cover stale cache refills, discarded React work, stale permission claims, latency waterfalls, transaction write skew, microfrontend version skew, closure retention, worker-pool saturation, obsolete workflow events, and cohort-level regressions.
 
@@ -96,6 +96,7 @@ The ten advanced investigations add a selectable failure timeline, an invariant,
 7. **Cache-aside:** alter TTL, advance a logical clock, update the origin, read, and invalidate while inspecting hits and version differences.
 8. **Streaming:** scrub an illustrative timeline, reveal independent regions, and fail one optional dependency locally.
 9. **State machine:** start, cancel, retry, complete, and deliver obsolete results to an explicit operation-identity guard.
+10. **DOM event dispatch:** compare browser-generated events with nested programmatic dispatch, observing actual callbacks and their microtask checkpoints.
 
 Other lessons have a selectable mechanism diagram that follows that lesson's own stages.
 
@@ -113,7 +114,7 @@ The SOLID workbench shows coupling examples beside possible refactors and explai
 | `/library`                | Searchable curriculum and selectable system map               |
 | `/library?track=patterns` | A shareable track filter                                      |
 | `/javascript`             | Six-stage language-first mastery path, coverage and reference |
-| `/labs`                   | All nine lab models                                           |
+| `/labs`                   | All ten lab models                                            |
 | `/playground`             | Editable JavaScript, React, and caching experiments           |
 | `/workshop`               | General learning tracks, coding patterns, discussions, system design |
 | `/practice`               | Repair exercises, runtime evidence, competency map            |
@@ -136,7 +137,7 @@ pnpm exec prettier --check src tests
 
 With the production server running, `node scripts/check-routes.mjs` checks every public prerendered route and the unknown-lesson 404 behavior. Set `APP_URL` to check another local base URL. Run `pnpm curriculum` to regenerate [the full curriculum index](CURRICULUM.md).
 
-The 77 model/compiler/runtime/content/grading tests verify actual edited output, native timer behavior, promise/await ordering, thenable adoption, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. Content checks also execute real ESM projects, Node I/O/compression, PostgreSQL transfer rollback, and controlled cancellation/security/cache contracts. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) and [per-example evidence](EXAMPLE-VERIFICATION.md) for scope and limits. These checks do not prove every reference snippet or every external runtime implementation.
+The 86 model/compiler/runtime/content/grading tests verify actual edited output, all 35 coded JavaScript answers, native timer behavior, declaration hoisting, promise/await and async-iteration ordering, effect return validation, cache races and coalescing, isolation, budgets, malformed/oversized messages, value snapshots, persistence, and content/prerequisite integrity. Content checks also execute real ESM projects, Node I/O/compression, AsyncLocalStorage, Atomics, PostgreSQL transfer rollback, and controlled cancellation/security/cache contracts. The runtime assets use release-versioned URLs. Progress and exercise updates read current browser storage and observe other tabs; simultaneous writes remain last-write-wins. See [the correctness audit](AUDIT.md) and [per-example evidence](EXAMPLE-VERIFICATION.md) for scope and limits. These checks do not prove every reference snippet or every external runtime implementation.
 
 ## Source organization
 
@@ -163,6 +164,6 @@ The application uses **Next.js 16.4.3**, **React 19.3.1**, and strict TypeScript
 
 The Cache Components lesson explicitly describes that feature's enabled mode. This learning app does not enable Cache Components or implement the example database, authentication, payment, or remote services. Those snippets isolate contracts and name application-specific dependencies; they are not a preconfigured production backend.
 
-The nine labs are educational models with explicit assumptions. The separate code playground executes edited programs under its documented contract. Neither is a garbage collector, production auth service, private Next.js cache inspector, or a claim that engine heuristics are language guarantees.
+The ten labs are educational models with explicit assumptions. The separate code playground executes edited programs under its documented contract. Neither is a garbage collector, production auth service, private Next.js cache inspector, or a claim that engine heuristics are language guarantees.
 
 This is a broad senior engineering field guide with a finite curriculum. Use its primary references and real-system experiments to extend it as frameworks and deployment environments evolve.

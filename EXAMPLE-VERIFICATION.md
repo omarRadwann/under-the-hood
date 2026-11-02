@@ -2,7 +2,7 @@
 
 Generated from the canonical lesson registry. Parsing checks syntax, not application behavior. Worker checks compare the displayed program with reviewed expected output and an uninstrumented strict async execution. Node projects execute their named files. PostgreSQL checks use PGlite's real PostgreSQL engine for successful and rejected transfers; this does not establish multi-connection isolation. Controlled tests supply deterministic dependencies to the displayed functions. Other integration fragments still require their stated host/application dependencies.
 
-Browser verification and exact release evidence are recorded in VERIFICATION.md. Challenge answers are syntax-checked when code, while explanation answers are rendered as prose. References and conceptual models require semantic review in addition to automated checks.
+Browser verification and exact release evidence are recorded in VERIFICATION.md. All 35 coded JavaScript worked answers have reviewed output fixtures and execute in native and instrumented workers; their editor links open the exact displayed answer. Explanation answers render as prose. References and conceptual models require semantic review in addition to automated checks.
 
 | Lesson | Execution context | Files | Declared output | Automated example evidence |
 | --- | --- | ---: | --- | --- |
@@ -65,8 +65,8 @@ Browser verification and exact release evidence are recorded in VERIFICATION.md.
 | [Workers & parallel execution](https://omarradwann.github.io/under-the-hood/learn/workers-and-parallelism/) | browser | 2 | Yes | Syntax/JSON; host integration required |
 | [Streams & backpressure](https://omarradwann.github.io/under-the-hood/learn/streams-and-backpressure/) | node | 1 | Not asserted | Real Node project execution |
 | [Async iterables, generators & cancellation ownership](https://omarradwann.github.io/under-the-hood/learn/async-iteration-and-cancellation/) | worker | 1 | Yes | Native + instrumented output fixture |
-| [Async context & request isolation](https://omarradwann.github.io/under-the-hood/learn/async-context/) | node | 1 | Not asserted | Syntax/JSON; host integration required |
-| [Shared memory, Atomics & synchronization](https://omarradwann.github.io/under-the-hood/learn/shared-memory-and-atomics/) | browser | 1 | Not asserted | Syntax/JSON; host integration required |
+| [Async context & request isolation](https://omarradwann.github.io/under-the-hood/learn/async-context/) | node | 1 | Not asserted | Controlled dependency contract |
+| [Shared memory, Atomics & synchronization](https://omarradwann.github.io/under-the-hood/learn/shared-memory-and-atomics/) | browser | 1 | Not asserted | Controlled dependency contract |
 | [Reentrancy: when synchronous code calls you back](https://omarradwann.github.io/under-the-hood/learn/reentrancy-and-observers/) | worker | 1 | Yes | Native + instrumented output fixture |
 | [Resource ownership, disposal & using](https://omarradwann.github.io/under-the-hood/learn/resource-ownership/) | worker | 1 | Yes | Native + instrumented output fixture |
 | [DOM events, delegation & shadow boundaries](https://omarradwann.github.io/under-the-hood/learn/dom-events-and-propagation/) | browser | 1 | Yes | Syntax/JSON; host integration required |
@@ -164,3 +164,45 @@ Browser verification and exact release evidence are recorded in VERIFICATION.md.
 | [Actions, optimistic state & mutation ownership](https://omarradwann.github.io/under-the-hood/learn/actions-and-optimistic-state/) | reference | 1 | Not asserted | Reference review; host integration required |
 | [Request isolation, parallel reads & cache authority](https://omarradwann.github.io/under-the-hood/learn/request-isolation-and-cache-authority/) | reference | 1 | Not asserted | Reference review; host integration required |
 | [Custom elements, shadow DOM & integration contracts](https://omarradwann.github.io/under-the-hood/learn/web-components-and-shadow-boundaries/) | browser | 1 | Not asserted | Syntax/JSON; host integration required |
+
+## Executable JavaScript worked answers
+
+Each answer runs independently in the documented strict async worker context. Expected output is authored separately from execution; tests compare it with both the native and instrumented result. The async-from-sync cleanup example follows the current language closing contract, which older engines may not implement.
+
+| Chapter | Expected output | Evidence |
+| --- | --- | --- |
+| [Your first program: language, engine & host](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-language-and-hosts) | undefined | Native + instrumented output fixture |
+| [Bindings, assignment & mutation](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-bindings-and-assignment) | 1 | Native + instrumented output fixture |
+| [The value system: primitives, objects & typeof](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-primitives-and-typeof) | true<br>false | Native + instrumented output fixture |
+| [Operators, precedence & short-circuit evaluation](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-operators-and-precedence) | undefined | Native + instrumented output fixture |
+| [Control flow, iteration & completion](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-control-flow-and-loops) | own<br>inherited<br>["own"] | Native + instrumented output fixture |
+| [Functions, parameters & returned values](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-functions-and-parameters) | default<br>null | Native + instrumented output fixture |
+| [Errors, exceptions & finally semantics](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-errors-and-completion) | overridden | Native + instrumented output fixture |
+| [Arrays, indexes, holes & length](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-arrays-and-sparse-data) | [7,7,7] | Native + instrumented output fixture |
+| [Objects, keys, ownership & enumeration](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-objects-and-enumeration) | 1 1 1 | Native + instrumented output fixture |
+| [Destructuring, defaults, rest & spread](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-destructuring-and-spread) | 2 | Native + instrumented output fixture |
+| [Coercion: ToPrimitive, truthiness & equality](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-coercion-algorithms) | true<br>true | Native + instrumented output fixture |
+| [Number precision, BigInt & decimal domains](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-numbers-and-bigint) | false | Native + instrumented output fixture |
+| [Strings, Unicode & text boundaries](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-strings-and-unicode) | 2<br>1<br>4 | Native + instrumented output fixture |
+| [Array algorithms, sorting & mutation](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-array-transformations) | [1,2,3] | Native + instrumented output fixture |
+| [Map, Set & collection identity](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-keyed-collections) | ["a","b"] | Native + instrumented output fixture |
+| [Regular expressions, state & backtracking](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-regex-and-backtracking) | true<br>false<br>true | Native + instrumented output fixture |
+| [Dates, instants, Intl & calendar policy](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-dates-and-intl) | 2026-10-31T12:00:00.000Z | Native + instrumented output fixture |
+| [JSON, structured cloning & wire contracts](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-json-and-serialization) | {}<br>[null] | Native + instrumented output fixture |
+| [Hoisting & the temporal dead zone](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-hoisting-and-tdz) | ready<br>3 | Native + instrumented output fixture |
+| [Call, apply, bind, new & lexical this](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-function-call-semantics) | first | Native + instrumented output fixture |
+| [Classes, construction & private brands](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-classes-and-construction) | TypeError | Native + instrumented output fixture |
+| [Inheritance, super & composition contracts](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-inheritance-and-composition) | original | Native + instrumented output fixture |
+| [Symbols & language extension protocols](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-symbols-and-protocols) | 7 | Native + instrumented output fixture |
+| [Descriptors, integrity levels & immutable updates](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-property-ownership-and-immutability) | 7 | Native + instrumented output fixture |
+| [Pure functions, composition & algebraic assumptions](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-functional-design-in-javascript) | [4,9] [2,3] | Native + instrumented output fixture |
+| [Strict mode, eval & generated-function scope](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-strict-eval-and-source-goals) | undefined | Native + instrumented output fixture |
+| [Realms, intrinsics & cross-boundary identity](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-realms-and-cross-realm-identity) | true | Native + instrumented output fixture |
+| [Memory leaks, retained graphs & heap evidence](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-memory-leaks-and-retention) | true | Native + instrumented output fixture |
+| [Binary protocols, framing & ownership](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-binary-protocols-and-encoding) | 9 1 | Native + instrumented output fixture |
+| [Promise construction, settlement & rejection ownership](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-promise-construction-and-rejections) | separate rejection<br>constructed settled: false | Native + instrumented output fixture |
+| [Promise combinators, deadlines & losing work](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-promise-combinators-and-timeouts) | aggregate rejected<br>still running | Native + instrumented output fixture |
+| [Async iterables, generators & cancellation ownership](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-async-iteration-and-cancellation) | producer closed<br>failed value<br>consumer settled<br>closed state: true | Native + instrumented output fixture |
+| [Reentrancy: when synchronous code calls you back](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-reentrancy-and-observers) | before<br>executor<br>after | Native + instrumented output fixture |
+| [Resource ownership, disposal & using](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-resource-ownership) | closed<br>result | Native + instrumented output fixture |
+| [JavaScript security: code, keys & capabilities](https://omarradwann.github.io/under-the-hood/playground/?mode=event-loop&preset=answer-language-security-boundaries) | true<br>undefined | Native + instrumented output fixture |

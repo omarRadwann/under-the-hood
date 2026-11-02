@@ -110,7 +110,27 @@ export function compileExample(source: string, mode: PlaygroundMode): string {
             const body = t.isBlockStatement(path.node.body)
               ? path.node.body
               : t.blockStatement([t.returnStatement(path.node.body)]);
-            const statements = body.body;
+            // A function body's declarations are var-scoped. Moving them straight into
+            // our try block would make them block bindings and reject legal var redeclarations.
+            // Initialize equivalent var bindings at block entry so they still close over
+            // the body's lexical bindings. Anonymous expressions retain mutable outer-name
+            // lookup; a named function expression would introduce a different self binding.
+            const hoisted: AST.Statement[] = [];
+            const statements: AST.Statement[] = [];
+            for (const statement of body.body) {
+              if (t.isFunctionDeclaration(statement) && statement.id) {
+                const expression: AST.FunctionExpression = {
+                  ...statement,
+                  type: "FunctionExpression",
+                  id: null,
+                };
+                hoisted.push(
+                  t.variableDeclaration("var", [
+                    t.variableDeclarator(t.cloneNode(statement.id), expression),
+                  ]),
+                );
+              } else statements.push(statement);
+            }
             body.body = [
               t.variableDeclaration("const", [
                 t.variableDeclarator(
@@ -123,7 +143,7 @@ export function compileExample(source: string, mode: PlaygroundMode): string {
                 ),
               ]),
               t.tryStatement(
-                t.blockStatement(statements),
+                t.blockStatement([...hoisted, ...statements]),
                 null,
                 t.blockStatement([t.expressionStatement(call("exit", [t.cloneNode(frame)]))]),
               ),
@@ -163,6 +183,30 @@ export function compileExample(source: string, mode: PlaygroundMode): string {
           const body = path.node.body;
           path.node.body = t.isBlockStatement(body) ? body : t.blockStatement([body]);
           path.node.body.body.unshift(marker("guard", path.node.loc.start.line));
+          if (path.isForOfStatement() && path.node.await) {
+            const line = path.node.loc.start.line;
+            const frame = path.getFunctionParent()?.getData("frame") as AST.Identifier | undefined;
+            const args = () => [
+              t.numericLiteral(line),
+              frame ? t.cloneNode(frame) : t.nullLiteral(),
+              t.stringLiteral("iteration"),
+            ];
+            const boundary = () =>
+              call("beforeAwait", [t.unaryExpression("void", t.numericLiteral(0)), ...args()]);
+            // Observe the native loop's implicit awaits without adding a Promise reaction
+            // or replacing its iterator protocol. finally covers continue/break/throw/return.
+            path.node.right = call("beforeAwait", [path.node.right, ...args()]);
+            path.node.body.body = [
+              t.expressionStatement(
+                call("afterAwait", [t.unaryExpression("void", t.numericLiteral(0)), ...args()]),
+              ),
+              t.tryStatement(
+                t.blockStatement(path.node.body.body),
+                null,
+                t.blockStatement([t.expressionStatement(boundary())]),
+              ),
+            ];
+          }
         },
         Statement(path) {
           if (
